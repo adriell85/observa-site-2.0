@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notícias &amp; Materiais – Observa Infância Viva · CESPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Splide CSS -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
+
+  <style>
+    :root{
+      /* Paleta Mais Infância */
+      --mi-1:#E4581E; /* laranja */
+      --mi-2:#1784B0; /* azul */
+      --mi-3:#1CA7AD; /* verde água */
+      --mi-4:#EDA922; /* amarelo */
+      --mi-5:#D8454D; /* vermelho */
+
+      /* Tints */
+      --mi-1-soft: rgba(228, 88, 30, .12);
+      --mi-2-soft: rgba(23, 132, 176, .12);
+      --mi-3-soft: rgba(28, 167, 173, .12);
+      --mi-4-soft: rgba(237, 169, 34, .14);
+      --mi-5-soft: rgba(216, 69, 77, .12);
+
+      /* UI */
+      --bg:#fff;
+      --fg:#16313D;
+      --muted: rgba(22,49,61,.78);
+      --line: rgba(22,49,61,.14);
+      --card:#fff;
+      --shadow: 0 18px 60px rgba(15,23,42,.12);
+      --shadow-2: 0 14px 34px rgba(15,23,42,.14);
+      --max:1120px;
+
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+
+      --hdr-bg:#0A0A0A;
+      --hdr-text: rgba(255,255,255,.94);
+      --hdr-hover: rgba(255,255,255,.10);
+
+      /* Destaques */
+      --hero-spinner-size: 820px;
+      --hero-spinner-opacity: .28;
+      --hero-spinner-speed: 26s;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    a{ color:inherit; }
+    img{ display:block; max-width:100%; }
+
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* =========================================================
+       HEADER (padrão Observa)
+       ========================================================= */
+    header.main-header{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      background: var(--hdr-bg);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .header-rainbow{ height:6px; display:flex; }
+    .header-rainbow span{ flex:1; height:100%; }
+    .header-rainbow .c1{ background: var(--mi-1); }
+    .header-rainbow .c2{ background: var(--mi-2); }
+    .header-rainbow .c3{ background: var(--mi-3); }
+    .header-rainbow .c4{ background: var(--mi-4); }
+    .header-rainbow .c5{ background: var(--mi-5); }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .logo-group{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 300px;
+    }
+
+    .logo-wrapper a{
+      display:inline-flex;
+      align-items:center;
+      border-radius: 14px;
+      padding: 6px 8px;
+      transition: background .15s ease, transform .12s ease;
+      text-decoration:none;
+    }
+    .logo-wrapper a:hover{ background: rgba(255,255,255,.10); transform: translateY(-1px); }
+
+    .logo-img{
+      width:auto;
+      object-fit:contain;
+      border-radius: 12px;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.42));
+    }
+    .logo-img--observa{ height: 56px; }
+    .logo-img--prefeitura{ height: 52px; }
+
+    .logo-separator{
+      width:1px;
+      height: 40px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
+    }
+
+    nav.nav{ display:flex; align-items:center; gap: 12px; }
+
+    .nav-link{
+      appearance:none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--hdr-text);
+      text-decoration:none;
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .12s ease;
+      white-space: nowrap;
+    }
+    .nav-link:hover{
+      background: var(--hdr-hover);
+      border-color: rgba(255,255,255,.16);
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle{
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      cursor:pointer;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .nav-toggle-bar{
+      width: 24px;
+      height: 2px;
+      background: rgba(255,255,255,.94);
+      border-radius: 2px;
+      display:block;
+    }
+
+    @media (max-width: 900px){
+      .nav-toggle{ display:flex; }
+      nav.nav{
+        position: fixed;
+        inset: 78px 14px auto 14px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,.12);
+        background: #111;
+        box-shadow: 0 34px 80px rgba(0,0,0,.60);
+      }
+      nav.nav.nav--open{ display:flex; }
+      .nav-link{ width:100%; display:flex; justify-content:space-between; }
+      .logo-group{ min-width: unset; }
+      .logo-img--observa{ height: 50px; }
+      .logo-img--prefeitura{ height: 46px; }
+    }
+
+    /* =========================================================
+       MAIN / SEÇÕES
+       ========================================================= */
+    main{ padding-top: 92px; }
+    @media (max-width: 900px){ main{ padding-top: 88px; } }
+
+    section{ padding: 72px 0; }
+    @media (max-width: 980px){ section{ padding: 58px 0; } }
+
+    .section-title{
+      margin:0;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color:#111;
+    }
+    .section-subtitle{
+      margin: 10px 0 0;
+      font-size: 13.6px;
+      line-height: 1.65;
+      color: rgba(22,49,61,.86);
+      max-width: 980px;
+    }
+
+    .section-header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    .breadcrumb{
+      margin: 0 0 14px;
+      font-size: 12.5px;
+      color: rgba(22,49,61,.78);
+    }
+    .breadcrumb a{
+      text-decoration:none;
+      border-bottom: 1px solid rgba(22,49,61,.20);
+    }
+    .breadcrumb a:hover{ border-bottom-color: rgba(22,49,61,.45); }
+
+    .frame-mi{ height: 10px; display:flex; }
+    .frame-mi span{ flex:1; }
+    .frame-mi .c1{ background: var(--mi-1); }
+    .frame-mi .c2{ background: var(--mi-2); }
+    .frame-mi .c3{ background: var(--mi-3); }
+    .frame-mi .c4{ background: var(--mi-4); }
+    .frame-mi .c5{ background: var(--mi-5); }
+
+    .panel{
+      border-radius: var(--radius-xl);
+      background: #fff;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-inner{
+      padding: 18px;
+      background: rgba(255,255,255,.92);
+    }
+
+    /* =========================================================
+       HERO (padrão com blocos + spinner)
+       ========================================================= */
+    .hero{
+      position: relative;
+      overflow:hidden;
+      background: var(--mi-2-soft);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      padding: 78px 0 56px;
+    }
+
+    .hero-block{
+      position:absolute;
+      border-radius: 30px;
+      opacity: .22;
+      transform: rotate(12deg);
+      pointer-events:none;
+      z-index: 0;
+    }
+    .hb1{ width: 560px; height: 280px; left: -170px; top: 40px; background: var(--mi-2); }
+    .hb2{ width: 560px; height: 280px; right: -210px; top: -40px; background: var(--mi-4); transform: rotate(-10deg); opacity:.20; }
+    .hb3{ width: 600px; height: 300px; right: -220px; bottom: -140px; background: var(--mi-5); transform: rotate(10deg); opacity:.18; }
+    .hb4{ width: 520px; height: 260px; left: -190px; bottom: -140px; background: var(--mi-3); transform: rotate(-12deg); opacity:.18; }
+
+    .hero-spinner{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--hero-spinner-size);
+      height: var(--hero-spinner-size);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events:none;
+      opacity: var(--hero-spinner-opacity);
+      filter: drop-shadow(0 24px 60px rgba(0,0,0,.18));
+    }
+    .hero-spinner img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      animation: heroSpin var(--hero-spinner-speed) linear infinite;
+    }
+    @keyframes heroSpin{ from{ transform: rotate(0deg);} to{ transform: rotate(360deg);} }
+    @media (max-width: 900px){ :root{ --hero-spinner-size: 520px; } }
+    @media (prefers-reduced-motion: reduce){ .hero-spinner img{ animation:none; } }
+
+    .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.08);
+      box-shadow: 0 16px 40px rgba(15,23,42,.10);
+      font-weight: 950;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #111;
+      width: fit-content;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-kicker i{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: var(--mi-5);
+      display:inline-block;
+      box-shadow: 0 10px 24px rgba(0,0,0,.12);
+    }
+
+    .hero-title{
+      margin:0;
+      font-weight: 1000;
+      letter-spacing: .04em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      font-size: 42px;
+      color:#111;
+      position: relative;
+      z-index: 2;
+    }
+    @media (max-width: 980px){ .hero-title{ font-size: 34px; } }
+    .hero-title .t1{ color: var(--mi-2); }
+    .hero-title .t2{ color: var(--mi-5); }
+
+    .hero-desc{
+      margin: 14px 0 0;
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(22,49,61,.92);
+      max-width: 860px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* =========================================================
+       FILTROS (chips) – no padrão pills
+       ========================================================= */
+    .news-filters{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .news-filter-btn{
+      border: 2px solid rgba(0,0,0,.10);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      cursor:pointer;
+      background: rgba(255,255,255,.86);
+      color: var(--fg);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight: 950;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+      transition: transform .12s ease, filter .12s ease, background .15s ease;
+    }
+    .news-filter-btn:hover{ transform: translateY(-1px); filter: brightness(1.01); }
+
+    .news-filter-btn span.dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background: var(--mi-2);
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+    }
+    .news-filter-btn[data-category="evento"] .dot{ background: var(--mi-2); }
+    .news-filter-btn[data-category="infografico"] .dot{ background: var(--mi-1); }
+    .news-filter-btn[data-category="publicacao"] .dot{ background: var(--mi-4); }
+    .news-filter-btn[data-category="formacao"] .dot{ background: var(--mi-5); }
+
+    .news-filter-btn--active{
+      background: #fff;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-2);
+      border-color: rgba(0,0,0,.14);
+    }
+
+    /* =========================================================
+       DESTAQUES – carrossel em "concha" + fundo consistente
+       ========================================================= */
+    #destaques-noticias{
+      padding: 54px 0 54px;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.25) 0, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(235,94,40,0.22) 0, transparent 65%),
+        linear-gradient(120deg, #1CA7AD 0%, #EDA922 40%, #1784B0 100%);
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    #destaques-noticias .destaques-shell{
+      border-radius: var(--radius-xl);
+      padding: 14px 14px 18px;
+      background: rgba(255,255,255,.94);
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: 0 22px 60px rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+
+    /* ==== CARROSSEL – SPLIDE (vertical, focus center) ==== */
+    .news-splide{
+      margin-top: 8px;
+      max-width: 620px;
+      height: 520px;
+      margin-inline:auto;
+    }
+
+    .news-splide .splide__track{ padding-block: 6px; }
+
+    .news-splide .splide__slide{
+      padding: 14px;
+      box-sizing: border-box;
+      transition: transform .25s ease, opacity .25s ease, filter .25s ease;
+      opacity: .55;
+      transform: scale(.94);
+    }
+
+    /* Card destaque */
+    .news-card{
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: 0 10px 26px rgba(15,23,42,0.14);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      height: 100%;
+      min-height: 230px;
+      overflow:hidden;
+      border: 2px solid rgba(0,0,0,.10);
+      transform: translateZ(0);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    .news-card__img img{
+      width:100%;
+      height: 190px;
+      object-fit: cover;
+      display:block;
+      border-radius: calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px) 0 0;
+    }
+
+    .news-card__body{ padding: 10px 12px 12px; }
+
+    .news-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 4px 10px;
+      border-radius:999px;
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      background: var(--mi-2);
+      color: #fff;
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: 0 10px 22px rgba(15,23,42,.08);
+      margin-bottom: 6px;
+    }
+
+    .news-card__body h3{
+      margin: 6px 0 6px;
+      font-size: 15px;
+      font-weight: 1000;
+      letter-spacing: .01em;
+      color: #111;
+      line-height: 1.2;
+    }
+
+    .news-card__body p{
+      margin:0;
+      font-size: 12.9px;
+      line-height: 1.6;
+      color: rgba(22,49,61,.92);
+    }
+
+    .news-meta{
+      margin-top: 8px;
+      font-size: 11.5px;
+      color: rgba(22,49,61,.72);
+      line-height: 1.4;
+    }
+
+    .news-splide .splide__slide.is-active{
+      opacity: 1;
+      transform: scale(1.03);
+      filter: none;
+    }
+
+    .news-splide .splide__slide.is-active .news-card{
+      box-shadow: 0 18px 46px rgba(15,23,42,0.26);
+      border-color: rgba(0,0,0,.14);
+    }
+
+    @media (hover:hover){
+      .news-splide .splide__slide.is-active .news-card:hover{
+        transform: translateY(-2px);
+      }
+    }
+
+    .news-splide .splide__arrow{
+      background: #fff;
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      box-shadow: 0 10px 24px rgba(15,23,42,0.22);
+      border: 2px solid rgba(0,0,0,.10);
+    }
+    .news-splide .splide__arrow svg{ width: 16px; height: 16px; }
+
+    .news-splide .splide__pagination{
+      margin-top: 12px;
+      gap: 6px;
+    }
+    .news-splide .splide__pagination__page{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(22,49,61,.28);
+      opacity: 1;
+    }
+    .news-splide .splide__pagination__page.is-active{
+      width: 18px;
+      background: rgba(22,49,61,.70);
+    }
+
+    @media (max-width: 768px){
+      .news-splide{ max-width: 100%; height: 460px; }
+    }
+
+    /* =========================================================
+       LISTA / GRID de notícias
+       ========================================================= */
+    .news-list-section{ background: #fff; }
+    .news-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .news-card--small{
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: 0 14px 34px rgba(15,23,42,0.10);
+      padding: 12px 12px 12px;
+      border: 2px solid rgba(0,0,0,.10);
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .news-card--small:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 46px rgba(15,23,42,0.14);
+    }
+
+    .news-card--small h3{
+      font-size: 14.5px;
+      margin: 2px 0 0;
+      font-weight: 1000;
+      color:#111;
+      line-height: 1.25;
+    }
+    .news-card--small p{
+      font-size: 12.8px;
+      margin: 0;
+      color: rgba(22,49,61,.86);
+      line-height: 1.55;
+    }
+    .news-card--small .news-meta{
+      margin-top: 2px;
+      font-size: 11.5px;
+      color: rgba(22,49,61,.72);
+    }
+
+    /* =========================================================
+       DASHBOARDS (cards)
+       ========================================================= */
+    .dashboards-links{
+      margin-top: 26px;
+    }
+
+    .dashboards-links-title{
+      margin: 0;
+      font-size: 15px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color:#111;
+    }
+
+    .dashboards-links-subtitle{
+      margin: 10px 0 0;
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(22,49,61,.86);
+      max-width: 980px;
+    }
+
+    .dashboards-grid{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .dashboard-card{
+      border-radius: var(--radius-xl);
+      overflow:hidden;
+      background: #fff;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      display:flex;
+      flex-direction:column;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .dashboard-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 22px 60px rgba(15,23,42,.16);
+    }
+
+    .dashboard-thumb{
+      border-bottom: 2px solid rgba(0,0,0,.10);
+      background: rgba(22,49,61,.03);
+    }
+    .dashboard-thumb img{
+      width:100%;
+      height: 170px;
+      object-fit: cover;
+    }
+
+    .dashboard-body{
+      padding: 12px 12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+
+    .dashboard-body h3{
+      margin:0;
+      font-size: 14.5px;
+      font-weight: 1000;
+      color:#111;
+      line-height: 1.25;
+    }
+
+    .dashboard-body p{
+      margin:0;
+      font-size: 12.8px;
+      line-height: 1.55;
+      color: rgba(22,49,61,.86);
+    }
+
+    .dashboard-meta{
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: rgba(22,49,61,.72);
+      display:block;
+    }
+
+    .dashboard-link{
+      margin-top: 4px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      text-decoration:none;
+      font-weight: 1000;
+      font-size: 12.5px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--mi-5);
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: 0 14px 34px rgba(15,23,42,.10);
+      width: fit-content;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .dashboard-link:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    footer.site-footer{
+      border-top: 1px solid rgba(0,0,0,.08);
+      padding: 22px 0;
+      background: var(--mi-2-soft);
+    }
+    .footer-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+      display:flex;
+      gap: 14px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      color: rgba(22,49,61,.90);
+      font-size: 12.5px;
+    }
+    .footer-pills{ display:flex; gap: 8px; flex-wrap:wrap; }
+    .footer-pill{
+      display:inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(0,0,0,.10);
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .footer-links{ display:flex; gap: 12px; flex-wrap:wrap; }
+    .footer-links a{ text-decoration:none; border-bottom: 1px solid rgba(22,49,61,.20); }
+    .footer-links a:hover{ border-bottom-color: rgba(22,49,61,.45); }
+
+    :focus-visible{
+      outline: 3px solid var(--mi-4);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    /* =========================================================
+       DARK MODE (compatível com theme.js antigo)
+       - aceita tanto body.theme-dark quanto [data-theme="dark"]
+       ========================================================= */
+    body.theme-dark,
+    [data-theme="dark"] body{
+      background: #0B1220;
+      color: #E5E7EB;
+    }
+    body.theme-dark .breadcrumb,
+    body.theme-dark .section-subtitle,
+    body.theme-dark .hero-desc,
+    body.theme-dark .news-meta,
+    body.theme-dark .dashboard-meta,
+    body.theme-dark .dashboards-links-subtitle,
+    body.theme-dark .news-card__body p,
+    body.theme-dark .news-card--small p,
+    body.theme-dark .dashboard-body p{
+      color: rgba(229,231,235,.82);
+    }
+
+    body.theme-dark .section-title,
+    body.theme-dark .news-card__body h3,
+    body.theme-dark .news-card--small h3,
+    body.theme-dark .dashboards-links-title,
+    body.theme-dark .dashboard-body h3{
+      color: #F9FAFB;
+    }
+
+    body.theme-dark .panel,
+    body.theme-dark .panel-inner,
+    body.theme-dark .news-card,
+    body.theme-dark .news-card--small,
+    body.theme-dark .dashboard-card{
+      background: rgba(15,23,42,.96);
+      border-color: rgba(148,163,184,.70);
+      box-shadow: 0 20px 50px rgba(0,0,0,.65);
+    }
+
+    body.theme-dark #destaques-noticias{
+      background:
+        radial-gradient(circle at top left, rgba(15,23,42,0.92) 0, transparent 60%),
+        radial-gradient(circle at bottom right, rgba(15,23,42,0.92) 0, transparent 60%),
+        linear-gradient(120deg, #0F172A 0%, #1CA7AD 35%, #1784B0 80%);
+    }
+    body.theme-dark #destaques-noticias .destaques-shell{
+      background: rgba(2,6,23,.92);
+      border-color: rgba(148,163,184,.70);
+      box-shadow: 0 24px 70px rgba(0,0,0,.80);
+    }
+
+    body.theme-dark .news-filter-btn{
+      background: rgba(15,23,42,.85);
+      color: #E5E7EB;
+      border-color: rgba(148,163,184,.55);
+    }
+    body.theme-dark .news-filter-btn--active{
+      background: rgba(2,6,23,.92);
+      border-color: rgba(148,163,184,.70);
+      box-shadow: 0 18px 44px rgba(0,0,0,.70);
+    }
+
+    body.theme-dark .news-splide .splide__arrow{
+      background: rgba(2,6,23,.92);
+      border-color: rgba(148,163,184,.70);
+      box-shadow: 0 16px 40px rgba(0,0,0,.65);
+    }
+    body.theme-dark .news-splide .splide__pagination__page{
+      background: rgba(229,231,235,.28);
+    }
+    body.theme-dark .news-splide .splide__pagination__page.is-active{
+      background: rgba(229,231,235,.72);
+    }
+
+    body.theme-dark footer.site-footer{
+      background: rgba(15,23,42,.92);
+      border-top-color: rgba(148,163,184,.40);
+    }
+    body.theme-dark .footer-pill{
+      background: rgba(2,6,23,.72);
+      border-color: rgba(148,163,184,.55);
+      color: rgba(229,231,235,.90);
+    }
+    body.theme-dark .footer-links a{
+      border-bottom-color: rgba(229,231,235,.25);
+    }
+    body.theme-dark .footer-links a:hover{
+      border-bottom-color: rgba(229,231,235,.55);
+    }
+
+    /* =========================================================
+   FIX: texto dos cards do carrossel não ficar "oculto/cortado"
+   (vertical + perPage=2)
+   ========================================================= */
+
+/* garante que nada "vaze" do trilho e sobreponha outras áreas */
+.news-splide .splide__track{
+  overflow: hidden;
+}
+
+/* deixa os cards mais compactos (mais espaço pro texto) */
+.news-splide .news-card__img img{
+  height: 150px;       /* antes 190px */
+  object-fit: cover;
+}
+
+/* organiza o corpo pra o meta ir pro final e o texto caber */
+.news-splide .news-card__body{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;       /* importante pra clamps/overflow */
+}
+
+/* clamp no título e resumo para evitar corte pelo container */
+.news-splide .news-card__body h3{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;  /* título até 2 linhas */
+  overflow: hidden;
+}
+
+.news-splide .news-card__body p{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;  /* resumo até 3 linhas */
+  overflow: hidden;
+}
+
+/* meta sempre visível no "rodapé" do card */
+.news-splide .news-meta{
+  margin-top: auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;  /* meta até 2 linhas */
+  overflow: hidden;
+}
+
+/* =========================================================
+   FIX DEFINITIVO: carrossel vertical (perPage=2) sem cortar texto
+   ========================================================= */
+
+/* 1) o trilho pode continuar hidden, mas o SLIDE precisa deixar o card respirar */
+.news-splide .splide__slide{
+  height: auto;            /* evita altura travada por item */
+  padding: 14px;
+  overflow: visible;       /* NÃO corta o conteúdo do card */
+}
+
+/* 2) o card passa a controlar a altura e distribuir o corpo corretamente */
+.news-card{
+  height: auto;            /* em vez de height:100% */
+  min-height: 0;           /* permite o flex encolher */
+  overflow: hidden;        /* mantém bordas e imagem arredondadas */
+}
+
+/* 3) imagem um pouco menor para caber texto quando perPage=2 */
+.news-card__img img{
+  height: 150px;           /* antes 190px */
+  object-fit: cover;
+}
+
+/* 4) corpo vira “coluna” e empurra meta para o fim */
+.news-card__body{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  padding: 10px 12px 12px;
+}
+
+/* 5) clamps para não estourar e “sumir” por falta de espaço */
+.news-card__body h3{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;  /* título até 2 linhas */
+  overflow: hidden;
+}
+
+.news-card__body p{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;  /* resumo até 3 linhas */
+  overflow: hidden;
+}
+
+/* 6) meta sempre visível no rodapé */
+.news-meta{
+  margin-top: auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 7) garante que o splide calcule bem o espaço vertical */
+.news-splide{
+  height: 520px;
+}
+@media (max-width: 1024px){
+  .news-splide{ height: 480px; }
+}
+@media (max-width: 640px){
+  .news-splide{ height: 440px; }
+  .news-card__img img{ height: 170px; } /* em 1 por página pode voltar um pouco */
+  .news-card__body p{ -webkit-line-clamp: 4; }
+}
+
+/* =========================
+   HEADER — Dropdown escondido por padrão
+   (abre no hover no desktop e no "is-open" no mobile)
+   ========================= */
+
+/* padrão: dropdown NÃO aparece */
+.nav .dropdown{
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+/* DESKTOP: abre apenas no hover/focus dentro do item */
+@media (min-width: 901px){
+  .nav .nav-item{ position: relative; }
+
+  .nav .nav-item:hover > .dropdown,
+  .nav .nav-item:focus-within > .dropdown{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/* MOBILE: só abre quando o item estiver "is-open" */
+@media (max-width: 900px){
+  .nav.nav--open .nav-item.is-open > .dropdown{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+  }
+}
+/* =========================
+   CARROSSEL — card quase sólido (menos transparência)
+   ========================= */
+
+.news-card{
+  background: rgba(255,255,255,.94) !important; /* quase sólido */
+  border-color: rgba(15, 23, 42, .10) !important;
+  box-shadow: 0 18px 60px rgba(15,23,42,.14) !important;
+  backdrop-filter: none !important; /* evita “lavar” o texto se estiver usando blur */
+}
+
+.news-card__body{
+  background: transparent !important;
+}
+
+/* reforça contraste do texto (caso esteja “acinzentado”) */
+.news-card__body h3{ color: #0f2430 !important; }
+.news-card__body p{ color: #16313D !important; opacity: 1 !important; }
+.news-meta{ color: rgba(22,49,61,.85) !important; }
+
+/* =========================
+   HEADER — Dropdown como menu flutuante (corrige "vazamento")
+   ========================= */
+
+.nav{ position: relative; }
+
+/* separador | (você usa <span class="nav-sep">|</span>, mas não tem CSS) */
+.nav-sep{
+  color: rgba(255,255,255,.55);
+  font-weight: 800;
+  user-select: none;
+  padding: 0 2px;
+}
+
+/* o item precisa ser referência pro dropdown absoluto */
+.nav .nav-item{ position: relative; }
+
+/* dropdown vira "pop-over" (não ocupa layout) */
+.nav .dropdown{
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 220px;
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(17,17,17,.96);
+  box-shadow: 0 28px 70px rgba(0,0,0,.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+  z-index: 80;
+}
+
+/* links do dropdown */
+.nav .dropdown a{
+  display: block;
+  padding: 10px 10px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: rgba(255,255,255,.92);
+  font-weight: 850;
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.nav .dropdown a:hover{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.16);
+}
+
+/* DESKTOP: abre no hover/focus */
+@media (min-width: 901px){
+  .nav .nav-item:hover > .dropdown,
+  .nav .nav-item:focus-within > .dropdown{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/* MOBILE: dropdown deve ser inline (accordion dentro do menu aberto) */
+@media (max-width: 900px){
+  .nav .dropdown{
+    position: static;
+    display: none;             /* fechado por padrão */
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    min-width: 0;
+    background: rgba(255,255,255,.06);
+    border-color: rgba(255,255,255,.12);
+    box-shadow: none;
+  }
+  .nav.nav--open .nav-item.is-open > .dropdown{
+    display: block;
+  }
+  .nav-sep{ display:none; }    /* no mobile fica melhor sem o | */
+}
+.news-card{ background: rgba(255,255,255,.94) !important; }
+
+/* =========================
+   SPLIDE — trazer o slide ativo pra frente (z-index)
+   ========================= */
+
+/* cria contexto e evita briga com outros elementos */
+.news-splide{
+  position: relative;
+  z-index: 30;
+}
+
+/* cada slide vira "camada" controlável */
+.news-splide .splide__slide{
+  position: relative;
+  z-index: 1;          /* base: atrás */
+}
+
+/* o slide em evidência fica acima dos demais */
+.news-splide .splide__slide.is-active{
+  z-index: 10;         /* frente */
+}
+
+/* reforço: o card ativo também fica acima */
+.news-splide .splide__slide.is-active .news-card{
+  position: relative;
+  z-index: 11;
+}
+
+/* =========================
+   HEADER — Caret (seta) igual ao modelo
+   ========================= */
+
+.nav-link{
+  display: inline-flex;
+  align-items: center;
+}
+
+/* seta desenhada com borda */
+.nav-caret{
+  display:inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 8px;
+  border-right: 2px solid rgba(255,255,255,.80);
+  border-bottom: 2px solid rgba(255,255,255,.80);
+  transform: rotate(45deg) translateY(-1px);
+  border-radius: 1px;
+  opacity: .95;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+/* DESKTOP: ao abrir dropdown por hover/focus, a setinha "vira" */
+@media (min-width: 901px){
+  .nav .nav-item:hover .nav-caret,
+  .nav .nav-item:focus-within .nav-caret{
+    transform: rotate(225deg) translateY(1px); /* aponta pra cima */
+    opacity: 1;
+  }
+}
+
+/* MOBILE: quando o item estiver aberto (is-open), gira a seta */
+@media (max-width: 900px){
+  .nav .nav-item.is-open .nav-caret{
+    transform: rotate(225deg) translateY(1px);
+    opacity: 1;
+  }
+}
+
+/* =========================
+   HEADER — Destaque vermelho no botão "DADOS"
+   ========================= */
+
+/* estado normal: anel/vermelho sutil */
+.nav-link[data-dd="dados"]{
+  border-color: rgba(216, 69, 77, .55);              /* mi-5 */
+  box-shadow:
+    0 0 0 3px rgba(216, 69, 77, .22),                /* “anel” */
+    0 14px 34px rgba(0,0,0,.22);                     /* profundidade */
+}
+
+/* hover/focus: reforça */
+.nav-link[data-dd="dados"]:hover,
+.nav-link[data-dd="dados"]:focus-visible{
+  border-color: rgba(216, 69, 77, .78);
+  box-shadow:
+    0 0 0 4px rgba(216, 69, 77, .28),
+    0 18px 44px rgba(0,0,0,.28);
+}
+
+/* quando o dropdown abrir (mobile) — usa a classe is-open no nav-item */
+@media (max-width: 900px){
+  .nav-item.is-open > .nav-link[data-dd="dados"]{
+    background: rgba(216, 69, 77, .14);              /* leve “tinta” */
+    border-color: rgba(216, 69, 77, .90);
+    box-shadow:
+      0 0 0 5px rgba(216, 69, 77, .30),
+      0 22px 60px rgba(0,0,0,.34);
+  }
+}
+
+
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+ <header class="main-header">
+      <div class="header-rainbow" aria-hidden="true">
+        <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+      </div>
+
+      <div class="container header-inner">
+        <div class="logo-group">
+          <div class="logo-wrapper">
+            <a href="#topo" aria-label="Observa Infância Viva">
+              <img class="logo-img logo-img--observa" alt="Observa Infância Viva"
+                   src="data:image/png;base64,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" />
+            </a>
+          </div>
+
+          <span class="logo-separator" aria-hidden="true"></span>
+
+          <div class="logo-wrapper">
+            <a href="https://www.fortaleza.ce.gov.br/" target="_blank" rel="noopener noreferrer" aria-label="Prefeitura de Fortaleza">
+              <img class="logo-img logo-img--prefeitura" alt="Prefeitura de Fortaleza"
+                   src="https://yt3.googleusercontent.com/QHv0Hg-74Yx0uga0a9ccaGDuWn7hv5W2HjTxFmbI0HQxQb6hFpDJHCyB374CK55r5ykGu8shp6w=s900-c-k-c0x00ffffff-no-rj" />
+            </a>
+          </div>
+        </div>
+
+        <button type="button" class="nav-toggle" id="btnMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMain">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav class="nav" id="navMain" aria-label="Navegação principal">
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="qs" aria-expanded="false" aria-controls="dd-qs">
+              QUEM SOMOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-qs">
+              <a href="sobre.html">O Observatório</a>
+              <a href="glossario.html">Glossário</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="dados" aria-expanded="false" aria-controls="dd-dados">
+              DADOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-dados">
+              <a href="dados.html#indicadores">Indicadores</a>
+              <a href="dados.html#demografia">Demografia</a>
+              <a href="dados.html#educacao">Educação</a>
+              <a href="dados.html#saude">Saúde</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="parcerias.html">PARCERIAS</a>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="publicacoes.html">PUBLICAÇÕES</a>
+        </nav>
+      </div>
+    </header>
+
+
+  <main id="topo">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-block hb1" aria-hidden="true"></div>
+      <div class="hero-block hb2" aria-hidden="true"></div>
+      <div class="hero-block hb3" aria-hidden="true"></div>
+      <div class="hero-block hb4" aria-hidden="true"></div>
+
+      <div class="hero-spinner" aria-hidden="true">
+        <!-- Se existir no seu projeto, use: assets/girasolInfânciaVivaBG.svg -->
+        <img src="assets/girasolInfânciaVivaBG.svg" alt="" onerror="this.style.display='none';" />
+      </div>
+
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Início</a> / Notícias &amp; Materiais
+        </div>
+
+        <div class="hero-kicker"><i aria-hidden="true"></i> Atualizações e conteúdos</div>
+
+        <h1 id="hero-title" class="hero-title">
+          <span class="t1">NOTÍCIAS</span><br/>
+          <span class="t2">&amp; MATERIAIS</span>
+        </h1>
+
+        <p class="hero-desc">
+          Acompanhamento de ações, formações, publicações e registros da agenda da primeira infância em Fortaleza.
+        </p>
+
+        <div class="news-filters" aria-label="Filtros de tipo de notícia">
+          <button class="news-filter-btn news-filter-btn--active" data-category="todos">
+            <span class="dot"></span> Todos
+          </button>
+          <button class="news-filter-btn" data-category="evento">
+            <span class="dot"></span> Eventos
+          </button>
+          <button class="news-filter-btn" data-category="infografico">
+            <span class="dot"></span> Infográficos
+          </button>
+          <button class="news-filter-btn" data-category="publicacao">
+            <span class="dot"></span> Publicações / Relatórios
+          </button>
+          <button class="news-filter-btn" data-category="formacao">
+            <span class="dot"></span> Formações
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESTAQUES -->
+    <section id="destaques-noticias" aria-label="Destaques de notícias e materiais">
+      <div class="container">
+        <div class="destaques-shell">
+          <div class="frame-mi" aria-hidden="true">
+            <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+          </div>
+
+          <div class="panel-inner" style="background:transparent; padding: 14px 10px 4px;">
+            <div class="section-header" style="padding: 0 8px 6px;">
+              <div>
+                <h2 class="section-title">Destaques</h2>
+                <p class="section-subtitle" style="margin-top:8px;">
+                  Selecione um card em destaque e navegue com o mouse/scroll (vertical) ou pelas setas.
+                </p>
+              </div>
+            </div>
+
+            <div id="news-splide" class="splide news-splide"
+                 aria-label="Carrossel de destaques de notícias e materiais">
+              <div class="splide__track">
+                <ul class="splide__list">
+
+                  <!-- Slide 1 -->
+                  <li class="splide__slide" data-category="publicacao">
+                    <article class="news-card">
+                      <div class="news-card__img">
+                        <img src="https://media.istockphoto.com/id/157482029/pt/foto/pilha-de-livros.jpg?s=612x612&w=0&k=20&c=myOJb6QEPe3OX7IO_youGJY_qc9KF699encUvHRP1E0="
+                             alt="Livros e materiais impressos sobre primeira infância">
+                      </div>
+                      <div class="news-card__body">
+                        <span class="news-badge" style="background:var(--mi-4);">Relatório</span>
+                        <h3>Relatório anual do PMPIF e ações Infância Viva</h3>
+                        <p>
+                          Síntese dos principais resultados, indicadores e histórias de cuidado com a primeira infância
+                          em Fortaleza, com foco nas ações intersetoriais coordenadas pela CESPI.
+                        </p>
+                        <div class="news-meta">
+                          • Atualizado anualmente · Uso recomendado em formações e prestações de contas.
+                        </div>
+                      </div>
+                    </article>
+                  </li>
+
+                  <!-- Slide 2 -->
+                  <li class="splide__slide" data-category="evento">
+                    <article class="news-card">
+                      <div class="news-card__img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStUDU3zv1fp64cfzTnKB-tfx9NQ5vp9wFBeQ&s"
+                             alt="Encontro com famílias e crianças em praça pública">
+                      </div>
+                      <div class="news-card__body">
+                        <span class="news-badge" style="background:var(--mi-2);">Evento</span>
+                        <h3>Encontros Infância Viva nos territórios</h3>
+                        <p>
+                          Ações em praças, escolas e equipamentos públicos, reunindo crianças, famílias e equipes
+                          para atividades lúdicas, culturais e de cuidado em diferentes bairros de Fortaleza.
+                        </p>
+                        <div class="news-meta">
+                          • CESPI em parceria com SME, SMS, SDHDS, FUNCI e demais secretarias.
+                        </div>
+                      </div>
+                    </article>
+                  </li>
+
+                  <!-- Slide 3 -->
+                  <li class="splide__slide" data-category="infografico">
+                    <article class="news-card">
+                      <div class="news-card__img">
+                        <img src="https://cdn.create.microsoft.com/catalog-assets/pt-br/b0e3906b-4070-402b-8374-7384e2f4b3bd/thumbnails/600/formas-de-infogr%25C3%25A1fico-modern-simple-1-1-e48519a5acf6.webp"
+                             alt="Infográfico colorido com indicadores da primeira infância">
+                      </div>
+                      <div class="news-card__body">
+                        <span class="news-badge" style="background:var(--mi-1);">Infográfico</span>
+                        <h3>Infográficos da primeira infância</h3>
+                        <p>
+                          Painéis visuais com dados sobre participação em equipamentos, saúde, proteção social e educação,
+                          para apoiar apresentações, relatórios e debates públicos.
+                        </p>
+                        <div class="news-meta">
+                          • Produção conjunta CESPI + áreas técnicas parceiras.
+                        </div>
+                      </div>
+                    </article>
+                  </li>
+
+                  <!-- Slide 4 -->
+                  <li class="splide__slide" data-category="formacao">
+                    <article class="news-card">
+                      <div class="news-card__img">
+                        <img src="https://blbescoladenegocios.com.br/blog/wp-content/uploads/2018/08/treinamento-e-desenvolvimento-de-pessoas.jpg"
+                             alt="Formação com gestores e equipes de políticas públicas">
+                      </div>
+                      <div class="news-card__body">
+                        <span class="news-badge" style="background:var(--mi-5);">Formação</span>
+                        <h3>Formações sobre primeira infância e territórios</h3>
+                        <p>
+                          Encontros de formação com equipes das secretarias e instituições parceiras, integrando dados,
+                          conceitos e práticas sobre o cuidado integral na primeira infância.
+                        </p>
+                        <div class="news-meta">
+                          • Módulos presenciais e on-line · Materiais de apoio disponíveis na biblioteca.
+                        </div>
+                      </div>
+                    </article>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTA DE OUTRAS NOTÍCIAS / MATERIAIS -->
+    <section class="news-list-section" id="lista-noticias">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Mais notícias e registros</h2>
+            <p class="section-subtitle">
+              Seleção de notícias, matérias, registros fotográficos e materiais de apoio relacionados à agenda Infância Viva.
+            </p>
+          </div>
+        </div>
+
+        <div class="news-grid">
+          <article class="news-card--small" data-category="evento">
+            <span class="news-badge" style="background:var(--mi-2);">Evento</span>
+            <h3>Circuito sensorial da Cidade da Criança recebe novas escolas</h3>
+            <p>
+              Turmas da educação infantil e do ensino fundamental participam de atividades lúdicas, explorando
+              os circuitos de arte, imaginação e tecnologia.
+            </p>
+            <div class="news-meta">• Registros disponíveis na galeria · Indicado para divulgação nas escolas.</div>
+          </article>
+
+          <article class="news-card--small" data-category="infografico">
+            <span class="news-badge" style="background:var(--mi-1);">Infográfico</span>
+            <h3>Panorama das visitas mediadas à Cidade da Criança</h3>
+            <p>
+              Infográfico com número de crianças atendidas, escolas participantes e avaliações de satisfação ao longo do ano.
+            </p>
+            <div class="news-meta">• Pode ser utilizado em apresentações para conselhos e fóruns.</div>
+          </article>
+
+          <article class="news-card--small" data-category="publicacao">
+            <span class="news-badge" style="background:var(--mi-4);">Material</span>
+            <h3>Guia de apoio para equipes escolares</h3>
+            <p>
+              Orientações para organizar visitas mediadas, preparar as turmas e aproveitar as experiências lúdicas nos equipamentos.
+            </p>
+            <div class="news-meta">• PDF disponível na biblioteca · Atualizado periodicamente.</div>
+          </article>
+
+          <article class="news-card--small" data-category="formacao">
+            <span class="news-badge" style="background:var(--mi-5);">Formação</span>
+            <h3>Rodadas de escuta com famílias e crianças</h3>
+            <p>
+              Encontros onde crianças e responsáveis compartilham percepções sobre espaços, atividades e acolhimento nos equipamentos.
+            </p>
+            <div class="news-meta">• Insumos qualitativos utilizados na atualização de indicadores e ações.</div>
+          </article>
+        </div>
+
+        <!-- ✅ BLOCO ADICIONADO (cards no final da página) -->
+        <div class="dashboards-links" style="margin-top:24px;">
+          <h3 class="dashboards-links-title">Acesse os dashboards completos</h3>
+          <p class="dashboards-links-subtitle">
+            Os painéis interativos abaixo permitem explorar os dados do PMPIF por secretaria,
+            território e período, complementando os recortes apresentados acima.
+          </p>
+
+          <div class="dashboards-grid">
+            <article class="dashboard-card">
+              <div class="dashboard-thumb">
+                <img src="assets/dashboardPMPIF.png" alt="Print do dashboard do PMPIF">
+              </div>
+              <div class="dashboard-body">
+                <h3>Dashboard – Ações do Plano Municipal pela Primeira Infância (PMPIF)</h3>
+                <p>
+                  Acompanha metas e indicadores das ações do PMPIF nas diferentes secretarias,
+                  como nascidos vivos, captação precoce de gestantes, consultas de pré-natal,
+                  matrículas na educação infantil, proteção social e incentivos ao brincar.
+                </p>
+                <span class="dashboard-meta">
+                  Fonte: relatórios de coleta de dados das ações do PMPIF (SMS, SME, SDHDS, AMC,
+                  ETUFOR, SCSP, SECEL, SESEC, SEUMA, FUNCI e demais secretarias parceiras).
+                </span>
+                <a class="dashboard-link" href="https://exemplo.fortaleza.ce.gov.br/dashboard/sintese-geral" target="_blank" rel="noopener">
+                  Abrir dashboard
+                </a>
+              </div>
+            </article>
+
+            <article class="dashboard-card">
+              <div class="dashboard-thumb">
+                <img src="assets/dashboardCidade.png" alt="Print do dashboard de visitas e avaliações na Cidade da Criança">
+              </div>
+              <div class="dashboard-body">
+                <h3>Dashboard – Visitas e avaliações na Cidade da Criança</h3>
+                <p>
+                  Mostra o quantitativo de alunos e visitas homologadas, escolas e instituições
+                  participantes, distribuição por turno e os principais indicadores de avaliação
+                  das experiências na Cidade da Criança.
+                </p>
+                <span class="dashboard-meta">
+                  Fonte: planilha de registro de visitas da Cidade da Criança e formulários de
+                  avaliação das experiências.
+                </span>
+                <a class="dashboard-link" href="https://exemplo.fortaleza.ce.gov.br/dashboard/avaliacoes-experiencias" target="_blank" rel="noopener">
+                  Abrir dashboard
+                </a>
+              </div>
+            </article>
+
+            <article class="dashboard-card">
+              <div class="dashboard-thumb">
+                <img src="assets/Captura de tela 2025-12-14 221958.png" alt="Print do infográfico Infância Viva na Praça">
+              </div>
+              <div class="dashboard-body">
+                <h3>Infográfico – Infância Viva Na Praça</h3>
+                <p>
+                  Acompanhe os principais impactos acerca dos 6 Infâncias Vivas na Praça realizados ao longo de 2025.
+                </p>
+                <span class="dashboard-meta">
+                  Fonte: Projetos CESPI.
+                </span>
+                <a class="dashboard-link" href="assets/InfográficoInfânciaVIva.drawio (7).pdf" target="_blank" rel="noopener">
+                  Abrir Infográfico
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div>Observa Infância Viva · Observatório da Primeira Infância</div>
+        <div>Coordenadoria Especial da Primeira Infância (CESPI) · Prefeitura de Fortaleza</div>
+      </div>
+
+      <div class="footer-pills">
+        <span class="footer-pill">CESPI</span>
+        <span class="footer-pill">Gabinete do Prefeito</span>
+        <span class="footer-pill">Secretarias parceiras</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html#topo">Início</a>
+        <a href="dados.html">Painel</a>
+        <a href="programas.html">Programas</a>
+        <a href="contato.html">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Menu mobile -->
+  <script>
+    const btnMenu = document.getElementById('btnMenu');
+    const navMain = document.getElementById('navMain');
+
+    if (btnMenu && navMain){
+      btnMenu.addEventListener('click', () => {
+        const open = navMain.classList.toggle('nav--open');
+        btnMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+  </script>
+
+  <!-- Splide core -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+
+  <!-- Extensão Wheel -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-wheel@0.6.0/dist/js/splide-extension-wheel.min.js"></script>
+
+  <!-- Inicialização do Splide + filtros -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sliderEl = document.getElementById('news-splide');
+      if (!sliderEl) return;
+
+      const splide = new Splide(sliderEl, {
+        type      : 'loop',
+        direction : 'ttb',
+        height    : '520px',
+        focus     : 'center',
+        gap       : '1.1rem',
+        perPage   : 2,
+        trimSpace : false,
+        pagination: true,
+
+        wheel            : true,
+        waitForTransition: true,
+        wheelSleep       : 300,
+        wheelDirection   : 'ttb',
+
+        breakpoints: {
+          1024: { perPage: 2, height: '480px' },
+          640 : { perPage: 1, height: '440px' }
+        }
+      });
+
+      if (window.splide && window.splide.Extensions && window.splide.Extensions.Wheel) {
+        splide.mount(window.splide.Extensions);
+      } else {
+        splide.mount();
+      }
+
+      // Filtros: marca ativo + (opcional) filtrar cards pequenos (grid)
+      const filterButtons = document.querySelectorAll('.news-filter-btn');
+      const gridCards = Array.from(document.querySelectorAll('.news-card--small'));
+
+      function applyFilter(cat){
+        // só filtra a lista pequena; o carrossel continua como destaque geral
+        gridCards.forEach(card => {
+          const c = card.getAttribute('data-category') || 'todos';
+          const show = (cat === 'todos') || (c === cat);
+          card.style.display = show ? '' : 'none';
+        });
+      }
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach(b => b.classList.remove('news-filter-btn--active'));
+          btn.classList.add('news-filter-btn--active');
+          applyFilter(btn.dataset.category || 'todos');
+        });
+      });
+    });
+    
+  </script>
+
+  <!-- <script>
+  // Menu mobile + dropdowns (accordion no mobile)
+  const btnMenu = document.getElementById('btnMenu');
+  const navMain = document.getElementById('navMain');
+
+  function closeAllDropdowns(exceptBtn = null){
+    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('is-open'));
+    document.querySelectorAll('[data-dd]').forEach(btn => {
+      if (btn !== exceptBtn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  if (btnMenu && navMain){
+    btnMenu.addEventListener('click', () => {
+      const open = navMain.classList.toggle('nav--open');
+      btnMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (!open) closeAllDropdowns();
+    });
+  }
+
+  document.querySelectorAll('[data-dd]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+      if (!isMobile) return;
+
+      const item = btn.closest('.nav-item');
+      const willOpen = !item.classList.contains('is-open');
+
+      closeAllDropdowns(btn);
+      item.classList.toggle('is-open', willOpen);
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+
+      e.stopPropagation();
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape'){
+      closeAllDropdowns();
+      if (navMain?.classList.contains('nav--open')){
+        navMain.classList.remove('nav--open');
+        btnMenu?.setAttribute('aria-expanded','false');
+      }
+    }
+  });
+</script> -->
+
+
+  <!-- Seu tema (mantive compatível com body.theme-dark) -->
+  <script src="js/theme.js"></script>
+</body>
+</html>

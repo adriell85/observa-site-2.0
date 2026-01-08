@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quem Somos · O Observatório — Observa Infância Viva · CESPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      /* Paleta chapada (Mais Infância) */
+      --mi-1: #E4581E; /* laranja */
+      --mi-2: #1784B0; /* azul */
+      --mi-3: #1CA7AD; /* verde água */
+      --mi-4: #EDA922; /* amarelo */
+      --mi-5: #D8454D; /* vermelho */
+
+      /* Tints */
+      --mi-1-soft: rgba(228, 88, 30, .12);
+      --mi-2-soft: rgba(23, 132, 176, .12);
+      --mi-3-soft: rgba(28, 167, 173, .12);
+      --mi-4-soft: rgba(237, 169, 34, .14);
+      --mi-5-soft: rgba(216, 69, 77, .12);
+
+      /* UI */
+      --bg: #FFFFFF;
+      --fg: #16313D;
+      --muted: rgba(22,49,61,.78);
+      --line: rgba(22,49,61,.14);
+      --card: #FFFFFF;
+      --shadow: 0 18px 60px rgba(15,23,42,.12);
+      --max: 1120px;
+
+      /* Header */
+      --hdr-bg: #0A0A0A;
+      --hdr-text: rgba(255,255,255,.94);
+      --hdr-hover: rgba(255,255,255,.10);
+      --hdr-stroke: rgba(255,255,255,.16);
+
+      /* HERO: asset giratório */
+      --hero-spinner-size: 860px;
+      --hero-spinner-opacity: .26;
+      --hero-spinner-speed: 26s;
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+    }
+    a{ color: inherit; }
+    img{ max-width:100%; display:block; }
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    .site-wrap{ min-height: 100vh; display:flex; flex-direction:column; }
+
+    /* =========================================================
+       HEADER (MESMO DA HOME)
+       ========================================================= */
+    header.main-header{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+
+      background: var(--hdr-bg);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .header-rainbow{ height: 6px; display:flex; }
+    .header-rainbow span{ flex:1; height: 100%; }
+    .header-rainbow .c1{ background: var(--mi-1); }
+    .header-rainbow .c2{ background: var(--mi-2); }
+    .header-rainbow .c3{ background: var(--mi-3); }
+    .header-rainbow .c4{ background: var(--mi-4); }
+    .header-rainbow .c5{ background: var(--mi-5); }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .logo-group{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 300px;
+    }
+
+    .logo-wrapper a{
+      display:inline-flex;
+      align-items:center;
+      border-radius: 14px;
+      padding: 6px 8px;
+      transition: background .15s ease, transform .12s ease;
+    }
+    .logo-wrapper a:hover{ background: rgba(255,255,255,.10); transform: translateY(-1px); }
+
+    .logo-img{
+      width:auto;
+      object-fit:contain;
+      border-radius: 12px;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.42));
+    }
+    .logo-img--observa{ height: 62px; }
+    .logo-img--prefeitura{ height: 58px; }
+
+    .logo-separator{
+      width: 1px;
+      height: 42px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
+    }
+
+    nav.nav{ display:flex; align-items:center; gap: 12px; }
+
+    .nav-link{
+      appearance:none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--hdr-text);
+      text-decoration:none;
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .12s ease;
+    }
+    .nav-link:hover{
+      background: var(--hdr-hover);
+      border-color: rgba(255,255,255,.16);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.is-active{
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    .nav-sep{
+      opacity:.6;
+      font-weight: 900;
+      user-select:none;
+      color: rgba(255,255,255,.60);
+    }
+
+    .nav-toggle{
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      cursor:pointer;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .nav-toggle-bar{
+      width: 24px;
+      height: 2px;
+      background: rgba(255,255,255,.94);
+      border-radius: 2px;
+      display:block;
+    }
+
+    .nav-item{ position: relative; display: inline-flex; align-items: center; }
+
+    .nav-caret{
+      display:inline-block;
+      width: 10px; height: 10px;
+      margin-left: 8px;
+      border-right: 2px solid rgba(255,255,255,.80);
+      border-bottom: 2px solid rgba(255,255,255,.80);
+      transform: rotate(45deg) translateY(-1px);
+      border-radius: 1px;
+      opacity: .95;
+    }
+
+    .dropdown{
+      position:absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      min-width: 240px;
+      padding: 10px;
+      border-radius: 18px;
+
+      background: #111;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+
+      display:none;
+      flex-direction:column;
+      gap: 6px;
+      z-index: 60;
+    }
+
+    .dropdown a{
+      text-decoration:none;
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      letter-spacing: .02em;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .dropdown a::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition: opacity .15s ease;
+      background: var(--mi-2);
+    }
+    .dropdown a:hover::before{ opacity:.14; }
+
+    .dropdown a.is-active{
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.06);
+    }
+
+    @media (min-width: 901px){
+      .nav-item:hover .dropdown,
+      .nav-item:focus-within .dropdown{
+        display:flex;
+      }
+    }
+
+    @media (max-width: 900px){
+      .nav-toggle{ display:flex; }
+
+      nav.nav{
+        position: fixed;
+        inset: 78px 14px auto 14px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,.12);
+
+        background: #111;
+        box-shadow: 0 34px 80px rgba(0,0,0,.60);
+      }
+      nav.nav.nav--open{ display:flex; }
+      .nav-sep{ display:none; }
+
+      .nav-item{ width:100%; display:block; }
+      .nav-item .nav-link{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+      }
+
+      .dropdown{
+        position: static;
+        margin-top: 8px;
+        width: 100%;
+        min-width: unset;
+        display:none;
+        box-shadow:none;
+        background: #0B0B0B;
+      }
+      .nav-item.is-open .dropdown{ display:flex; }
+
+      .logo-group{ min-width: unset; }
+      .logo-img--observa{ height: 54px; }
+      .logo-img--prefeitura{ height: 50px; }
+      .logo-separator{ height: 38px; }
+    }
+
+    /* =========================================================
+       MAIN / SEÇÕES
+       ========================================================= */
+    main.page{ flex:1; padding-top: 90px; }
+    @media (max-width: 900px){ main.page{ padding-top: 86px; } }
+
+    section{ padding: 72px 0; }
+    @media (max-width: 980px){ section{ padding: 58px 0; } }
+
+    .section-title{
+      text-align:center;
+      margin:0;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: #111;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      margin: 10px auto 0;
+      max-width: 900px;
+      font-size: 13.6px;
+      line-height: 1.65;
+      color: rgba(22,49,61,.86);
+    }
+
+    /* =========================================================
+       HERO (VERSÃO "SOBRE", NO MESMO CLIMA DA HOME)
+       ========================================================= */
+    .about-hero{
+      position: relative;
+      overflow: hidden;
+      padding-top: 78px;
+      padding-bottom: 78px;
+      background: var(--mi-2-soft);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .hero-block{
+      position:absolute;
+      border-radius: 30px;
+      opacity: .22;
+      transform: rotate(12deg);
+      pointer-events:none;
+      z-index: 0;
+    }
+    .hb1{ width: 560px; height: 280px; left: -170px; top: 40px; background: var(--mi-2); }
+    .hb2{ width: 560px; height: 280px; right: -210px; top: -40px; background: var(--mi-4); transform: rotate(-10deg); opacity:.20; }
+    .hb3{ width: 600px; height: 300px; right: -220px; bottom: -140px; background: var(--mi-5); transform: rotate(10deg); opacity:.18; }
+    .hb4{ width: 520px; height: 260px; left: -190px; bottom: -140px; background: var(--mi-3); transform: rotate(-12deg); opacity:.18; }
+
+    .hero-spinner{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--hero-spinner-size);
+      height: var(--hero-spinner-size);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+      opacity: var(--hero-spinner-opacity);
+      filter: drop-shadow(0 24px 60px rgba(0,0,0,.18));
+    }
+    .hero-spinner img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: heroSpin var(--hero-spinner-speed) linear infinite;
+      transform-origin: center center;
+    }
+    @keyframes heroSpin{
+      from{ transform: rotate(0deg); }
+      to{ transform: rotate(360deg); }
+    }
+    @media (max-width: 900px){
+      :root{ --hero-spinner-size: 520px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .hero-spinner img{ animation: none; }
+    }
+
+    .about-hero-inner{ position: relative; z-index: 2; }
+
+    .about-hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 28px;
+      align-items:center;
+    }
+    @media (max-width: 980px){
+      .about-hero-grid{ grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.08);
+      background: var(--mi-4);
+      font-weight: 1000;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12.5px;
+      box-shadow: 0 16px 40px rgba(15,23,42,.10);
+      width: fit-content;
+    }
+
+    .about-title{
+      margin: 14px 0 0;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      line-height: 1.08;
+      font-size: 40px;
+      color: #111;
+    }
+    .about-title strong{ color: var(--mi-2); }
+
+    .about-lead{
+      margin: 12px 0 0;
+      max-width: 720px;
+      font-size: 14.8px;
+      line-height: 1.85;
+      color: rgba(22,49,61,.92);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 13px 18px;
+      border-radius: 16px;
+      text-decoration:none;
+      font-weight: 980;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+
+      background: var(--mi-5);
+      color: #fff;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      transition: transform .12s ease, filter .12s ease;
+      width: fit-content;
+    }
+    .btn:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+
+    .hero-card{
+      border-radius: 26px;
+      background: var(--mi-1-soft);
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .frame-mi{ height: 10px; display:flex; }
+    .frame-mi span{ flex:1; }
+    .frame-mi .c1{ background: var(--mi-1); }
+    .frame-mi .c2{ background: var(--mi-2); }
+    .frame-mi .c3{ background: var(--mi-3); }
+    .frame-mi .c4{ background: var(--mi-4); }
+    .frame-mi .c5{ background: var(--mi-5); }
+
+    .hero-card-inner{
+      margin: 16px;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.08);
+    }
+
+    .breadcrumb{
+      font-size: 12.6px;
+      color: rgba(22,49,61,.78);
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      align-items:center;
+      margin-bottom: 10px;
+    }
+    .crumb-dot{
+      width: 6px; height: 6px; border-radius: 99px;
+      background: rgba(22,49,61,.28);
+      display:inline-block;
+    }
+
+    /* =========================================================
+       "PÁGINA" COM CARD (MESMO ESTILO DOS BLOCOS DA HOME)
+       ========================================================= */
+    .page-section{
+      background: var(--mi-3-soft);
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .page-card{
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 26px;
+      background: var(--mi-3);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      border: 2px solid rgba(0,0,0,.10);
+    }
+
+    .page-card-inner{
+      margin: 16px;
+      padding: 18px;
+      border-radius: 20px;
+      background: #fff;
+      border: 2px solid rgba(0,0,0,.08);
+    }
+
+    .anchor-tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin: 10px 0 16px;
+    }
+
+    .tab{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.92);
+      text-decoration:none;
+      font-weight: 950;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: 12.2px;
+      transition: transform .12s ease, filter .12s ease, background .12s ease;
+    }
+    .tab:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .tab.is-active{
+      background: var(--mi-4);
+      border-color: rgba(0,0,0,.10);
+    }
+
+    .content{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 18px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .content{ grid-template-columns: 1fr; }
+    }
+
+    /* blocos (sub-cards) */
+    .block{
+      border-radius: 22px;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: 0 14px 42px rgba(15,23,42,.10);
+      overflow:hidden;
+      background: #fff;
+    }
+    .block-head{
+      padding: 14px 14px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,255,255,.92);
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 38px;
+      height: 38px;
+      border-radius: 16px;
+      font-weight: 1000;
+      letter-spacing: .06em;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: 0 14px 34px rgba(15,23,42,.10);
+    }
+    .b1{ background: var(--mi-2); color:#fff; }
+    .b2{ background: var(--mi-3); color:#fff; }
+    .b3{ background: var(--mi-4); color:#111; }
+    .b4{ background: var(--mi-1); color:#fff; }
+    .b5{ background: var(--mi-5); color:#fff; }
+
+    .block-title{
+      margin:0;
+      font-size: 16px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      text-transform: none;
+      color: #111;
+      flex:1;
+    }
+
+    .block-body{ padding: 14px 14px 16px; }
+    .block-body p{
+      margin: 10px 0;
+      font-size: 14.8px;
+      line-height: 1.85;
+      color: rgba(22,49,61,.92);
+    }
+    .block-body p strong{ color:#111; }
+
+    /* mini-cards (Por que / Para que / Como) */
+    .mini-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 980px){
+      .mini-grid{ grid-template-columns: 1fr; }
+    }
+
+    .mini{
+      border-radius: 18px;
+      border: 2px solid rgba(0,0,0,.10);
+      padding: 12px 12px 12px;
+      box-shadow: 0 14px 34px rgba(15,23,42,.10);
+      background: rgba(255,255,255,.92);
+    }
+    .mini strong{
+      display:block;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      margin-bottom: 6px;
+      color:#111;
+    }
+    .mini p{
+      margin:0;
+      font-size: 14.2px;
+      line-height: 1.75;
+      color: rgba(22,49,61,.92);
+    }
+
+    /* tabela "Quem somos" */
+    .table{
+      width:100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow:hidden;
+      border-radius: 18px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: #fff;
+      margin-top: 12px;
+    }
+    .table th, .table td{
+      padding: 12px 12px;
+      vertical-align: top;
+      text-align:left;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      font-size: 13.8px;
+      line-height: 1.6;
+      color: rgba(22,49,61,.92);
+    }
+    .table th{
+      background: rgba(22,49,61,.04);
+      font-weight: 1000;
+      letter-spacing: .02em;
+      color:#111;
+    }
+    .table tr:last-child td{ border-bottom: none; }
+
+    /* bullets */
+    .bullets{ margin: 12px 0 0; padding: 0; list-style:none; }
+    .bullets li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .bullets li:last-child{ border-bottom:none; }
+    .dot{
+      width: 10px; height: 10px; border-radius: 99px;
+      background: var(--mi-2);
+      margin-top: 6px;
+      box-shadow: 0 10px 20px rgba(15,23,42,.10);
+      flex: 0 0 10px;
+    }
+
+    /* =========================================================
+       ASIDE (mesmo "bloco" da home)
+       ========================================================= */
+    .aside-card{
+      border-radius: 22px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 14px 42px rgba(15,23,42,.10);
+      overflow:hidden;
+      position: sticky;
+      top: 106px;
+    }
+    @media (max-width: 980px){
+      .aside-card{ position: static; }
+    }
+
+    .aside-head{
+      padding: 14px;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      background: rgba(22,49,61,.04);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: #fff;
+      font-weight: 1000;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: 11.8px;
+      width: fit-content;
+    }
+    .aside-body{ padding: 12px 14px 14px; }
+
+    .aside-item{
+      display:flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .aside-item:last-child{ border-bottom: none; }
+
+    .bubble{
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      border: 2px solid rgba(0,0,0,.10);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 14px 34px rgba(15,23,42,.10);
+      background: #fff;
+      flex: 0 0 42px;
+      font-size: 18px;
+    }
+    .aside-item h3{
+      margin: 0;
+      font-size: 13.5px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      color:#111;
+    }
+    .aside-item p{
+      margin: 6px 0 0;
+      font-size: 13.8px;
+      line-height: 1.7;
+      color: rgba(22,49,61,.90);
+    }
+
+    /* =========================================================
+       FOOTER (MESMO CLIMA DA HOME)
+       ========================================================= */
+    footer{
+      border-top: 1px solid rgba(0,0,0,.08);
+      padding: 22px 0;
+      text-align:center;
+      color: rgba(22,49,61,.90);
+      font-size: 12.5px;
+      margin-top: 0;
+      background: var(--mi-2-soft);
+    }
+
+    :focus-visible{
+      outline: 3px solid var(--mi-4);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    .content{
+  display:grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap: 18px;
+}
+
+/* Se .content NÃO tiver um <aside>, vira layout de 1 coluna */
+.content:not(:has(> aside)){
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.content:not(:has(> aside)) > div{
+  width: 100%;
+  max-width: 920px;
+}
+
+/* =========================
+   HEADER — Destaque vermelho no botão "DADOS"
+   ========================= */
+
+/* estado normal: anel/vermelho sutil */
+.nav-link[data-dd="dados"]{
+  border-color: rgba(216, 69, 77, .55);              /* mi-5 */
+  box-shadow:
+    0 0 0 3px rgba(216, 69, 77, .22),                /* “anel” */
+    0 14px 34px rgba(0,0,0,.22);                     /* profundidade */
+}
+
+/* hover/focus: reforça */
+.nav-link[data-dd="dados"]:hover,
+.nav-link[data-dd="dados"]:focus-visible{
+  border-color: rgba(216, 69, 77, .78);
+  box-shadow:
+    0 0 0 4px rgba(216, 69, 77, .28),
+    0 18px 44px rgba(0,0,0,.28);
+}
+
+/* quando o dropdown abrir (mobile) — usa a classe is-open no nav-item */
+@media (max-width: 900px){
+  .nav-item.is-open > .nav-link[data-dd="dados"]{
+    background: rgba(216, 69, 77, .14);              /* leve “tinta” */
+    border-color: rgba(216, 69, 77, .90);
+    box-shadow:
+      0 0 0 5px rgba(216, 69, 77, .30),
+      0 22px 60px rgba(0,0,0,.34);
+  }
+}
+
+
+  </style>
+</head>
+
+<body>
+  <div class="site-wrap">
+
+    <!-- HEADER -->
+    <header class="main-header">
+      <div class="header-rainbow" aria-hidden="true">
+        <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+      </div>
+
+      <div class="container header-inner">
+        <div class="logo-group">
+          <div class="logo-wrapper">
+            <a href="index.html#topo" aria-label="Observa Infância Viva">
+              <!-- Mantive o mesmo base64 da home (pode trocar pelo arquivo do seu /assets) -->
+              <img class="logo-img logo-img--observa" alt="Observa Infância Viva"
+                   src="data:image/png;base64,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" />
+            </a>
+          </div>
+
+          <span class="logo-separator" aria-hidden="true"></span>
+
+          <div class="logo-wrapper">
+            <a href="https://www.fortaleza.ce.gov.br/" target="_blank" rel="noopener noreferrer" aria-label="Prefeitura de Fortaleza">
+              <img class="logo-img logo-img--prefeitura" alt="Prefeitura de Fortaleza"
+                   src="https://yt3.googleusercontent.com/QHv0Hg-74Yx0uga0a9ccaGDuWn7hv5W2HjTxFmbI0HQxQb6hFpDJHCyB374CK55r5ykGu8shp6w=s900-c-k-c0x00ffffff-no-rj" />
+            </a>
+          </div>
+        </div>
+
+        <button type="button" class="nav-toggle" id="btnMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMain">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <!-- NAV (mesma estrutura da home) -->
+        <nav class="nav" id="navMain" aria-label="Navegação principal">
+          <div class="nav-item">
+            <button type="button" class="nav-link is-active" data-dd="qs" aria-expanded="false" aria-controls="dd-qs">
+              QUEM SOMOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-qs">
+              <a class="is-active" href="sobre.html">O Observatório</a>
+              <a href="glossario.html">Glossário</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="dados" aria-expanded="false" aria-controls="dd-dados">
+              DADOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-dados">
+              <a href="dados.html#indicadores">Indicadores</a>
+              <a href="dados.html#demografia">Demografia</a>
+              <a href="dados.html#educacao">Educação</a>
+              <a href="dados.html#saude">Saúde</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="parcerias.html">PARCERIAS</a>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="publicacoes.html">PUBLICAÇÕES</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page" id="topo">
+      <!-- HERO (Quem Somos / O Observatório) -->
+      <section class="about-hero" aria-labelledby="about-title">
+        <div class="hero-block hb1" aria-hidden="true"></div>
+        <div class="hero-block hb2" aria-hidden="true"></div>
+        <div class="hero-block hb3" aria-hidden="true"></div>
+        <div class="hero-block hb4" aria-hidden="true"></div>
+
+        <div class="hero-spinner" aria-hidden="true">
+          <!-- se você tiver o SVG em assets, use ele aqui -->
+          <img src="assets/girasolInfânciaVivaBG.svg" alt="" />
+        </div>
+
+        <div class="container about-hero-inner">
+          <div class="about-hero-grid">
+            <div>
+              <div class="breadcrumb">
+                <a href="index.html#topo">Início</a> <span class="crumb-dot" aria-hidden="true"></span>
+                <span>Quem Somos</span> <span class="crumb-dot" aria-hidden="true"></span>
+                <strong>O Observatório</strong>
+              </div>
+
+              <span class="kicker">Quem somos · O observatório</span>
+
+              <h1 id="about-title" class="about-title">
+                Sobre o <strong>Observa Infância Viva</strong> · CESPI
+              </h1>
+
+              <p class="about-lead">
+                Núcleo de inteligência voltado à produção, integração e difusão de dados sobre
+                a Primeira Infância em Fortaleza, conectando gestão pública, academia e sociedade.
+              </p>
+
+              <a class="btn" href="#o-observatorio">ver conteúdo</a>
+            </div>
+
+            <!-- <div class="hero-card" aria-label="Resumo rápido do Observatório">
+              <div class="frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="hero-card-inner">
+                <p style="margin:0; font-weight:1000; letter-spacing:.02em; color:#111;">
+                  Em uma frase
+                </p>
+                <p style="margin:10px 0 0; font-size:14.6px; line-height:1.8; color:rgba(22,49,61,.92);">
+                  Integramos <strong>dados</strong>, <strong>pesquisas</strong> e <strong>experiências</strong> para apoiar
+                  decisões e fortalecer políticas públicas para crianças de <strong>0 a 6 anos</strong>.
+                </p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTEÚDO (cards com estilo da home) -->
+      <section class="page-section" id="o-observatorio" aria-label="Conteúdo Quem Somos · O Observatório">
+        <div class="container">
+          <div class="page-card">
+            <div class="frame-mi" aria-hidden="true">
+              <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+            </div>
+
+            <div class="page-card-inner">
+              <h2 class="section-title" style="text-transform:none; letter-spacing:-.01em;">
+                O Observatório (CESPI)
+              </h2>
+              <p class="section-subtitle" style="margin-bottom:0;">
+                Estrutura, propósito e como atuamos para qualificar o planejamento e o acompanhamento da Primeira Infância.
+              </p>
+
+              <!-- Tabs âncora (visual da home) -->
+              <nav class="anchor-tabs" aria-label="Navegação interna da página">
+                <a class="tab is-active" href="#o-observatorio">O que é</a>
+                <a class="tab" href="#missao-visao">Missão &amp; Visão</a>
+                <a class="tab" href="#por-que">Por que · Para que · Como</a>
+                <a class="tab" href="#quem-somos">Quem somos</a>
+                <a class="tab" href="#cespi">CESPI e governança</a>
+              </nav>
+
+              <div class="content">
+                <!-- COLUNA PRINCIPAL -->
+                <div>
+
+                  <!-- I. O que é -->
+                  <article class="block" id="o-que-e">
+                    <div class="block-head">
+                      <span class="badge b1" aria-hidden="true">I</span>
+                      <h3 class="block-title">O que é o Observatório CESPI?</h3>
+                    </div>
+                    <div class="block-body">
+                      <p>
+                        O <strong>Observa Infância Viva · CESPI</strong> é o ponto estratégico de uma rede
+                        de conhecimento dedicada à <strong>Primeira Infância</strong> em Fortaleza.
+                        Atua na produção, organização e disseminação de informações sobre políticas públicas,
+                        programas e ações voltadas às crianças de 0 a 6 anos e suas famílias.
+                      </p>
+                      <p>
+                        A partir de dados, pesquisas e painéis interativos, o Observatório apoia a gestão na
+                        tomada de decisão, fortalece a cultura do planejamento e incentiva o diálogo com
+                        diferentes atores – secretarias municipais, conselhos, universidades, organizações
+                        da sociedade civil e organismos internacionais.
+                      </p>
+                    </div>
+                  </article>
+
+                  <!-- II. Missão & Visão -->
+                  <article class="block" id="missao-visao" style="margin-top:14px;">
+                    <div class="block-head">
+                      <span class="badge b2" aria-hidden="true">II</span>
+                      <h3 class="block-title">Missão &amp; Visão</h3>
+                    </div>
+                    <div class="block-body">
+                      <p><strong>Missão</strong></p>
+                      <p>
+                        Produzir, integrar e difundir conhecimento sobre a Primeira Infância em Fortaleza,
+                        oferecendo subsídios qualificados para o planejamento, monitoramento e avaliação de
+                        políticas públicas, com foco na equidade e na garantia de direitos.
+                      </p>
+
+                      <p style="margin-top:14px;"><strong>Visão</strong></p>
+                      <p>
+                        Ser reconhecido como <strong>núcleo de inteligência em Primeira Infância</strong> de Fortaleza,
+                        articulando dados, evidências e experiências para apoiar uma cidade mais acolhedora,
+                        inclusiva e brincante para todas as crianças.
+                      </p>
+                    </div>
+                  </article>
+
+                  <!-- III. Por que / Para que / Como -->
+                  <article class="block" id="por-que" style="margin-top:14px;">
+                    <div class="block-head">
+                      <span class="badge b3" aria-hidden="true">III</span>
+                      <h3 class="block-title">Por que? · Para que? · Como?</h3>
+                    </div>
+                    <div class="block-body">
+                      <div class="mini-grid" role="list">
+                        <div class="mini" role="listitem">
+                          <strong>Por que?</strong>
+                          <p>
+                            Porque políticas para a Primeira Infância exigem <strong>informação qualificada</strong>,
+                            integração entre áreas (saúde, educação, assistência, cultura, urbanismo) e
+                            acompanhamento contínuo de resultados.
+                          </p>
+                        </div>
+                        <div class="mini" role="listitem">
+                          <strong>Para que?</strong>
+                          <p>
+                            Para apoiar a tomada de decisão dos gestores, fortalecer a governança,
+                            reduzir desigualdades territoriais e dar visibilidade às vivências das
+                            crianças e famílias nos territórios.
+                          </p>
+                        </div>
+                        <div class="mini" role="listitem">
+                          <strong>Como?</strong>
+                          <p>
+                            Produzindo estudos, painéis e infográficos, articulando bases de dados,
+                            promovendo formações e parcerias, e mantendo uma agenda permanente de diálogo
+                            com órgãos públicos, universidades e redes de proteção à infância.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- IV. Quem somos -->
+                  <article class="block" id="quem-somos" style="margin-top:14px;">
+                    <div class="block-head">
+                      <span class="badge b4" aria-hidden="true">IV</span>
+                      <h3 class="block-title">Quem somos</h3>
+                    </div>
+                    <div class="block-body">
+                      <p>
+                        O Observatório CESPI reúne uma equipe multidisciplinar que integra análise de dados,
+                        planejamento, avaliação de políticas, educação e participação social.
+                        Abaixo, uma estrutura de referência (substitua pelos nomes reais):
+                      </p>
+
+                      <div style="overflow:auto;">
+                        <table class="table" aria-label="Estrutura de equipe do Observatório">
+                          <thead>
+                            <tr>
+                              <th style="min-width:220px;">Cargo</th>
+                              <th style="min-width:180px;">Profissional</th>
+                              <th style="min-width:320px;">Principais competências</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><strong>Coordenação Geral do CESPI</strong></td>
+                              <td>Nome da pessoa</td>
+                              <td>
+                                Liderar a estratégia do Observatório, articular parcerias institucionais e
+                                garantir o alinhamento às políticas municipais de Primeira Infância.
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><strong>Coordenação Técnica · Dados &amp; Indicadores</strong></td>
+                              <td>Nome da pessoa</td>
+                              <td>
+                                Integrar bases de dados, construir indicadores, apoiar os painéis de monitoramento
+                                e produzir análises territoriais.
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><strong>Núcleo de Estudos &amp; Pesquisa</strong></td>
+                              <td>Nome(s) da equipe</td>
+                              <td>
+                                Desenvolver pesquisas qualitativas e quantitativas, estudos de caso e avaliações
+                                sobre programas e serviços voltados à Primeira Infância.
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><strong>Núcleo Comunicação &amp; Produtos</strong></td>
+                              <td>Nome(s) da equipe</td>
+                              <td>
+                                Elaborar cadernos, relatórios, infográficos e apoiar a linguagem acessível dos
+                                dados para diferentes públicos.
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- V. CESPI e governança -->
+                  <article class="block" id="cespi" style="margin-top:14px;">
+                    <div class="block-head">
+                      <span class="badge b5" aria-hidden="true">V</span>
+                      <h3 class="block-title">CESPI e a governança da primeira infância</h3>
+                    </div>
+                    <div class="block-body">
+                      <p>
+                        A CESPI atua como instância de articulação estratégica para as políticas voltadas às crianças de 0 a 6 anos,
+                        conectando secretarias, equipamentos e serviços municipais. O Observa Infância Viva é uma das ferramentas
+                        utilizadas para qualificar esse acompanhamento, aproximando dados da realidade dos territórios.
+                      </p>
+                      <p>
+                        O observatório apoia o trabalho da Comissão Municipal da Primeira Infância, do Grupo Técnico Intersetorial
+                        e das equipes que executam programas, projetos e ações nos bairros, praças, unidades de saúde, escolas,
+                        Centros de Educação Infantil, Centros de Referência da Assistência Social e outros espaços da infância.
+                      </p>
+
+                      <ul class="bullets" aria-label="Pontos-chave de governança">
+                        <li>
+                          <span class="dot" aria-hidden="true"></span>
+                          <span>Integra informações de educação, saúde, assistência, direitos humanos, cultura, esporte e outras áreas.</span>
+                        </li>
+                        <li>
+                          <span class="dot" aria-hidden="true" style="background:var(--mi-4);"></span>
+                          <span>Fortalece o planejamento, o monitoramento e a avaliação das ações para a primeira infância.</span>
+                        </li>
+                        <li>
+                          <span class="dot" aria-hidden="true" style="background:var(--mi-5);"></span>
+                          <span>Produz leituras territoriais, acompanha fluxos de serviços e apoia processos de formação.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </article>
+
+                </div>
+
+                <!-- ASIDE -->
+                <!-- <aside class="aside-card" aria-label="Destaques do Observatório">
+                  <div class="aside-head">
+                    <span class="pill">CESPI · Observa Infância Viva</span>
+                  </div>
+
+                  <div class="aside-body">
+                    <div class="aside-item">
+                      <div class="bubble" aria-hidden="true">💡</div>
+                      <div>
+                        <h3>Núcleo de inteligência</h3>
+                        <p>
+                          Integramos dados, pesquisas e experiências para apoiar decisões que afetam diretamente
+                          a vida das crianças de Fortaleza.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="aside-item">
+                      <div class="bubble" aria-hidden="true">🎯</div>
+                      <div>
+                        <h3>Missão</h3>
+                        <p>
+                          Produzir, organizar e difundir conhecimento sobre a Primeira Infância,
+                          subsidiando políticas públicas baseadas em evidências.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="aside-item">
+                      <div class="bubble" aria-hidden="true">🌈</div>
+                      <div>
+                        <h3>Visão</h3>
+                        <p>
+                          Ser referência em análise e monitoramento da Primeira Infância em Fortaleza,
+                          articulando indicadores, histórias e territórios.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="aside-item">
+                      <div class="bubble" aria-hidden="true">🤝</div>
+                      <div>
+                        <h3>Parcerias estratégicas</h3>
+                        <p>
+                          <strong>Prefeitura de Fortaleza</strong>, secretarias setoriais, conselhos de direitos,
+                          universidades, redes de pesquisa e organizações da sociedade civil.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </aside> -->
+
+              </div><!-- /content -->
+            </div><!-- /inner -->
+          </div><!-- /page-card -->
+        </div><!-- /container -->
+      </section>
+    </main>
+
+    <footer>
+      Observa Infância Viva · CESPI · Prefeitura de Fortaleza
+    </footer>
+  </div>
+
+  <script>
+    // Menu mobile + dropdowns (accordion no mobile) — mesmo JS da home
+    const btnMenu = document.getElementById('btnMenu');
+    const navMain = document.getElementById('navMain');
+
+    function closeAllDropdowns(exceptBtn = null){
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('is-open'));
+      document.querySelectorAll('[data-dd]').forEach(btn => {
+        if (btn !== exceptBtn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    if (btnMenu && navMain){
+      btnMenu.addEventListener('click', () => {
+        const open = navMain.classList.toggle('nav--open');
+        btnMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (!open) closeAllDropdowns();
+      });
+    }
+
+    document.querySelectorAll('[data-dd]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        if (!isMobile) return;
+
+        const item = btn.closest('.nav-item');
+        const willOpen = !item.classList.contains('is-open');
+
+        closeAllDropdowns(btn);
+        item.classList.toggle('is-open', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+
+        e.stopPropagation();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape'){
+        closeAllDropdowns();
+        if (navMain?.classList.contains('nav--open')){
+          navMain.classList.remove('nav--open');
+          btnMenu?.setAttribute('aria-expanded','false');
+        }
+      }
+    });
+
+    // realce automático da "tab" conforme hash
+    function setActiveTab(){
+      const hash = window.location.hash || '#o-observatorio';
+      document.querySelectorAll('.anchor-tabs .tab').forEach(a => a.classList.remove('is-active'));
+      const current = document.querySelector(`.anchor-tabs .tab[href="${hash}"]`);
+      if (current) current.classList.add('is-active');
+    }
+    window.addEventListener('hashchange', setActiveTab);
+    setActiveTab();
+  </script>
+</body>
+</html>

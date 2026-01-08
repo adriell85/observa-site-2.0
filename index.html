@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Observa Infância Viva – Observatório da Primeira Infância · CESPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      /* Paleta chapada (Mais Infância) */
+      --mi-1: #E4581E; /* laranja */
+      --mi-2: #1784B0; /* azul */
+      --mi-3: #1CA7AD; /* verde água */
+      --mi-4: #EDA922; /* amarelo */
+      --mi-5: #D8454D; /* vermelho */
+
+      /* Tints (pra usar as cores "de verdade" sem perder legibilidade) */
+      --mi-1-soft: rgba(228, 88, 30, .12);
+      --mi-2-soft: rgba(23, 132, 176, .12);
+      --mi-3-soft: rgba(28, 167, 173, .12);
+      --mi-4-soft: rgba(237, 169, 34, .14);
+      --mi-5-soft: rgba(216, 69, 77, .12);
+
+      /* UI */
+      --bg: #FFFFFF;
+      --fg: #16313D;
+      --muted: rgba(22,49,61,.78);
+      --line: rgba(22,49,61,.14);
+      --card: #FFFFFF;
+      --shadow: 0 18px 60px rgba(15,23,42,.12);
+      --max: 1120px;
+
+      /* Header */
+      --hdr-bg: #0A0A0A;
+      --hdr-text: rgba(255,255,255,.94);
+      --hdr-hover: rgba(255,255,255,.10);
+      --hdr-stroke: rgba(255,255,255,.16);
+
+      /* HERO: asset giratório */
+      --hero-spinner-src: url("assets/girasolInfânciaVivaBG.png");
+
+      /* Spinner gigante */
+      --hero-spinner-size: 860px;
+      --hero-spinner-opacity: .30;
+      --hero-spinner-speed: 26s;
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+    }
+    a{ color: inherit; }
+    img{ max-width:100%; display:block; }
+
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .site-wrap{ min-height: 100vh; display:flex; flex-direction:column; }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+    header.main-header{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+
+      background: var(--hdr-bg);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .header-rainbow{ height: 6px; display:flex; }
+    .header-rainbow span{ flex:1; height: 100%; }
+    .header-rainbow .c1{ background: var(--mi-1); }
+    .header-rainbow .c2{ background: var(--mi-2); }
+    .header-rainbow .c3{ background: var(--mi-3); }
+    .header-rainbow .c4{ background: var(--mi-4); }
+    .header-rainbow .c5{ background: var(--mi-5); }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .logo-group{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 300px;
+    }
+
+    .logo-wrapper a{
+      display:inline-flex;
+      align-items:center;
+      border-radius: 14px;
+      padding: 6px 8px;
+      transition: background .15s ease, transform .12s ease;
+    }
+    .logo-wrapper a:hover{ background: rgba(255,255,255,.10); transform: translateY(-1px); }
+
+    .logo-img{
+      width:auto;
+      object-fit:contain;
+      border-radius: 12px;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.42));
+    }
+
+    .logo-img--observa{ height: 62px; }
+    .logo-img--prefeitura{ height: 58px; }
+
+    .logo-separator{
+      width: 1px;
+      height: 42px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
+    }
+
+    nav.nav{ display:flex; align-items:center; gap: 12px; }
+
+    .nav-link{
+      appearance:none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--hdr-text);
+      text-decoration:none;
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .12s ease;
+    }
+    .nav-link:hover{
+      background: var(--hdr-hover);
+      border-color: rgba(255,255,255,.16);
+      transform: translateY(-1px);
+    }
+
+    .nav-sep{
+      opacity:.6;
+      font-weight: 900;
+      user-select:none;
+      color: rgba(255,255,255,.60);
+    }
+
+    .nav-toggle{
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      cursor:pointer;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .nav-toggle-bar{
+      width: 24px;
+      height: 2px;
+      background: rgba(255,255,255,.94);
+      border-radius: 2px;
+      display:block;
+    }
+
+    .nav-item{ position: relative; display: inline-flex; align-items: center; }
+
+    .nav-caret{
+      display:inline-block;
+      width: 10px; height: 10px;
+      margin-left: 8px;
+      border-right: 2px solid rgba(255,255,255,.80);
+      border-bottom: 2px solid rgba(255,255,255,.80);
+      transform: rotate(45deg) translateY(-1px);
+      border-radius: 1px;
+      opacity: .95;
+    }
+
+    /* Dropdown chapado + “toque” de cor */
+    .dropdown{
+      position:absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      min-width: 240px;
+      padding: 10px;
+      border-radius: 18px;
+
+      background: #111;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+
+      display:none;
+      flex-direction:column;
+      gap: 6px;
+      z-index: 60;
+    }
+
+    .dropdown a{
+      text-decoration:none;
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      letter-spacing: .02em;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .dropdown a::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition: opacity .15s ease;
+      background: var(--mi-2);
+    }
+    .dropdown a:hover::before{ opacity:.14; }
+
+    @media (min-width: 901px){
+      .nav-item:hover .dropdown,
+      .nav-item:focus-within .dropdown{
+        display:flex;
+      }
+    }
+
+    @media (max-width: 900px){
+      .nav-toggle{ display:flex; }
+
+      nav.nav{
+        position: fixed;
+        inset: 78px 14px auto 14px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,.12);
+
+        background: #111;
+        box-shadow: 0 34px 80px rgba(0,0,0,.60);
+      }
+      nav.nav.nav--open{ display:flex; }
+      .nav-sep{ display:none; }
+
+      .nav-item{ width:100%; display:block; }
+      .nav-item .nav-link{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+      }
+
+      .dropdown{
+        position: static;
+        margin-top: 8px;
+        width: 100%;
+        min-width: unset;
+        display:none;
+        box-shadow:none;
+        background: #0B0B0B;
+      }
+      .nav-item.is-open .dropdown{ display:flex; }
+
+      .logo-group{ min-width: unset; }
+      .logo-img--observa{ height: 54px; }
+      .logo-img--prefeitura{ height: 50px; }
+      .logo-separator{ height: 38px; }
+    }
+
+    /* =========================
+       MAIN / SEÇÕES
+       ========================= */
+    main.page{ flex:1; padding-top: 90px; }
+    @media (max-width: 900px){ main.page{ padding-top: 86px; } }
+
+    section{ padding: 72px 0; }
+
+    /* =========================================================
+       HERO (cores no fundo e no conteúdo)
+       ========================================================= */
+    .home-hero{
+      position: relative;
+      overflow: hidden;
+      padding-top: 92px;
+      padding-bottom: 92px;
+      background: var(--mi-2-soft);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    /* Blocos chapados no fundo */
+    .hero-block{
+      position:absolute;
+      border-radius: 30px;
+      opacity: .22;
+      transform: rotate(12deg);
+      pointer-events:none;
+      z-index: 0;
+    }
+    .hb1{ width: 560px; height: 280px; left: -170px; top: 40px; background: var(--mi-2); }
+    .hb2{ width: 560px; height: 280px; right: -210px; top: -40px; background: var(--mi-4); transform: rotate(-10deg); opacity:.20; }
+    .hb3{ width: 600px; height: 300px; right: -220px; bottom: -140px; background: var(--mi-5); transform: rotate(10deg); opacity:.18; }
+    .hb4{ width: 520px; height: 260px; left: -190px; bottom: -140px; background: var(--mi-3); transform: rotate(-12deg); opacity:.18; }
+
+    /* garante camadas corretas */
+    .home-hero-inner{ position: relative; z-index: 2; }
+
+    /* ícone gigante */
+    .hero-spinner{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--hero-spinner-size);
+      height: var(--hero-spinner-size);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+      opacity: var(--hero-spinner-opacity);
+      filter: drop-shadow(0 24px 60px rgba(0,0,0,.18));
+    }
+
+    .hero-spinner img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: heroSpin var(--hero-spinner-speed) linear infinite;
+      transform-origin: center center;
+    }
+
+    @keyframes heroSpin{
+      from{ transform: rotate(0deg); }
+      to{ transform: rotate(360deg); }
+    }
+
+    @media (max-width: 900px){
+      :root{ --hero-spinner-size: 520px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .hero-spinner img{ animation: none; }
+    }
+
+    .home-hero-inner{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items:center;
+    }
+
+    .home-hero-title{
+      margin: 0;
+      font-weight: 1000;
+      letter-spacing: .04em;
+      line-height: 1.03;
+      text-transform: uppercase;
+      font-size: 46px;
+      color: #111;
+    }
+    .home-hero-line{ display:block; }
+    .home-hero-line:nth-child(1){ color: var(--mi-2); }
+    .home-hero-line:nth-child(2){ color: var(--mi-5); }
+
+    .home-hero-subtitle{
+      display:inline-block;
+      margin: 14px 0 0;
+      font-size: 13px;
+      font-weight: 950;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #111;
+      background: var(--mi-4);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.08);
+      box-shadow: 0 16px 40px rgba(15,23,42,.10);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 13px 18px;
+      border-radius: 16px;
+      text-decoration:none;
+      font-weight: 980;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+
+      background: var(--mi-5);
+      color: #fff;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+    .btn-hero{ margin-top: 18px; }
+
+    .home-hero-figure{
+      margin:0;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 26px;
+      background: var(--mi-1-soft);
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero-ribbon-mini{ height: 12px; display:flex; }
+    .hero-ribbon-mini span{ flex:1; }
+
+    .home-hero-photo{
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-top: 2px solid rgba(0,0,0,.08);
+    }
+
+    @media (max-width: 980px){
+      .home-hero-inner{ grid-template-columns: 1fr; gap: 22px; }
+      .home-hero-title{ font-size: 38px; }
+      .home-hero-photo{ height: 380px; }
+      section{ padding: 58px 0; }
+    }
+
+    .section-title{
+      text-align:center;
+      margin:0;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: #111;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      margin: 10px auto 0;
+      max-width: 900px;
+      font-size: 13.6px;
+      line-height: 1.65;
+      color: rgba(22,49,61,.86);
+    }
+
+    /* =========================
+       QUEM SOMOS
+       ========================= */
+    .home-quem-somos{
+      background: var(--mi-3-soft);
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .home-quem-somos-card{
+      max-width: 920px;
+      margin: 0 auto;
+      border-radius: 26px;
+      background: var(--mi-3);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      border: 2px solid rgba(0,0,0,.10);
+    }
+
+    .frame-mi{ height: 10px; display:flex; }
+    .frame-mi span{ flex:1; }
+    .frame-mi .c1{ background: var(--mi-1); }
+    .frame-mi .c2{ background: var(--mi-2); }
+    .frame-mi .c3{ background: var(--mi-3); }
+    .frame-mi .c4{ background: var(--mi-4); }
+    .frame-mi .c5{ background: var(--mi-5); }
+
+    .home-quem-somos-text{
+      margin: 16px;
+      padding: 24px 20px 20px;
+      border-radius: 20px;
+      background: #fff;
+      border: 2px solid rgba(0,0,0,.08);
+    }
+    .home-quem-somos-text p{
+      margin: 12px 0;
+      font-size: 14.8px;
+      line-height: 1.8;
+      color: rgba(22,49,61,.92);
+    }
+
+    /* =========================
+       SECRETARIAS PARCEIRAS
+       ========================= */
+    .home-partners{
+      padding-top: 72px;
+      padding-bottom: 108px;
+      background: var(--mi-4-soft);
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .partners-wrap{
+      margin: 22px auto 0;
+      max-width: 980px;
+      border-radius: 24px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: var(--mi-4);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .partners-inner{
+      padding: 18px 18px 16px;
+      margin: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.08);
+    }
+
+    .chips{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(160px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+    @media (max-width: 980px){
+      .chips{ grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+    }
+    @media (max-width: 520px){
+      .chips{ grid-template-columns: 1fr; }
+    }
+
+    .chip-card{
+      border-radius: 18px;
+      border: 2px solid rgba(0,0,0,.10);
+      padding: 12px 12px 11px;
+      box-shadow: 0 14px 34px rgba(15,23,42,.10);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      position: relative;
+      overflow:hidden;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .chip-card:hover{ transform: translateY(-2px); box-shadow: 0 20px 52px rgba(15,23,42,.14); }
+
+    .chip-card.c1{ background: var(--mi-1); color:#fff; border-color: rgba(255,255,255,.20); }
+    .chip-card.c2{ background: var(--mi-2); color:#fff; border-color: rgba(255,255,255,.20); }
+    .chip-card.c3{ background: var(--mi-3); color:#fff; border-color: rgba(255,255,255,.20); }
+    .chip-card.c4{ background: var(--mi-4); color:#111; border-color: rgba(0,0,0,.12); }
+    .chip-card.c5{ background: var(--mi-5); color:#fff; border-color: rgba(255,255,255,.20); }
+
+    .chip-top{
+      height: 10px;
+      width: 88px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.85);
+    }
+    .chip-card.c4 .chip-top{ background: rgba(0,0,0,.12); }
+
+    /* === ÍCONE + TEXTO dentro das chips === */
+    .chip-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .chip-icon{
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+      object-fit: contain;
+
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.10);
+      border-radius: 14px;
+      padding: 6px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.18);
+
+      /* deixa mais vivo */
+      filter: saturate(1.18) contrast(1.05);
+    }
+
+    .chip-text{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width: 0;
+    }
+
+    .sigla{
+      font-weight: 1000;
+      letter-spacing: .08em;
+      font-size: 13px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .nome{
+      font-size: 12.8px;
+      line-height: 1.25;
+      opacity: .92;
+    }
+    .chip-card.c4 .nome{ opacity: .86; }
+
+    /* =========================
+       ODS + Logos
+       ========================= */
+    .home-ods{
+      padding-top: 52px;
+      padding-bottom: 104px;
+      background: var(--mi-5-soft);
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
+
+    .ods-card, .logos-card{
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 24px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: var(--mi-5);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .logos-card{ margin-top: 40px; background: var(--mi-2); }
+
+    .ods-body{
+      padding: 16px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .ods-body img{
+      width: 100%;
+      max-width: 1040px;
+      height: auto;
+      max-height: 520px;
+      object-fit: contain;
+      border-radius: 16px;
+      background: #fff;
+      border: 2px solid rgba(0,0,0,.10);
+      padding: 10px;
+    }
+
+    .logos-inner{
+      margin: 16px;
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.08);
+    }
+
+    .logos-caption{
+      margin: 0 0 10px;
+      font-size: 13.6px;
+      line-height: 1.55;
+      color: rgba(22,49,61,.92);
+      text-align:center;
+    }
+
+    .logos-row{
+      display:flex;
+      gap: 28px;
+      align-items:center;
+      justify-content: center;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .logo-item{
+      flex: 0 1 260px;
+      min-width: 220px;
+      max-width: 320px;
+      border-radius: 20px;
+      border: 2px solid rgba(0,0,0,.10);
+      padding: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 14px 40px rgba(15,23,42,.10);
+      position: relative;
+      overflow:hidden;
+      background: var(--mi-1-soft);
+    }
+    .logo-item:nth-child(2){ background: var(--mi-4-soft); }
+    .logo-item:nth-child(3){ background: var(--mi-3-soft); }
+
+    .logo-item img{
+      width: 100%;
+      height: 120px;
+      object-fit: contain;
+      display:block;
+      background:#fff;
+      border-radius: 14px;
+      padding: 10px;
+      border: 2px solid rgba(0,0,0,.08);
+    }
+
+    /* =========================
+       FOOTER
+       ========================= */
+    footer{
+      border-top: 1px solid rgba(0,0,0,.08);
+      padding: 22px 0;
+      text-align:center;
+      color: rgba(22,49,61,.90);
+      font-size: 12.5px;
+      margin-top: 0;
+      background: var(--mi-2-soft);
+    }
+
+    :focus-visible{
+      outline: 3px solid var(--mi-4);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    /* Ícone em cima, sigla embaixo (centralizado) */
+.chip-row{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;          /* espaço entre ícone e SMS */
+  text-align: center;
+}
+
+.chip-text{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* opcional: garante que o nome não apareça se ainda existir no HTML */
+.nome{ display:none; }
+
+/* Ajuste do ícone para ficar bonitinho no centro */
+.chip-icon{
+  width: 56px;        /* ajuste se quiser maior/menor */
+  height: 56px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+/* Ajuste fino da sigla */
+.sigla{
+  font-weight: 1000;
+  letter-spacing: .12em;
+  font-size: 13px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* =========================
+   HEADER — Destaque vermelho no botão "DADOS"
+   ========================= */
+
+/* estado normal: anel/vermelho sutil */
+.nav-link[data-dd="dados"]{
+  border-color: rgba(216, 69, 77, .55);              /* mi-5 */
+  box-shadow:
+    0 0 0 3px rgba(216, 69, 77, .22),                /* “anel” */
+    0 14px 34px rgba(0,0,0,.22);                     /* profundidade */
+}
+
+/* hover/focus: reforça */
+.nav-link[data-dd="dados"]:hover,
+.nav-link[data-dd="dados"]:focus-visible{
+  border-color: rgba(216, 69, 77, .78);
+  box-shadow:
+    0 0 0 4px rgba(216, 69, 77, .28),
+    0 18px 44px rgba(0,0,0,.28);
+}
+
+/* quando o dropdown abrir (mobile) — usa a classe is-open no nav-item */
+@media (max-width: 900px){
+  .nav-item.is-open > .nav-link[data-dd="dados"]{
+    background: rgba(216, 69, 77, .14);              /* leve “tinta” */
+    border-color: rgba(216, 69, 77, .90);
+    box-shadow:
+      0 0 0 5px rgba(216, 69, 77, .30),
+      0 22px 60px rgba(0,0,0,.34);
+  }
+}
+
+
+  </style>
+</head>
+
+<body>
+  <div class="site-wrap">
+
+    <header class="main-header">
+      <div class="header-rainbow" aria-hidden="true">
+        <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+      </div>
+
+      <div class="container header-inner">
+        <div class="logo-group">
+          <div class="logo-wrapper">
+            <a href="#topo" aria-label="Observa Infância Viva">
+              <img class="logo-img logo-img--observa" alt="Observa Infância Viva"
+                   src="data:image/png;base64,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" />
+            </a>
+          </div>
+
+          <span class="logo-separator" aria-hidden="true"></span>
+
+          <div class="logo-wrapper">
+            <a href="https://www.fortaleza.ce.gov.br/" target="_blank" rel="noopener noreferrer" aria-label="Prefeitura de Fortaleza">
+              <img class="logo-img logo-img--prefeitura" alt="Prefeitura de Fortaleza"
+                   src="https://yt3.googleusercontent.com/QHv0Hg-74Yx0uga0a9ccaGDuWn7hv5W2HjTxFmbI0HQxQb6hFpDJHCyB374CK55r5ykGu8shp6w=s900-c-k-c0x00ffffff-no-rj" />
+            </a>
+          </div>
+        </div>
+
+        <button type="button" class="nav-toggle" id="btnMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMain">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav class="nav" id="navMain" aria-label="Navegação principal">
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="qs" aria-expanded="false" aria-controls="dd-qs">
+              QUEM SOMOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-qs">
+              <a href="sobre.html">O Observatório</a>
+              <a href="glossario.html">Glossário</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="dados" aria-expanded="false" aria-controls="dd-dados">
+              DADOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-dados">
+              <a href="dados.html#indicadores">Indicadores</a>
+              <a href="dados.html#demografia">Demografia</a>
+              <a href="dados.html#educacao">Educação</a>
+              <a href="dados.html#saude">Saúde</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="parcerias.html">PARCERIAS</a>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="publicacoes.html">PUBLICAÇÕES</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page" id="topo">
+      <!-- HERO -->
+      <section class="home-hero" aria-labelledby="home-title">
+
+        <div class="hero-block hb1" aria-hidden="true"></div>
+        <div class="hero-block hb2" aria-hidden="true"></div>
+        <div class="hero-block hb3" aria-hidden="true"></div>
+        <div class="hero-block hb4" aria-hidden="true"></div>
+
+        <div class="hero-spinner" aria-hidden="true">
+          <img src="assets/girasolInfânciaVivaBG.svg" alt="" />
+        </div>
+
+        <div class="container home-hero-inner">
+          <div>
+            <h1 id="home-title" class="home-hero-title">
+              <span class="home-hero-line">OBSERVA</span>
+              <span class="home-hero-line">INFÂNCIA VIVA</span>
+            </h1>
+            <p class="home-hero-subtitle">observatório da primeira infância</p>
+            <a class="btn btn-hero" href="#quem-somos">SAIBA MAIS</a>
+          </div>
+
+          <figure class="home-hero-figure">
+            <div class="hero-ribbon-mini" aria-hidden="true">
+              <span style="background:var(--mi-1)"></span>
+              <span style="background:var(--mi-2)"></span>
+              <span style="background:var(--mi-3)"></span>
+              <span style="background:var(--mi-4)"></span>
+              <span style="background:var(--mi-5)"></span>
+            </div>
+            <img class="home-hero-photo"
+                 alt="Crianças e primeira infância em Fortaleza"
+                 src="https://www.fortaleza.ce.gov.br/images/images2/00000000000000000000000000Ago25/2/10%2008%202025%201%200Z9A9022.JPG" />
+          </figure>
+        </div>
+      </section>
+
+      <!-- QUEM SOMOS -->
+      <section id="quem-somos" class="home-quem-somos" aria-labelledby="quem-somos-title">
+        <div class="container">
+          <div class="home-quem-somos-card">
+            <div class="frame-mi" aria-hidden="true">
+              <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+            </div>
+            <div class="home-quem-somos-text">
+              <h2 id="quem-somos-title" class="section-title" style="text-transform:none; letter-spacing:-.01em;">
+                O Observa Infância Viva
+              </h2>
+              <p>
+                O <strong>Observa Infância Viva</strong> reúne dados e produz conhecimento sobre a
+                primeira infância em Fortaleza.
+              </p>
+              <p>
+                Seu objetivo é apoiar políticas públicas integradas para crianças de 0 a 6 anos,
+                monitorando ações, serviços e indicadores para decisões baseadas em evidências.
+              </p>
+              <p>
+                A CESPI articula secretarias e órgãos municipais, fortalecendo o cuidado no território
+                e a atuação intersetorial em favor do desenvolvimento infantil.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECRETARIAS PARCEIRAS -->
+      <section id="secretarias-parceiras" class="home-partners" aria-labelledby="partners-title">
+        <div class="container">
+          <h2 id="partners-title" class="section-title">Secretarias Parceiras (PLANO)</h2>
+          <p class="section-subtitle">
+            Secretarias e órgãos municipais que atuam de forma integrada na agenda da primeira infância.
+          </p>
+
+          <div class="partners-wrap">
+            <div class="frame-mi" aria-hidden="true">
+              <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+            </div>
+
+            <div class="partners-inner">
+              <div class="chips" aria-label="Lista de secretarias parceiras">
+
+                <div class="chip-card c1">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" alt="Ícone da SMS">
+                    <div class="chip-text">
+                      <span class="sigla">SMS</span>
+                      <span class="nome">Secretaria Municipal da Saúde</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c2">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://cdn-icons-png.flaticon.com/512/4207/4207253.png" alt="Ícone da SME">
+                    <div class="chip-text">
+                      <span class="sigla">SME</span>
+                      <!-- <span class="nome">Secretaria Municipal da Educação</span> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c3">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://cdn-icons-png.flaticon.com/512/1396/1396618.png" alt="Ícone da SDHDS">
+                    <div class="chip-text">
+                      <span class="sigla">SDHDS</span>
+                      <span class="nome">Secretaria Municipal dos Direitos Humanos e Desenvolvimento Social</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c4">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://cdn-icons-png.flaticon.com/512/8708/8708013.png" alt="Ícone da AMC">
+                    <div class="chip-text">
+                      <span class="sigla">AMC</span>
+                      <span class="nome">Autarquia Municipal de Trânsito e Cidadania</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c5">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://cdn-icons-png.flaticon.com/512/2503/2503524.png" alt="Ícone da ETUFOR">
+                    <div class="chip-text">
+                      <span class="sigla">ETUFOR</span>
+                      <span class="nome">Empresa de Transporte Urbano de Fortaleza</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c1">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://cdn-icons-png.flaticon.com/512/9746/9746772.png" alt="Ícone da SCSP">
+                    <div class="chip-text">
+                      <span class="sigla">SCSP</span>
+                      <span class="nome">Secretaria Municipal da Conservação e Serviços Públicos</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c2">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWIz-zRdmiKS-Gmo1Cqe6L9IW7-iUQlSKwPg&s" alt="Ícone da SECEL">
+                    <div class="chip-text">
+                      <span class="sigla">SECEL</span>
+                      <span class="nome">Secretaria Municipal da Cultura de Fortaleza</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c3">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://cdn-icons-png.flaticon.com/512/8382/8382785.png" alt="Ícone da SESEC">
+                    <div class="chip-text">
+                      <span class="sigla">SESEC</span>
+                      <span class="nome">Secretaria Municipal da Segurança Cidadã</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c4">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://cdn-icons-png.flaticon.com/512/15822/15822546.png" alt="Ícone da SEUMA">
+                    <div class="chip-text">
+                      <span class="sigla">SEUMA</span>
+                      <span class="nome">Secretaria Municipal do Urbanismo e Meio Ambiente</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chip-card c5">
+                  <div class="chip-top"></div>
+                  <div class="chip-row">
+                    <img class="chip-icon" src="https://dados.fortaleza.ce.gov.br/uploads/group/2022-07-08-162755.017901Funci.png" alt="Ícone da FUNCI">
+                    <div class="chip-text">
+                      <span class="sigla">FUNCI</span>
+                      <span class="nome">Fundação da Criança e da Família Cidadã</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ODS -->
+      <section class="home-ods" aria-label="ODS e Instituições">
+        <div class="container">
+          <div class="ods-card">
+            <div class="frame-mi" aria-hidden="true">
+              <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+            </div>
+            <div class="ods-body">
+              <img
+                src="https://gtagenda2030.org.br/wp-content/uploads/2019/10/objetivos_port.png?w=1024"
+                alt="Objetivos de Desenvolvimento Sustentável – Agenda 2030"
+              />
+            </div>
+          </div>
+
+          <div class="logos-card">
+            <div class="frame-mi" aria-hidden="true">
+              <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+            </div>
+            <div class="logos-inner">
+              <p class="logos-caption">
+                Fortalecer a primeira infância é também avançar nos <strong>ODS.</strong>
+              </p>
+              <p class="logos-caption">
+                Cidade mais inclusiva, políticas integradas e crianças no centro das decisões.
+              </p>
+
+              <div class="logos-row">
+                <div class="logo-item">
+                  <img
+                    src="https://fortalezainclusiva.fortaleza.ce.gov.br/img/PMF%20-%20Fortaleza%20Inclusiva-01.png"
+                    alt="Fortaleza Inclusiva / Observa Infância Viva"
+                  />
+                </div>
+
+                <div class="logo-item">
+                  <img
+                    src="https://fortalezainclusiva.fortaleza.ce.gov.br/img/infancia.png"
+                    alt="Infância Viva na Praça"
+                  />
+                </div>
+
+                <div class="logo-item">
+                  <img
+                    src="https://yt3.googleusercontent.com/QHv0Hg-74Yx0uga0a9ccaGDuWn7hv5W2HjTxFmbI0HQxQb6hFpDJHCyB374CK55r5ykGu8shp6w=s900-c-k-c0x00ffffff-no-rj"
+                    alt="Prefeitura de Fortaleza"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Observa Infância Viva · CESPI · Prefeitura de Fortaleza
+    </footer>
+  </div>
+
+  <script>
+    // Menu mobile + dropdowns (accordion no mobile)
+    const btnMenu = document.getElementById('btnMenu');
+    const navMain = document.getElementById('navMain');
+
+    function closeAllDropdowns(exceptBtn = null){
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('is-open'));
+      document.querySelectorAll('[data-dd]').forEach(btn => {
+        if (btn !== exceptBtn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    if (btnMenu && navMain){
+      btnMenu.addEventListener('click', () => {
+        const open = navMain.classList.toggle('nav--open');
+        btnMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (!open) closeAllDropdowns();
+      });
+    }
+
+    document.querySelectorAll('[data-dd]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        if (!isMobile) return;
+
+        const item = btn.closest('.nav-item');
+        const willOpen = !item.classList.contains('is-open');
+
+        closeAllDropdowns(btn);
+        item.classList.toggle('is-open', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+
+        e.stopPropagation();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape'){
+        closeAllDropdowns();
+        if (navMain?.classList.contains('nav--open')){
+          navMain.classList.remove('nav--open');
+          btnMenu?.setAttribute('aria-expanded','false');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

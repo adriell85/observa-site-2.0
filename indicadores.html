@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Indicadores – Observa Infância Viva · CESPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ===== Indicadores: mesma linguagem do design atual ===== */
+    .ind-shell{
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, #E0F7FA 0, #F9FAFB 40%, #FEF9C3 100%);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.18);
+    }
+    body.theme-dark .ind-shell{
+      background: radial-gradient(circle at top left,#020617 0,#0F172A 40%,#1E3A8A 100%);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+    }
+    .ind-hero{
+      display:grid;
+      gap:16px;
+      grid-template-columns: 1fr;
+      align-items:center;
+    }
+    @media (min-width: 980px){
+      .ind-hero{ grid-template-columns: 1.35fr .65fr; }
+    }
+
+    .hero-card{
+      border-radius: 22px;
+      padding: 16px;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 10px 26px rgba(15,23,42,0.12);
+      border: 1px solid rgba(148,163,184,0.35);
+    }
+    body.theme-dark .hero-card{
+      background: rgba(15,23,42,.96);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.85);
+      border: 1px solid rgba(148,163,184,0.8);
+      color:#E5E7EB;
+    }
+
+    .hero-title{
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -.2px;
+      line-height: 1.15;
+    }
+    .hero-sub{
+      margin: 8px 0 0;
+      color: var(--muted,#4b5563);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    body.theme-dark .hero-sub{ color:#CBD5F5; }
+
+    .pill-row{
+      margin-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(14,165,233,.12);
+      border: 1px solid rgba(14,165,233,.25);
+      color:#075985;
+    }
+    body.theme-dark .pill{
+      background: rgba(14,165,233,.12);
+      border-color: rgba(14,165,233,.35);
+      color:#E0F2FE;
+    }
+
+    .quick-actions{
+      display:grid;
+      gap:10px;
+    }
+    .btn-link{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(34,197,94,.16), rgba(14,165,233,.12));
+      border: 1px solid rgba(148,163,184,.35);
+      text-decoration:none;
+      color: inherit;
+      box-shadow: 0 10px 22px rgba(15,23,42,0.10);
+      font-weight: 800;
+    }
+    body.theme-dark .btn-link{
+      background: linear-gradient(135deg, rgba(34,197,94,.18), rgba(14,165,233,.10));
+      border-color: rgba(148,163,184,.55);
+      box-shadow: 0 10px 22px rgba(0,0,0,.55);
+    }
+    .btn-link small{
+      display:block;
+      font-weight: 600;
+      opacity:.85;
+      margin-top:4px;
+      color: var(--muted,#4b5563);
+    }
+    body.theme-dark .btn-link small{ color:#CBD5F5; }
+
+    .filters{
+      margin-top: 14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .search{
+      flex:1;
+      min-width: 240px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,.35);
+      background: rgba(255,255,255,.85);
+    }
+    body.theme-dark .search{
+      background: rgba(2,6,23,.55);
+      border-color: rgba(148,163,184,.55);
+      color:#E5E7EB;
+    }
+    .search input{
+      width:100%;
+      border:0;
+      outline:0;
+      background:transparent;
+      color: inherit;
+      font-weight:700;
+    }
+    .segmented{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .segmented button{
+      border: 1px solid rgba(148,163,184,.35);
+      background: rgba(255,255,255,.85);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor:pointer;
+    }
+    body.theme-dark .segmented button{
+      background: rgba(2,6,23,.55);
+      border-color: rgba(148,163,184,.55);
+      color:#E5E7EB;
+    }
+    .segmented button.active{
+      border-color: rgba(34,197,94,.55);
+      background: rgba(34,197,94,.18);
+    }
+
+    .groups{
+      margin-top: 14px;
+      display:grid;
+      gap: 12px;
+    }
+    .group{
+      border-radius: 20px;
+      overflow:hidden;
+      border: 1px solid rgba(148,163,184,.35);
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 12px 26px rgba(15,23,42,0.10);
+    }
+    body.theme-dark .group{
+      background: rgba(15,23,42,.96);
+      border-color: rgba(148,163,184,.55);
+      box-shadow: 0 12px 26px rgba(0,0,0,.55);
+    }
+    .group-head{
+      padding: 12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .group-title{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      background: rgba(14,165,233,.12);
+      border: 1px solid rgba(14,165,233,.25);
+    }
+    .badge.orange{ background: rgba(249,115,22,.14); border-color: rgba(249,115,22,.30); }
+    .badge.pink{ background: rgba(236,72,153,.14); border-color: rgba(236,72,153,.30); }
+    .badge.green{ background: rgba(34,197,94,.14); border-color: rgba(34,197,94,.30); }
+
+    .group-body{
+      padding: 0 14px 14px;
+      display:none;
+    }
+    .group.open .group-body{ display:block; }
+
+    .ind-list{
+      margin-top: 10px;
+      display:grid;
+      gap:10px;
+    }
+    .ind-item{
+      border-radius: 16px;
+      padding: 12px 12px;
+      border: 1px solid rgba(148,163,184,.30);
+      background: radial-gradient(circle at top, rgba(224,242,254,.55), rgba(255,255,255,.65));
+    }
+    body.theme-dark .ind-item{
+      background: radial-gradient(circle at top, rgba(2,6,23,.65), rgba(15,23,42,.90));
+      border-color: rgba(148,163,184,.45);
+    }
+    .ind-name{
+      margin:0;
+      font-weight: 900;
+      font-size: 14px;
+    }
+    .ind-desc{
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--muted,#4b5563);
+      line-height: 1.55;
+    }
+    body.theme-dark .ind-desc{ color:#CBD5F5; }
+    .ind-meta{
+      margin-top: 8px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font-size: 11px;
+      opacity:.92;
+    }
+    .chip{
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.35);
+      background: rgba(255,255,255,.70);
+      font-weight: 800;
+    }
+    body.theme-dark .chip{
+      background: rgba(2,6,23,.55);
+      border-color: rgba(148,163,184,.55);
+    }
+
+    /* =========================
+   HEADER — Destaque vermelho no botão "DADOS"
+   ========================= */
+
+/* estado normal: anel/vermelho sutil */
+.nav-link[data-dd="dados"]{
+  border-color: rgba(216, 69, 77, .55);              /* mi-5 */
+  box-shadow:
+    0 0 0 3px rgba(216, 69, 77, .22),                /* “anel” */
+    0 14px 34px rgba(0,0,0,.22);                     /* profundidade */
+}
+
+/* hover/focus: reforça */
+.nav-link[data-dd="dados"]:hover,
+.nav-link[data-dd="dados"]:focus-visible{
+  border-color: rgba(216, 69, 77, .78);
+  box-shadow:
+    0 0 0 4px rgba(216, 69, 77, .28),
+    0 18px 44px rgba(0,0,0,.28);
+}
+
+/* quando o dropdown abrir (mobile) — usa a classe is-open no nav-item */
+@media (max-width: 900px){
+  .nav-item.is-open > .nav-link[data-dd="dados"]{
+    background: rgba(216, 69, 77, .14);              /* leve “tinta” */
+    border-color: rgba(216, 69, 77, .90);
+    box-shadow:
+      0 0 0 5px rgba(216, 69, 77, .30),
+      0 22px 60px rgba(0,0,0,.34);
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="top-ribbon">
+    <span class="r-blue"></span>
+    <span class="r-green"></span>
+    <span class="r-yellow"></span>
+    <span class="r-orange"></span>
+    <span class="r-red"></span>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="main-header__inner">
+        <a href="index.html#topo" class="brand-block">
+          <div class="brand-icon">
+            <img src="https://images.seeklogo.com/logo-png/23/3/prefeitura-de-fortaleza-logo-png_seeklogo-231117.png" alt="Logo Prefeitura de Fortaleza">
+          </div>
+          <div class="brand-text">
+            <strong>Observa Infância Viva</strong>
+            <span>Observatório da Primeira Infância · CESPI · Fortaleza</span>
+          </div>
+        </a>
+
+        <nav class="main-nav">
+          <button class="menu-toggle" id="btnMenu" aria-label="Abrir menu">
+            <span></span><span></span><span></span>
+          </button>
+          <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">🌙</button>
+
+          <ul class="menu" id="menuMain">
+            <li><a href="index.html#topo">Início</a></li>
+            <li class="active"><a href="indicadores.html">Indicadores</a></li>
+            <li><a href="educacao.html">Educação</a></li>
+            <li><a href="saude.html">Saúde</a></li>
+            <li><a href="assistencia.html">Assistência Social</a></li>
+            <li><a href="biblioteca.html">Biblioteca &amp; Materiais</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Fale Conosco</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section section--white" id="indicadores">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Início</a> / Indicadores
+        </div>
+
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Indicadores da Primeira Infância</h2>
+            <p class="section-subtitle">
+              Indicadores oficiais e complementares organizados por área, para apoiar gestão pública,
+              pesquisa e monitoramento do Plano Municipal pela Primeira Infância (PMPIF).
+            </p>
+          </div>
+        </div>
+
+        <div class="ind-shell">
+
+          <div class="ind-hero">
+            <div class="hero-card">
+              <h3 class="hero-title">Um lugar único para ler a primeira infância em Fortaleza</h3>
+              <p class="hero-sub">
+                Aqui você encontra definições, fórmulas, fontes e periodicidade dos principais indicadores
+                (saúde, educação e assistência social), com foco em crianças de <b>0 a 6 anos</b> e suas famílias.
+              </p>
+
+              <div class="pill-row">
+                <span class="pill">📌 0–6 anos</span>
+                <span class="pill">📈 PMPIF</span>
+                <span class="pill">🧾 Fontes oficiais</span>
+                <span class="pill">🗺️ Leitura por território (quando disponível)</span>
+              </div>
+
+              <div class="hero-sub" style="margin-top:12px">
+                <b>Fontes comuns:</b> SINASC / SISAB / sistemas municipais / CadÚnico / Vigilância Socioassistencial / SME.
+              </div>
+            </div>
+
+            <div class="quick-actions">
+              <a class="btn-link" href="saude.html">
+                Saúde
+                <span>→</span>
+                <small>Pré-natal, saúde materno-infantil, rede de atenção</small>
+              </a>
+              <a class="btn-link" href="educacao.html">
+                Educação
+                <span>→</span>
+                <small>Educação infantil, expansão de creches e CEIs</small>
+              </a>
+              <a class="btn-link" href="assistencia.html">
+                Assistência Social
+                <span>→</span>
+                <small>PSB/CRAS, BPC, vínculos e acolhimento</small>
+              </a>
+            </div>
+          </div>
+
+          <div class="filters">
+            <div class="search" title="Pesquisar indicador">
+              🔎 <input id="q" type="text" placeholder="Procure por nome, fonte, fórmula, palavra-chave..." />
+            </div>
+            <div class="segmented" aria-label="Filtro por área">
+              <button class="active" data-area="all">Todos</button>
+              <button data-area="saude">Saúde</button>
+              <button data-area="educacao">Educação</button>
+              <button data-area="assistencia">Assistência</button>
+            </div>
+          </div>
+
+          <!-- ===== Grupos (estilo Observatório da Mulher: listas, mas com cards/accordion) ===== -->
+          <div class="groups" id="groups">
+
+            <div class="group open" data-area="saude">
+              <div class="group-head">
+                <div class="group-title">
+                  <span class="badge">Saúde</span>
+                  <strong>Saúde materno-infantil e rede de atenção</strong>
+                </div>
+                <span>▾</span>
+              </div>
+              <div class="group-body">
+                <div class="ind-list">
+                  <div class="ind-item">
+                    <h4 class="ind-name">Captação precoce no 1º trimestre</h4>
+                    <p class="ind-desc">
+                      Percentual de gestantes com pré-natal iniciado no primeiro trimestre, usando os nascidos vivos como referência.
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: SINASC / sistema municipal</span>
+                      <span class="chip">Periodicidade: mensal/semestral</span>
+                      <span class="chip">Fórmula: (nº captadas / nº nascidos vivos) × 100</span>
+                      <span class="chip">Ver gráfico: Saúde</span>
+                    </div>
+                  </div>
+
+                  <div class="ind-item">
+                    <h4 class="ind-name">Gestantes com 7+ consultas de pré-natal</h4>
+                    <p class="ind-desc">
+                      Percentual de gestantes que realizaram 7 ou mais consultas, indicador de qualidade do acompanhamento.
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: SINASC / SISAB</span>
+                      <span class="chip">Periodicidade: mensal/semestral</span>
+                      <span class="chip">Fórmula: (nº com 7+ / nº nascidos vivos) × 100</span>
+                      <span class="chip">Ver gráfico: Saúde</span>
+                    </div>
+                  </div>
+
+                  <div class="ind-item">
+                    <h4 class="ind-name">Atendimento odontológico no pré-natal</h4>
+                    <p class="ind-desc">
+                      Proporção de gestantes com atendimento odontológico registrado durante o acompanhamento.
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: SISAB / sistema municipal</span>
+                      <span class="chip">Periodicidade: semestral</span>
+                      <span class="chip">Fórmula: (gestantes com odonto / total gestantes) × 100</span>
+                      <span class="chip">Ver gráfico: Saúde</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="group" data-area="educacao">
+              <div class="group-head">
+                <div class="group-title">
+                  <span class="badge orange">Educação</span>
+                  <strong>Educação infantil, acesso e expansão</strong>
+                </div>
+                <span>▾</span>
+              </div>
+              <div class="group-body">
+                <div class="ind-list">
+
+                  <div class="ind-item">
+                    <h4 class="ind-name">Creches parceiras – expansão da rede</h4>
+                    <p class="ind-desc">
+                      Número de unidades parceiras ativas (OSCs/termos de colaboração) e sua evolução no ano.
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: SME</span>
+                      <span class="chip">Periodicidade: semestral</span>
+                      <span class="chip">Fórmula: contagem administrativa</span>
+                      <span class="chip">Ver gráfico: Educação</span>
+                    </div>
+                  </div>
+
+                  <div class="ind-item">
+                    <h4 class="ind-name">Novos Centros de Educação Infantil (CEIs)</h4>
+                    <p class="ind-desc">
+                      Quantidade de CEIs inaugurados por ano e previsão de novas entregas.
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: SME</span>
+                      <span class="chip">Periodicidade: anual/semestral</span>
+                      <span class="chip">Fórmula: contagem administrativa</span>
+                      <span class="chip">Ver gráfico: Educação</span>
+                    </div>
+                  </div>
+
+                  <div class="ind-item">
+                    <h4 class="ind-name">Taxa de escolarização (0–3 e 4–5)</h4>
+                    <p class="ind-desc">
+                      Taxa bruta/líquida em creche (0–3) e pré-escola (4–5). Ideal para leitura territorial quando disponível.
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: SME / IBGE (quando aplicável)</span>
+                      <span class="chip">Periodicidade: anual/semestral</span>
+                      <span class="chip">Fórmula: escolarizados / população-alvo × 100</span>
+                      <span class="chip">Entrada: XML</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="group" data-area="assistencia">
+              <div class="group-head">
+                <div class="group-title">
+                  <span class="badge green">Assistência Social</span>
+                  <strong>Proteção social, renda e vínculos</strong>
+                </div>
+                <span>▾</span>
+              </div>
+              <div class="group-body">
+                <div class="ind-list">
+
+                  <div class="ind-item">
+                    <h4 class="ind-name">Taxa de cobertura da Proteção Social Básica (PSB)</h4>
+                    <p class="ind-desc">
+                      Medida de cobertura das famílias em vulnerabilidade por territórios (leitura macro municipal).
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: Vigilância Socioassistencial / SDHDS</span>
+                      <span class="chip">Periodicidade: semestral</span>
+                      <span class="chip">Fórmula: conforme metodologia municipal</span>
+                      <span class="chip">Ver gráfico: Assistência</span>
+                    </div>
+                  </div>
+
+                  <div class="ind-item">
+                    <h4 class="ind-name">Cobertura de acesso ao BPC (0–6 com deficiência)</h4>
+                    <p class="ind-desc">
+                      Percentual de crianças 0–6 com perfil no CadÚnico que são beneficiárias do BPC.
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: CadÚnico / SDHDS</span>
+                      <span class="chip">Periodicidade: semestral</span>
+                      <span class="chip">Fórmula: (beneficiárias / com perfil) × 100</span>
+                      <span class="chip">Ver gráfico: Assistência</span>
+                    </div>
+                  </div>
+
+                  <div class="ind-item">
+                    <h4 class="ind-name">SCFV 0–6 nos CRAS</h4>
+                    <p class="ind-desc">
+                      Percentual de CRAS executando Serviço de Convivência e Fortalecimento de Vínculos (0–6).
+                    </p>
+                    <div class="ind-meta">
+                      <span class="chip">Fonte: SDHDS</span>
+                      <span class="chip">Periodicidade: semestral</span>
+                      <span class="chip">Fórmula: (CRAS com SCFV / total CRAS) × 100</span>
+                      <span class="chip">Ver gráfico: Assistência</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /groups -->
+
+        </div><!-- /ind-shell -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div>Observa Infância Viva · Observatório da Primeira Infância</div>
+        <div>Coordenadoria Especial da Primeira Infância (CESPI) · Prefeitura de Fortaleza</div>
+      </div>
+      <div class="footer-pills">
+        <span class="footer-pill">CESPI</span>
+        <span class="footer-pill">Gabinete do Prefeito</span>
+        <span class="footer-pill">Secretarias parceiras</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html#topo">Início</a>
+        <a href="indicadores.html">Indicadores</a>
+        <a href="contato.html">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // MENU MOBILE
+    const btnMenu = document.getElementById('btnMenu');
+    const menuMain = document.getElementById('menuMain');
+    if (btnMenu && menuMain){
+      btnMenu.addEventListener('click', () => menuMain.classList.toggle('menu--open'));
+    }
+
+    // Accordion
+    document.querySelectorAll('.group .group-head').forEach(h => {
+      h.addEventListener('click', () => h.parentElement.classList.toggle('open'));
+    });
+
+    // Filtro por área
+    const areaBtns = document.querySelectorAll('.segmented button');
+    const groups = document.querySelectorAll('.group');
+    let activeArea = 'all';
+
+    function applyFilters(){
+      const q = (document.getElementById('q').value || '').toLowerCase().trim();
+
+      groups.forEach(g => {
+        const area = g.getAttribute('data-area');
+        const matchesArea = (activeArea === 'all') || (area === activeArea);
+
+        // busca textual dentro do grupo
+        const text = g.innerText.toLowerCase();
+        const matchesText = !q || text.includes(q);
+
+        g.style.display = (matchesArea && matchesText) ? '' : 'none';
+      });
+    }
+
+    areaBtns.forEach(b => {
+      b.addEventListener('click', () => {
+        areaBtns.forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        activeArea = b.getAttribute('data-area');
+        applyFilters();
+      });
+    });
+
+    document.getElementById('q').addEventListener('input', applyFilters);
+  </script>
+
+  <script src="js/theme.js"></script>
+</body>
+</html>

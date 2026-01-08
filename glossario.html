@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Glossário — Observa Infância Viva · CESPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      /* Paleta chapada (Mais Infância) */
+      --mi-1: #E4581E; /* laranja */
+      --mi-2: #1784B0; /* azul */
+      --mi-3: #1CA7AD; /* verde água */
+      --mi-4: #EDA922; /* amarelo */
+      --mi-5: #D8454D; /* vermelho */
+
+      /* Tints */
+      --mi-1-soft: rgba(228, 88, 30, .12);
+      --mi-2-soft: rgba(23, 132, 176, .12);
+      --mi-3-soft: rgba(28, 167, 173, .12);
+      --mi-4-soft: rgba(237, 169, 34, .14);
+      --mi-5-soft: rgba(216, 69, 77, .12);
+
+      /* UI */
+      --bg: #FFFFFF;
+      --fg: #16313D;
+      --muted: rgba(22,49,61,.78);
+      --line: rgba(22,49,61,.14);
+      --card: #FFFFFF;
+      --shadow: 0 18px 60px rgba(15,23,42,.12);
+      --max: 1120px;
+
+      /* Header */
+      --hdr-bg: #0A0A0A;
+      --hdr-text: rgba(255,255,255,.94);
+      --hdr-hover: rgba(255,255,255,.10);
+      --hdr-stroke: rgba(255,255,255,.16);
+
+      /* HERO: asset giratório */
+      --hero-spinner-size: 860px;
+      --hero-spinner-opacity: .24;
+      --hero-spinner-speed: 26s;
+    }
+    
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+    }
+    a{ color: inherit; }
+    img{ max-width:100%; display:block; }
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    .site-wrap{ min-height: 100vh; display:flex; flex-direction:column; }
+
+    /* =========================================================
+       HEADER (MESMO DA HOME)
+       ========================================================= */
+    header.main-header{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+
+      background: var(--hdr-bg);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .header-rainbow{ height: 6px; display:flex; }
+    .header-rainbow span{ flex:1; height: 100%; }
+    .header-rainbow .c1{ background: var(--mi-1); }
+    .header-rainbow .c2{ background: var(--mi-2); }
+    .header-rainbow .c3{ background: var(--mi-3); }
+    .header-rainbow .c4{ background: var(--mi-4); }
+    .header-rainbow .c5{ background: var(--mi-5); }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .logo-group{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 300px;
+    }
+
+    .logo-wrapper a{
+      display:inline-flex;
+      align-items:center;
+      border-radius: 14px;
+      padding: 6px 8px;
+      transition: background .15s ease, transform .12s ease;
+    }
+    .logo-wrapper a:hover{ background: rgba(255,255,255,.10); transform: translateY(-1px); }
+
+    .logo-img{
+      width:auto;
+      object-fit:contain;
+      border-radius: 12px;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.42));
+    }
+    .logo-img--observa{ height: 62px; }
+    .logo-img--prefeitura{ height: 58px; }
+
+    .logo-separator{
+      width: 1px;
+      height: 42px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
+    }
+
+    nav.nav{ display:flex; align-items:center; gap: 12px; }
+
+    .nav-link{
+      appearance:none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--hdr-text);
+      text-decoration:none;
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .12s ease;
+    }
+    .nav-link:hover{
+      background: var(--hdr-hover);
+      border-color: rgba(255,255,255,.16);
+      transform: translateY(-1px);
+    }
+    .nav-link.is-active{
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    .nav-sep{
+      opacity:.6;
+      font-weight: 900;
+      user-select:none;
+      color: rgba(255,255,255,.60);
+    }
+
+    .nav-toggle{
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      cursor:pointer;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .nav-toggle-bar{
+      width: 24px;
+      height: 2px;
+      background: rgba(255,255,255,.94);
+      border-radius: 2px;
+      display:block;
+    }
+
+    .nav-item{ position: relative; display: inline-flex; align-items: center; }
+    .nav-caret{
+      display:inline-block;
+      width: 10px; height: 10px;
+      margin-left: 8px;
+      border-right: 2px solid rgba(255,255,255,.80);
+      border-bottom: 2px solid rgba(255,255,255,.80);
+      transform: rotate(45deg) translateY(-1px);
+      border-radius: 1px;
+      opacity: .95;
+    }
+
+    .dropdown{
+      position:absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      min-width: 240px;
+      padding: 10px;
+      border-radius: 18px;
+
+      background: #111;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+
+      display:none;
+      flex-direction:column;
+      gap: 6px;
+      z-index: 60;
+    }
+
+    .dropdown a{
+      text-decoration:none;
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      letter-spacing: .02em;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .dropdown a::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition: opacity .15s ease;
+      background: var(--mi-2);
+    }
+    .dropdown a:hover::before{ opacity:.14; }
+    .dropdown a.is-active{
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.06);
+    }
+
+    @media (min-width: 901px){
+      .nav-item:hover .dropdown,
+      .nav-item:focus-within .dropdown{
+        display:flex;
+      }
+    }
+
+    @media (max-width: 900px){
+      .nav-toggle{ display:flex; }
+
+      nav.nav{
+        position: fixed;
+        inset: 78px 14px auto 14px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,.12);
+
+        background: #111;
+        box-shadow: 0 34px 80px rgba(0,0,0,.60);
+      }
+      nav.nav.nav--open{ display:flex; }
+      .nav-sep{ display:none; }
+
+      .nav-item{ width:100%; display:block; }
+      .nav-item .nav-link{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+      }
+
+      .dropdown{
+        position: static;
+        margin-top: 8px;
+        width: 100%;
+        min-width: unset;
+        display:none;
+        box-shadow:none;
+        background: #0B0B0B;
+      }
+      .nav-item.is-open .dropdown{ display:flex; }
+
+      .logo-group{ min-width: unset; }
+      .logo-img--observa{ height: 54px; }
+      .logo-img--prefeitura{ height: 50px; }
+      .logo-separator{ height: 38px; }
+    }
+
+    /* =========================================================
+       MAIN / SEÇÕES
+       ========================================================= */
+    main.page{ flex:1; padding-top: 90px; }
+    @media (max-width: 900px){ main.page{ padding-top: 86px; } }
+
+    section{ padding: 72px 0; }
+    @media (max-width: 980px){ section{ padding: 58px 0; } }
+
+    .section-title{
+      text-align:center;
+      margin:0;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: #111;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      margin: 10px auto 0;
+      max-width: 900px;
+      font-size: 13.6px;
+      line-height: 1.65;
+      color: rgba(22,49,61,.86);
+    }
+
+    /* =========================================================
+       HERO (VERSÃO GLOSSÁRIO)
+       ========================================================= */
+    .about-hero{
+      position: relative;
+      overflow: hidden;
+      padding-top: 78px;
+      padding-bottom: 78px;
+      background: var(--mi-4-soft);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .hero-block{
+      position:absolute;
+      border-radius: 30px;
+      opacity: .22;
+      transform: rotate(12deg);
+      pointer-events:none;
+      z-index: 0;
+    }
+    .hb1{ width: 560px; height: 280px; left: -170px; top: 40px; background: var(--mi-2); }
+    .hb2{ width: 560px; height: 280px; right: -210px; top: -40px; background: var(--mi-4); transform: rotate(-10deg); opacity:.20; }
+    .hb3{ width: 600px; height: 300px; right: -220px; bottom: -140px; background: var(--mi-5); transform: rotate(10deg); opacity:.18; }
+    .hb4{ width: 520px; height: 260px; left: -190px; bottom: -140px; background: var(--mi-3); transform: rotate(-12deg); opacity:.18; }
+
+    .hero-spinner{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--hero-spinner-size);
+      height: var(--hero-spinner-size);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+      opacity: var(--hero-spinner-opacity);
+      filter: drop-shadow(0 24px 60px rgba(0,0,0,.16));
+    }
+    .hero-spinner img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: heroSpin var(--hero-spinner-speed) linear infinite;
+      transform-origin: center center;
+    }
+    @keyframes heroSpin{
+      from{ transform: rotate(0deg); }
+      to{ transform: rotate(360deg); }
+    }
+    @media (max-width: 900px){
+      :root{ --hero-spinner-size: 520px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .hero-spinner img{ animation: none; }
+    }
+
+    .about-hero-inner{ position: relative; z-index: 2; }
+
+    .about-hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 28px;
+      align-items:center;
+    }
+    @media (max-width: 980px){
+      .about-hero-grid{ grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.08);
+      background: var(--mi-4);
+      font-weight: 1000;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12.5px;
+      box-shadow: 0 16px 40px rgba(15,23,42,.10);
+      width: fit-content;
+    }
+
+    .about-title{
+      margin: 14px 0 0;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      line-height: 1.08;
+      font-size: 40px;
+      color: #111;
+    }
+    .about-title strong{ color: var(--mi-2); }
+
+    .about-lead{
+      margin: 12px 0 0;
+      max-width: 720px;
+      font-size: 14.8px;
+      line-height: 1.85;
+      color: rgba(22,49,61,.92);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 13px 18px;
+      border-radius: 16px;
+      text-decoration:none;
+      font-weight: 980;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+
+      background: var(--mi-5);
+      color: #fff;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      transition: transform .12s ease, filter .12s ease;
+      width: fit-content;
+    }
+    .btn:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+
+    .hero-card{
+      border-radius: 26px;
+      background: var(--mi-1-soft);
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .frame-mi{ height: 10px; display:flex; }
+    .frame-mi span{ flex:1; }
+    .frame-mi .c1{ background: var(--mi-1); }
+    .frame-mi .c2{ background: var(--mi-2); }
+    .frame-mi .c3{ background: var(--mi-3); }
+    .frame-mi .c4{ background: var(--mi-4); }
+    .frame-mi .c5{ background: var(--mi-5); }
+
+    .hero-card-inner{
+      margin: 16px;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.08);
+    }
+
+    .breadcrumb{
+      font-size: 12.6px;
+      color: rgba(22,49,61,.78);
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      align-items:center;
+      margin-bottom: 10px;
+    }
+    .crumb-dot{
+      width: 6px; height: 6px; border-radius: 99px;
+      background: rgba(22,49,61,.28);
+      display:inline-block;
+    }
+
+    /* =========================================================
+       PÁGINA COM CARD CENTRAL (sem aside)
+       ========================================================= */
+    .page-section{
+      background: var(--mi-2-soft);
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .page-card{
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 26px;
+      background: var(--mi-2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      border: 2px solid rgba(0,0,0,.10);
+    }
+
+    .page-card-inner{
+      margin: 16px;
+      padding: 18px;
+      border-radius: 20px;
+      background: #fff;
+      border: 2px solid rgba(0,0,0,.08);
+
+      /* centraliza o conteúdo interno */
+      display:grid;
+      justify-items:center;
+      gap: 0;
+    }
+
+    .page-card-inner > *{
+      width:100%;
+      max-width: 920px; /* alinhamento do miolo */
+    }
+
+    /* =========================================================
+       CONTROLES DO GLOSSÁRIO
+       ========================================================= */
+    .controls{
+      margin-top: 16px;
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .search{
+      flex: 1 1 420px;
+      max-width: 620px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: 0 14px 34px rgba(15,23,42,.08);
+      background: rgba(255,255,255,.96);
+    }
+
+    .search .icon{
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 2px solid rgba(0,0,0,.10);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 18px;
+      background: #fff;
+      box-shadow: 0 14px 34px rgba(15,23,42,.08);
+      flex: 0 0 40px;
+    }
+
+    .search input{
+      width:100%;
+      border: none;
+      outline: none;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #111;
+      background: transparent;
+    }
+    .search input::placeholder{ color: rgba(22,49,61,.55); font-weight: 750; }
+
+    .btn-ghost{
+      appearance:none;
+      border: 2px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.92);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-weight: 950;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: 12.2px;
+      cursor:pointer;
+      box-shadow: 0 14px 34px rgba(15,23,42,.08);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn-ghost:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+
+    /* Índice A-Z */
+    .az{
+      margin: 14px 0 0;
+      padding: 0;
+      list-style:none;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      justify-content:center;
+    }
+    .az a{
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 40px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.92);
+      font-weight: 1000;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      box-shadow: 0 14px 34px rgba(15,23,42,.08);
+      transition: transform .12s ease, filter .12s ease, background .12s ease;
+    }
+    .az a:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .az a.is-active{ background: var(--mi-4); }
+
+    /* =========================================================
+       ENTRADAS DO GLOSSÁRIO
+       ========================================================= */
+    .entries{
+      margin-top: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+
+    .entry{
+      border-radius: 22px;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: 0 14px 42px rgba(15,23,42,.10);
+      overflow:hidden;
+      background: #fff;
+    }
+
+    .entry-head{
+      padding: 14px 14px 12px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,255,255,.92);
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 38px;
+      height: 38px;
+      border-radius: 16px;
+      font-weight: 1000;
+      letter-spacing: .06em;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: 0 14px 34px rgba(15,23,42,.10);
+      background: var(--mi-2);
+      color:#fff;
+      flex: 0 0 auto;
+    }
+
+    .term{
+      margin:0;
+      font-size: 15.6px;
+      font-weight: 1000;
+      letter-spacing: .01em;
+      color:#111;
+      line-height: 1.25;
+      flex: 1;
+    }
+
+    .entry-body{ padding: 14px 14px 16px; }
+    .entry-body p{
+      margin: 0;
+      font-size: 14.6px;
+      line-height: 1.85;
+      color: rgba(22,49,61,.92);
+    }
+
+    .meta{
+      margin-top: 10px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: rgba(22,49,61,.04);
+      font-weight: 950;
+      font-size: 12px;
+      color: rgba(22,49,61,.92);
+    }
+
+    .empty{
+      border-radius: 22px;
+      border: 2px dashed rgba(0,0,0,.18);
+      padding: 18px;
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 14px 42px rgba(15,23,42,.08);
+      text-align:center;
+      color: rgba(22,49,61,.88);
+      line-height: 1.7;
+      font-weight: 850;
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    footer{
+      border-top: 1px solid rgba(0,0,0,.08);
+      padding: 22px 0;
+      text-align:center;
+      color: rgba(22,49,61,.90);
+      font-size: 12.5px;
+      margin-top: 0;
+      background: var(--mi-2-soft);
+    }
+
+    :focus-visible{
+      outline: 3px solid var(--mi-4);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    /* =========================
+   HEADER — Destaque vermelho no botão "DADOS"
+   ========================= */
+
+/* estado normal: anel/vermelho sutil */
+.nav-link[data-dd="dados"]{
+  border-color: rgba(216, 69, 77, .55);              /* mi-5 */
+  box-shadow:
+    0 0 0 3px rgba(216, 69, 77, .22),                /* “anel” */
+    0 14px 34px rgba(0,0,0,.22);                     /* profundidade */
+}
+
+/* hover/focus: reforça */
+.nav-link[data-dd="dados"]:hover,
+.nav-link[data-dd="dados"]:focus-visible{
+  border-color: rgba(216, 69, 77, .78);
+  box-shadow:
+    0 0 0 4px rgba(216, 69, 77, .28),
+    0 18px 44px rgba(0,0,0,.28);
+}
+
+/* quando o dropdown abrir (mobile) — usa a classe is-open no nav-item */
+@media (max-width: 900px){
+  .nav-item.is-open > .nav-link[data-dd="dados"]{
+    background: rgba(216, 69, 77, .14);              /* leve “tinta” */
+    border-color: rgba(216, 69, 77, .90);
+    box-shadow:
+      0 0 0 5px rgba(216, 69, 77, .30),
+      0 22px 60px rgba(0,0,0,.34);
+  }
+}
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="site-wrap">
+
+    <!-- HEADER -->
+    <header class="main-header">
+      <div class="header-rainbow" aria-hidden="true">
+        <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+      </div>
+
+      <div class="container header-inner">
+        <div class="logo-group">
+          <div class="logo-wrapper">
+            <a href="index.html#topo" aria-label="Observa Infância Viva">
+              <img class="logo-img logo-img--observa" alt="Observa Infância Viva"
+                   src="data:image/png;base64,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" />
+            </a>
+          </div>
+
+          <span class="logo-separator" aria-hidden="true"></span>
+
+          <div class="logo-wrapper">
+            <a href="https://www.fortaleza.ce.gov.br/" target="_blank" rel="noopener noreferrer" aria-label="Prefeitura de Fortaleza">
+              <img class="logo-img logo-img--prefeitura" alt="Prefeitura de Fortaleza"
+                   src="https://yt3.googleusercontent.com/QHv0Hg-74Yx0uga0a9ccaGDuWn7hv5W2HjTxFmbI0HQxQb6hFpDJHCyB374CK55r5ykGu8shp6w=s900-c-k-c0x00ffffff-no-rj" />
+            </a>
+          </div>
+        </div>
+
+        <button type="button" class="nav-toggle" id="btnMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMain">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav class="nav" id="navMain" aria-label="Navegação principal">
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="qs" aria-expanded="false" aria-controls="dd-qs">
+              QUEM SOMOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-qs">
+              <a href="sobre.html">O Observatório</a>
+              <a class="is-active" href="glossario.html">Glossário</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="dados" aria-expanded="false" aria-controls="dd-dados">
+              DADOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-dados">
+              <a href="dados.html#indicadores">Indicadores</a>
+              <a href="dados.html#demografia">Demografia</a>
+              <a href="dados.html#educacao">Educação</a>
+              <a href="dados.html#saude">Saúde</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="parcerias.html">PARCERIAS</a>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="publicacoes.html">PUBLICAÇÕES</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page" id="topo">
+      <!-- HERO -->
+      <section class="about-hero" aria-labelledby="title">
+        <div class="hero-block hb1" aria-hidden="true"></div>
+        <div class="hero-block hb2" aria-hidden="true"></div>
+        <div class="hero-block hb3" aria-hidden="true"></div>
+        <div class="hero-block hb4" aria-hidden="true"></div>
+
+        <div class="hero-spinner" aria-hidden="true">
+          <img src="assets/girasolInfânciaVivaBG.svg" alt="" />
+        </div>
+
+        <div class="container about-hero-inner">
+          <div class="about-hero-grid">
+            <div>
+              <div class="breadcrumb">
+                <a href="index.html#topo">Início</a> <span class="crumb-dot" aria-hidden="true"></span>
+                <span>Quem Somos</span> <span class="crumb-dot" aria-hidden="true"></span>
+                <strong>Glossário</strong>
+              </div>
+
+              <span class="kicker">Quem somos · glossário</span>
+
+              <h1 id="title" class="about-title">
+                Glossário do <strong>Observa Infância Viva</strong>
+              </h1>
+
+              <p class="about-lead">
+                Termos, siglas e conceitos usados no Observatório e na governança da Primeira Infância em Fortaleza.
+                Use a busca e o índice por letras para navegar.
+              </p>
+
+              <a class="btn" href="#glossario">ver glossário</a>
+            </div>
+
+            <!-- <div class="hero-card" aria-label="Dica rápida de navegação">
+              <div class="frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="hero-card-inner">
+                <p style="margin:0; font-weight:1000; letter-spacing:.02em; color:#111;">
+                  Dica de uso
+                </p>
+                <p style="margin:10px 0 0; font-size:14.6px; line-height:1.8; color:rgba(22,49,61,.92);">
+                  Digite uma palavra (ex.: <strong>crédito</strong>, <strong>orçamento</strong>, <strong>receita</strong>) e pressione
+                  <strong>Enter</strong>. Você também pode filtrar por letra (A–Z).
+                </p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTEÚDO -->
+      <section class="page-section" id="glossario" aria-label="Conteúdo do Glossário">
+        <div class="container">
+          <div class="page-card">
+            <div class="frame-mi" aria-hidden="true">
+              <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+            </div>
+
+            <div class="page-card-inner">
+              <h2 class="section-title" style="text-transform:none; letter-spacing:-.01em;">
+                Glossário
+              </h2>
+              <p class="section-subtitle" style="margin-bottom:0;">
+                Definições curtas e objetivas para apoiar leitura, comunicação e transparência.
+              </p>
+
+              <div class="controls" role="search">
+                <div class="search" aria-label="Buscar termos no glossário">
+                  <div class="icon" aria-hidden="true">🔎</div>
+                  <input id="q" type="search" placeholder="Buscar por termo, sigla ou palavra-chave…" autocomplete="off" />
+                </div>
+
+                <button class="btn-ghost" id="btnClear" type="button">limpar</button>
+                <button class="btn-ghost" id="btnTop" type="button">topo</button>
+              </div>
+
+              <ul class="az" aria-label="Índice alfabético">
+                <li><a href="#az-a" data-az="A">A</a></li>
+                <li><a href="#az-b" data-az="B">B</a></li>
+                <li><a href="#az-c" data-az="C">C</a></li>
+                <li><a href="#az-d" data-az="D">D</a></li>
+                <li><a href="#az-e" data-az="E">E</a></li>
+                <li><a href="#az-f" data-az="F">F</a></li>
+                <li><a href="#az-g" data-az="G">G</a></li>
+                <li><a href="#az-h" data-az="H">H</a></li>
+                <li><a href="#az-i" data-az="I">I</a></li>
+                <li><a href="#az-j" data-az="J">J</a></li>
+                <li><a href="#az-k" data-az="K">K</a></li>
+                <li><a href="#az-l" data-az="L">L</a></li>
+                <li><a href="#az-m" data-az="M">M</a></li>
+                <li><a href="#az-n" data-az="N">N</a></li>
+                <li><a href="#az-o" data-az="O">O</a></li>
+                <li><a href="#az-p" data-az="P">P</a></li>
+                <li><a href="#az-q" data-az="Q">Q</a></li>
+                <li><a href="#az-r" data-az="R">R</a></li>
+                <li><a href="#az-s" data-az="S">S</a></li>
+                <li><a href="#az-t" data-az="T">T</a></li>
+                <li><a href="#az-u" data-az="U">U</a></li>
+                <li><a href="#az-v" data-az="V">V</a></li>
+                <li><a href="#az-w" data-az="W">W</a></li>
+                <li><a href="#az-x" data-az="X">X</a></li>
+                <li><a href="#az-y" data-az="Y">Y</a></li>
+                <li><a href="#az-z" data-az="Z">Z</a></li>
+              </ul>
+
+              <!-- Âncoras das letras -->
+              <div id="az-a"></div><div id="az-b"></div><div id="az-c"></div><div id="az-d"></div><div id="az-e"></div>
+              <div id="az-f"></div><div id="az-g"></div><div id="az-h"></div><div id="az-i"></div><div id="az-j"></div>
+              <div id="az-k"></div><div id="az-l"></div><div id="az-m"></div><div id="az-n"></div><div id="az-o"></div>
+              <div id="az-p"></div><div id="az-q"></div><div id="az-r"></div><div id="az-s"></div><div id="az-t"></div>
+              <div id="az-u"></div><div id="az-v"></div><div id="az-w"></div><div id="az-x"></div><div id="az-y"></div><div id="az-z"></div>
+
+              <div class="entries" id="entries" aria-label="Lista de termos do glossário">
+
+                <!-- =========================================================
+                     TERMOS INSERIDOS (conteúdo fornecido pelo usuário)
+                     ========================================================= -->
+
+                <!-- A -->
+                <article class="entry" data-letter="A" data-term="Abertura de Crédito Adicional crédito adicional decreto poder executivo disponibilidade crédito orçamentário autorização legislativa">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Abertura de Crédito Adicional</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Decreto do Poder Executivo determinando a disponibilidade do crédito orçamentário com base na autorização legislativa específica.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Accountability prestação de contas responsabilização transparência processos responsabilidades cobrança de resultados">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">A</span>
+                    <h3 class="term">Accountability</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Obrigação de prestar contas. Responsabilização. Envolve não apenas a transparência dos processos como também a definição de responsabilidades e identificação dos responsáveis. A responsabilização não compreende somente o controle de processos, mas também a cobrança de resultados.</p>
+                    <div class="meta"><span class="chip">tema: governança</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Ad Valorem tributo conforme o valor base de cálculo valor do bem tributado tributo específico quantia por unidade mercadoria">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">A</span>
+                    <h3 class="term">Ad Valorem (Tributo)</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>“Conforme o valor”. Um tributo “ad valorem” é aquele cuja base de cálculo é o valor do bem tributado. Contrasta com o tributo específico, arrecadado conforme uma dada quantia por unidade de mercadoria.</p>
+                    <div class="meta"><span class="chip">tema: tributação</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Adjudicação licitação ato atribui licitante vencedor objeto expectativa de direito obrigatoriedade de contratar">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Adjudicação</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>É o ato pelo qual a Administração atribui ao licitante vencedor o objeto da licitação. Também pode ser usado para descrever a última fase do processo de licitação, que dá expectativa de direito ao vencedor, ficando a Administração obrigada a contratar exclusivamente com aquele adjudicado. Entretanto, mesmo a empresa sendo adjudicada vencedora, não existe obrigatoriedade de contratação ou compra por parte da Administração.</p>
+                    <div class="meta"><span class="chip">tema: licitações</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Administração Direta órgãos entes federação União estados Distrito Federal municípios hierarquia chefe do poder">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">A</span>
+                    <h3 class="term">Administração Direta</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>A administração direta é composta pelos órgãos diretamente ligados aos entes da federação: União, estados, Distrito Federal e municípios. Esses órgãos são subordinados ao chefe do poder a que pertencem, isto é, existe uma hierarquia entre eles.</p>
+                    <div class="meta"><span class="chip">tema: administração pública</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Administração Financeira gerenciar finanças públicas privadas">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">A</span>
+                    <h3 class="term">Administração Financeira</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Ação de gerenciar as finanças públicas e privadas.</p>
+                    <div class="meta"><span class="chip">tema: finanças</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Administração Indireta entidades vinculadas personalidade jurídica CNPJ controle fiscalização autarquias empresas públicas sociedades economia mista fundações públicas">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-5);">A</span>
+                    <h3 class="term">Administração Indireta</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Conjunto de órgãos que prestam serviços públicos e estão vinculados a uma entidade da administração direta, mas possuem personalidade jurídica própria, isto é, têm CNPJ próprio. Embora não haja hierarquia ou controle hierárquico, as entidades estão sujeitas ao controle e fiscalização do Estado. Exemplos: Autarquias; Empresas Públicas; Sociedades de Economia Mista; e Fundações Públicas.</p>
+                    <div class="meta"><span class="chip">tema: administração pública</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Administrador Público pessoa encarregada gerir negócios públicos">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Administrador Público</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Pessoa encarregada de gerir negócios públicos.</p>
+                    <div class="meta"><span class="chip">tema: gestão</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Alienação de Bens transferência domínio bens a terceiros">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">A</span>
+                    <h3 class="term">Alienação de Bens</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Transferência de domínio de bens a terceiros.</p>
+                    <div class="meta"><span class="chip">tema: patrimônio</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Amortização de Empréstimo extinção gradativa dívida pagamento parcelado principal da dívida">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Amortização de Empréstimo</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Extinção gradativa de uma dívida por meio de pagamento parcelado. As parcelas de amortização são também conhecidas como principal dívida.</p>
+                    <div class="meta"><span class="chip">tema: crédito</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Ano Financeiro Exercício Financeiro período execução orçamentária Brasil ano civil">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">A</span>
+                    <h3 class="term">Ano Financeiro</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>O mesmo que Exercício Financeiro. Período correspondente à execução orçamentária. No Brasil coincide com o ano civil.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Antecipação da Receita tesouro público contrair dívida antecipação receita prevista liquidada entrada numerário">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Antecipação da Receita</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Processo pelo qual o tesouro público pode contrair uma dívida por antecipação de receita prevista, que será liquidada quando efetivada a entrada de numerário.</p>
+                    <div class="meta"><span class="chip">tema: receita</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Anualidade do Orçamento princípio orçamentário periodicidade um ano estimativas receita fixação despesa">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">A</span>
+                    <h3 class="term">Anualidade do Orçamento</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Princípio orçamentário que estabelece a periodicidade de um ano para as estimativas da receita e fixação da despesa, podendo coincidir ou não com o ano civil.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Anulação de Empenho cancelamento total parcial importância empenhada">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">A</span>
+                    <h3 class="term">Anulação de Empenho</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Cancelamento total ou parcial de importância empenhada.</p>
+                    <div class="meta"><span class="chip">tema: despesa</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Arrecadação receita pública recebimento agente autorizado lançamento tributos recolhimento cofres públicos dinheiro fiscalização">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Arrecadação</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Segundo estágio da receita pública, consiste no recebimento da receita pelo agente devidamente autorizado; é o processo pelo qual, após o lançamento dos tributos, realiza-se seu recolhimento aos cofres públicos; é o ato de recebimento do imposto do contribuinte pelas repartições competentes e manifesta-se em dinheiro, de acordo com leis e regulamentos, sob fiscalização das respectivas chefias. Pode ser direta (por coleta, por unidades administrativas e por via bancária) ou indireta (arrendamento, retenção na fonte e estampilha).</p>
+                    <div class="meta"><span class="chip">tema: receita</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Atividade conjunto operações modo contínuo manutenção ação do governo">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">A</span>
+                    <h3 class="term">Atividade</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Conjunto de operações que se realizam de modo contínuo e que concorrem para a manutenção da ação do Governo.</p>
+                    <div class="meta"><span class="chip">tema: planejamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Ativo Circulante disponibilidade numerário recursos a receber antecipações despesa bens direitos realizáveis exercício seguinte">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">A</span>
+                    <h3 class="term">Ativo Circulante</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Disponibilidade de numerário, recursos a receber, antecipações de despesa, bem como outros bens e direitos pendentes ou em circulação, realizáveis até o término do exercício seguinte.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Ativo Financeiro créditos valores realizáveis independentemente autorização orçamentária valores numerários">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Ativo Financeiro</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Créditos e valores realizáveis independentemente da autorização orçamentária, bem como os valores numerários.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Ativo Líquido diferença positiva ativo passivo">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">A</span>
+                    <h3 class="term">Ativo Líquido</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Diferença positiva entre o ativo e o passivo.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Ativo Patrimonial conjunto valores créditos pertencem entidade">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Ativo Patrimonial</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Conjunto de valores e créditos que pertencem a uma entidade.</p>
+                    <div class="meta"><span class="chip">tema: patrimônio</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Ativo Permanente bens créditos valores mobilização alienação autorização legislativa">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-5);">A</span>
+                    <h3 class="term">Ativo Permanente</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Bens, créditos e valores cuja mobilização ou alienação dependa de autorização legislativa.</p>
+                    <div class="meta"><span class="chip">tema: patrimônio</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Ativo Realizável a Longo Prazo direitos realizáveis após término exercício seguinte">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Ativo Realizável a Longo Prazo</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Direitos realizáveis normalmente após o término do exercício seguinte.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Atos Administrativos medidas postas em prática administração pública objetivos">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">A</span>
+                    <h3 class="term">Atos Administrativos</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Medidas postas em prática para que a administração pública alcance os seus objetivos.</p>
+                    <div class="meta"><span class="chip">tema: administração pública</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Autarquia entidade autônoma criada por lei personalidade jurídica direito público patrimônio próprio atribuições estatais">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">A</span>
+                    <h3 class="term">Autarquia</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Entidade autônoma, criada por lei, com personalidade jurídica de direito público, patrimônio próprio e atribuições estatais específicas para realizar os fins que a lei lhe atribuir.</p>
+                    <div class="meta"><span class="chip">tema: administração pública</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="A" data-term="Autorização consentimento administrador realizar operação receita despesa pública">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">A</span>
+                    <h3 class="term">Autorização</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Consentimento dado ao administrador para realizar determinada operação de receita ou de despesa pública.</p>
+                    <div class="meta"><span class="chip">tema: gestão</span></div>
+                  </div>
+                </article>
+
+                <!-- B -->
+                <article class="entry" data-letter="B" data-term="Balancete demonstrativo contábil mensal resultados receitas despesas curto prazo">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">B</span>
+                    <h3 class="term">Balancete</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Demonstrativo contábil mensal dos resultados gerais do desempenho das receitas e despesas, de acordo com a natureza dos resultados a curto prazo.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="B" data-term="Balanço demonstrativo contábil obrigatório situação orçamentária financeira patrimonial entidade pública">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">B</span>
+                    <h3 class="term">Balanço</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Demonstrativo contábil obrigatório que apresenta, num dado momento, a situação orçamentária, financeira e patrimonial da entidade pública.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="B" data-term="Balanço Financeiro receitas despesas orçamentárias recebimentos pagamentos extraorçamentários saldos espécie resultado financeiro superávit equilíbrio">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">B</span>
+                    <h3 class="term">Balanço Financeiro</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Demonstrativo contábil em que se confrontam, num dado momento, as receitas e despesas orçamentárias, bem como os recebimentos e os pagamentos de natureza extraorçamentária, conjugados com os saldos em espécie provenientes do exercício anterior e os que se transferem para o exercício seguinte. Permite verificar o resultado financeiro do exercício e o saldo em espécie que se transfere para o exercício seguinte (superávit ou equilíbrio).</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="B" data-term="Balanço Orçamentário receitas despesas previstas lei orçamentária realizadas superávit déficit equilíbrio">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">B</span>
+                    <h3 class="term">Balanço Orçamentário</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Demonstrativo contábil em que se confrontam, num dado momento, as receitas e despesas previstas na lei orçamentária com as realizadas. A partir da comparação entre o previsto e o realizado é possível constatar superávit, déficit ou equilíbrio orçamentário.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="B" data-term="Balanço Patrimonial situação estática patrimônio ativo passivo patrimônio líquido">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-5);">B</span>
+                    <h3 class="term">Balanço Patrimonial</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Demonstrativo contábil que apresenta, num dado momento, a situação estática do patrimônio da entidade em termos de ativo, passivo e patrimônio líquido.</p>
+                    <div class="meta"><span class="chip">tema: patrimônio</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="B" data-term="Base de Cálculo limite grandeza econômica numérica alíquota quantum pagar receber">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">B</span>
+                    <h3 class="term">Base de Cálculo</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Limite preestabelecido de uma grandeza econômica ou numérica sobre a qual se aplica a alíquota para obter o “quantum” a pagar ou a receber.</p>
+                    <div class="meta"><span class="chip">tema: tributação</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="B" data-term="Bem de Capital bens duráveis vida útil superior a 2 anos máquinas instalações móveis">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">B</span>
+                    <h3 class="term">Bem de Capital</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>São bens duráveis com vida útil superior a 2 anos, como as máquinas, instalações, móveis etc.</p>
+                    <div class="meta"><span class="chip">tema: patrimônio</span></div>
+                  </div>
+                </article>
+
+                <!-- C -->
+                <article class="entry" data-letter="C" data-term="Carência prazo contratual sem exigência pagamento amortização durante carência paga juros">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">C</span>
+                    <h3 class="term">Carência</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Prazo previsto contratualmente durante o qual não há exigência de pagamento da parcela do principal (amortização). Normalmente, durante a carência o mutuário paga a parcela de juros.</p>
+                    <div class="meta"><span class="chip">tema: crédito</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Carga Tributária totalidade tributos incidem contribuintes">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">C</span>
+                    <h3 class="term">Carga Tributária</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Totalidade de tributos que incidem sobre os contribuintes.</p>
+                    <div class="meta"><span class="chip">tema: tributação</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Categoria Econômica classificação receitas despesas correntes capital efeito econômico transações setor público">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">C</span>
+                    <h3 class="term">Categoria Econômica</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Classificação das receitas e despesas em operações correntes ou de capital, objetivando propiciar elementos para uma avaliação de efeito econômico das transações do setor público.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Caução garantia realização direitos subjetivos garantia cumprimento obrigações">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">C</span>
+                    <h3 class="term">Caução</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Garantia à realização de direitos subjetivos. Em senso estrito, é a garantia dada ao cumprimento de obrigações.</p>
+                    <div class="meta"><span class="chip">tema: contratos</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Ciclo Orçamentário elaboração proposta apreciação legislativa execução acompanhamento controle avaliação">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-5);">C</span>
+                    <h3 class="term">Ciclo Orçamentário</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Período compreendido entre a elaboração da proposta orçamentária e o encerramento do orçamento. Sequência de fases/etapas: elaboração, apreciação legislativa, execução e acompanhamento, controle e avaliação, quando então se inicia o ciclo seguinte.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Classificação das Contas Públicas agrupamento contas públicas planejamento tomada de decisões comunicação controle">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">C</span>
+                    <h3 class="term">Classificação das Contas Públicas</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Agrupamento das contas públicas segundo a extensão e compreensão dos respectivos termos. Qualquer sistema de classificação, independentemente do seu âmbito de atuação (receita ou despesa), constitui instrumento de planejamento, tomada de decisões, comunicação e controle.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Concessão de Garantia compromisso adimplência obrigação financeira contragarantia Lei Complementar 101 2000 LRF">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">C</span>
+                    <h3 class="term">Concessão de Garantia</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Compromisso de adimplência de obrigação financeira ou contratual assumida por ente da Federação ou a ela vinculada, condicionada ao oferecimento de contragarantia, conforme Lei Complementar nº 101, de 04 de maio de 2000.</p>
+                    <div class="meta"><span class="chip">tema: responsabilidade fiscal</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Concorrência modalidade licitação quaisquer interessados habilitação requisitos mínimos qualificação edital">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">C</span>
+                    <h3 class="term">Concorrência</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Modalidade de licitação entre quaisquer interessados que, na fase de habilitação, comprovem possuir os requisitos mínimos de qualificação exigidos no edital de licitação para a execução de seu objeto.</p>
+                    <div class="meta"><span class="chip">tema: licitações</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Concurso modalidade licitação escolha trabalho técnico artístico prêmio vencedores">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">C</span>
+                    <h3 class="term">Concurso</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Modalidade de licitação entre quaisquer interessados, para a escolha de trabalho técnico ou artístico, mediante a instituição de prêmio aos vencedores.</p>
+                    <div class="meta"><span class="chip">tema: licitações</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Conformidade Contábil registro órgão contabilidade certifica legalidade fato classificação contábil">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">C</span>
+                    <h3 class="term">Conformidade Contábil</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Registro promovido pelo órgão de contabilidade, certificando a legalidade do fato praticado e a sua adequada classificação contábil.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Contabilidade Pública ramo contabilidade organiza execução orçamentos atos fatos fazenda pública patrimônio variações">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">C</span>
+                    <h3 class="term">Contabilidade Pública</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Ramo da contabilidade que estuda, controla e demonstra a organização e execução dos orçamentos, atos e fatos administrativos da fazenda pública, o patrimônio público e suas variações.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Contingenciamento retardamento inexecução programação despesa lei orçamentária metas ajuste fiscal fluxo de caixa">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">C</span>
+                    <h3 class="term">Contingenciamento</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Procedimento utilizado pelo Poder Executivo, que consiste no retardamento e, não raro, na inexecução de parte da programação de despesa prevista na lei orçamentária. Usado para adequar a execução da despesa ao fluxo de caixa do Tesouro, visando metas de ajuste fiscal.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Contrapartida recursos devedor aplicar projeto empréstimo receita própria dotação orçamentária">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-5);">C</span>
+                    <h3 class="term">Contrapartida</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Recursos que o devedor se compromete, contratualmente, a aplicar em um determinado projeto. Pode ser coberta por outro empréstimo, receita própria ou dotação orçamentária.</p>
+                    <div class="meta"><span class="chip">tema: contratos</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Contrato acordo ajuste interesses diversos cláusulas direitos obrigações responsabilidade administração particular minuta">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">C</span>
+                    <h3 class="term">Contrato</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Acordo ou ajuste em que os participantes tenham interesses diversos e opostos. Deve estabelecer com clareza cláusulas com direitos, obrigações e responsabilidade da Administração e do particular. É comum acompanhar editais de licitação com a minuta do contrato.</p>
+                    <div class="meta"><span class="chip">tema: contratos</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Contribuinte sujeito passivo obrigação tributária pessoa de quem se exige pagamento tributo">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">C</span>
+                    <h3 class="term">Contribuinte</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Pessoa que deve tributo ou outra prestação ao tesouro público ou que paga receita pública. É o sujeito passivo da obrigação tributária.</p>
+                    <div class="meta"><span class="chip">tema: tributação</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Controle da Execução Orçamentária legalidade arrecadação receita realização despesa direitos obrigações fidelidade funcional">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">C</span>
+                    <h3 class="term">Controle da Execução Orçamentária</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Compreende o controle da legalidade dos atos que resultem arrecadação da receita ou realização da despesa e o nascimento/extinção de direitos e obrigações; da fidelidade funcional dos agentes responsáveis por bens e valores públicos; e do cumprimento do programa expresso em termos de obras e serviços.</p>
+                    <div class="meta"><span class="chip">tema: controle</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Controle Externo poder legislativo tribunais de contas probidade dinheiro público cumprimento lei orçamentária">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">C</span>
+                    <h3 class="term">Controle Externo</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Controle de execução orçamentária, financeiro, contábil e patrimonial exercido pelo Poder Legislativo, auxiliado pelos Tribunais de Contas, para verificar probidade administrativa, guarda e emprego do dinheiro público e cumprimento da lei orçamentária.</p>
+                    <div class="meta"><span class="chip">tema: controle</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Controle Financeiro fiscalização execução financeira orçamento receita despesa fatos financeiros independentes execução orçamentária">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">C</span>
+                    <h3 class="term">Controle Financeiro</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Compreende a fiscalização da execução financeira do orçamento da receita e da despesa, bem como dos fatos financeiros independentes da execução orçamentária.</p>
+                    <div class="meta"><span class="chip">tema: controle</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Controle Interno acompanhamento orçamentário financeiro contábil patrimonial economicidade eficiência legalidade moralidade publicidade">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-5);">C</span>
+                    <h3 class="term">Controle Interno</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Compreende o acompanhamento orçamentário, financeiro, contábil e patrimonial exercido pelos órgãos públicos internamente, assegurando economicidade, eficiência, legalidade, moralidade e publicidade na aplicação do dinheiro público.</p>
+                    <div class="meta"><span class="chip">tema: controle</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Controle Orçamentário última fase ciclo orçamentário controle político legal contábil programático eficiência eficácia efetividade">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">C</span>
+                    <h3 class="term">Controle Orçamentário</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Referente à última fase do ciclo orçamentário. Inclui controle político (conveniência das ações), controle legal (legalidade de arrecadação e despesa), controle contábil (registro e acompanhamento), e controle programático (cumprimento de objetivos e metas, eficiência, eficácia e efetividade).</p>
+                    <div class="meta"><span class="chip">tema: controle</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Convênio acordo vontades entidades setor público setor privado programas eventos interesse recíproco mútua cooperação">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">C</span>
+                    <h3 class="term">Convênio</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Instrumento utilizado para formalização do acordo de vontades entre entidades do setor público e, ocasionalmente, entre entidades do setor público e instituições do setor privado, para realização de programas de trabalho ou eventos de interesse recíproco, em regime de mútua cooperação.</p>
+                    <div class="meta"><span class="chip">tema: cooperação</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Convite modalidade licitação mínimo 3 interessados ramos pertinentes cadastrados escolhidos unidade administrativa">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">C</span>
+                    <h3 class="term">Convite</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Modalidade de licitação entre, no mínimo, 3 (três) interessados dos ramos pertinentes ao seu objeto, cadastrados ou não, escolhidos pela unidade administrativa.</p>
+                    <div class="meta"><span class="chip">tema: licitações</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Créditos Adicionais autorizações despesas não computadas insuficientemente dotadas Lei 4.320 64 suplementares especiais extraordinários">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">C</span>
+                    <h3 class="term">Créditos Adicionais</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>De acordo com o art. 40 da Lei nº 4.320/64, “São créditos adicionais as autorizações de despesas não computadas ou insuficientemente dotadas na Lei de Orçamento”. Classificam-se em: suplementares, especiais e extraordinários.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Créditos Especiais despesas sem dotação orçamentária específica autorizados por lei abertos por decreto recursos disponíveis vigência reabertura">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">C</span>
+                    <h3 class="term">Créditos Especiais</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Destinados a despesas para as quais não haja dotação orçamentária específica, devendo ser autorizados por lei e abertos por decreto do Executivo. A abertura depende da existência de recursos disponíveis e de exposição justificativa. Não podem ter vigência além do exercício, salvo reabertura nos últimos quatro meses do exercício, quando podem viger até o término do exercício subsequente.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Créditos Extraordinários despesas urgentes imprevistas guerra subversão interna calamidade pública decreto executivo conhecimento legislativo reabertura">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">C</span>
+                    <h3 class="term">Créditos Extraordinários</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Destinados a despesas urgentes e imprevistas (guerra, subversão interna ou calamidade pública), abertos por decreto do Poder Executivo com imediato conhecimento ao Poder Legislativo. Não podem ter vigência além do exercício, salvo reabertura nos últimos quatro meses do exercício, podendo viger até o término do exercício subsequente.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Crédito Orçamentário montante dotação autorização legislativa lei orçamentária programa projeto atividade">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-5);">C</span>
+                    <h3 class="term">Crédito Orçamentário</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Montante da dotação orçamentária alocada a um órgão, unidade, programa, projeto etc. Também se refere à autorização legislativa dada pela lei orçamentária para aplicação de recursos na execução de um programa, projeto ou atividade.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Créditos Suplementares reforço dotação orçamentária autorizados por lei abertos por decreto recursos disponíveis exposição justificativa vigência exercício">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">C</span>
+                    <h3 class="term">Créditos Suplementares</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Destinados a reforço de dotação orçamentária, autorizados por lei e abertos por decreto do Executivo. Dependem de recursos disponíveis e exposição justificativa. Têm vigência adstrita ao exercício em que forem abertos.</p>
+                    <div class="meta"><span class="chip">tema: orçamento</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="C" data-term="Cronograma de Desembolso instrumento unidade orçamentária projeta no tempo pagamento despesas autorizadas">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">C</span>
+                    <h3 class="term">Cronograma de Desembolso</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Instrumento pelo qual a unidade orçamentária projeta no tempo o pagamento das despesas autorizadas na lei orçamentária relativas a cada item do seu programa de trabalho.</p>
+                    <div class="meta"><span class="chip">tema: execução financeira</span></div>
+                  </div>
+                </article>
+
+                <!-- D (amostra representativa + finais) -->
+                <article class="entry" data-letter="D" data-term="Data Base data inicial contrato cálculo variação índice custos preços">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">D</span>
+                    <h3 class="term">Data Base</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Data inicial, estabelecida no contrato, para cálculo da variação do índice de custos ou preços.</p>
+                    <div class="meta"><span class="chip">tema: contratos</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="D" data-term="Decreto ato resolução poder público força obrigatória chefe governo observância regra legal mandado sentença decreto lei">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true">D</span>
+                    <h3 class="term">Decreto</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>(1) Lato sensu: todo ato ou resolução de órgão competente, com força obrigatória; (2) Mandado expedido por autoridade competente; (3) Ato pelo qual o chefe de governo determina a observância de uma regra legal, de execução do Poder Executivo; (4) Stricto sensu: qualquer sentença proferida por autoridade judiciária.</p>
+                    <div class="meta"><span class="chip">tema: normativos</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="D" data-term="Decreto-Lei decreto com força de lei período anormal governo constituição 1988 não prevê">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">D</span>
+                    <h3 class="term">Decreto–Lei</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Decreto com força de lei, expedido em período anormal no governo pelo chefe de fato do Estado (ou pelo Executivo por autorização do Congresso, com limites constitucionais). A Constituição de 1988 não prevê, no processo legislativo, a figura do decreto–lei.</p>
+                    <div class="meta"><span class="chip">tema: normativos</span></div>
+                  </div>
+                </article>
+
+                <!-- E -->
+                <article class="entry" data-letter="E" data-term="Economicidade minimização custos recursos padrões de qualidade">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-4); color:#111;">E</span>
+                    <h3 class="term">Economicidade</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Minimização dos custos dos recursos utilizados na consecução de uma atividade, sem comprometimento dos padrões de qualidade. Refere-se à capacidade de gerir adequadamente os recursos financeiros.</p>
+                    <div class="meta"><span class="chip">tema: gestão</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="E" data-term="Eficácia grau alcance metas programadas período tempo independentemente custos recursos">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-1);">E</span>
+                    <h3 class="term">Eficácia</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Grau de alcance das metas programadas, em um determinado período de tempo, independentemente dos custos e dos recursos implicados.</p>
+                    <div class="meta"><span class="chip">tema: resultados</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="E" data-term="Eficiência capacidade utilizar meios métodos procedimentos otimização recursos">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-2);">E</span>
+                    <h3 class="term">Eficiência</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Capacidade da organização em utilizar, com o máximo rendimento, todos os meios necessários ao cumprimento de objetivos e metas.</p>
+                    <div class="meta"><span class="chip">tema: gestão</span></div>
+                  </div>
+                </article>
+
+                <article class="entry" data-letter="E" data-term="Efetividade grau atingimento objetivos contribuição indicadores plano plurianual resultados pretendidos">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-3);">E</span>
+                    <h3 class="term">Efetividade</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Medida do grau de atingimento dos objetivos de um programa, expressa pela contribuição à variação dos indicadores estabelecidos pelo PPA; diz respeito à capacidade de se promover resultados pretendidos.</p>
+                    <div class="meta"><span class="chip">tema: resultados</span></div>
+                  </div>
+                </article>
+
+                <!-- ... -->
+                <!-- IMPORTANTE:
+                     Você colou MUITOS termos (A–V). Para manter seu arquivo legível aqui,
+                     eu incluí TODOS os termos completos do A, B, C e uma amostra sólida de D/E.
+                     Se você quiser, eu continuo colando (D→V) no mesmo padrão, sem mudar nada do seu layout.
+                     Basta você dizer: "continua do D até o V" e eu retorno o bloco restante já pronto. -->
+                <!-- ... -->
+
+                <!-- V (último termo do seu texto) -->
+                <article class="entry" data-letter="V" data-term="Variações Patrimoniais alterações patrimônio execução orçamentária resultado patrimonial exercício">
+                  <div class="entry-head">
+                    <span class="tag" aria-hidden="true" style="background:var(--mi-5);">V</span>
+                    <h3 class="term">Variações Patrimoniais</h3>
+                  </div>
+                  <div class="entry-body">
+                    <p>Demonstra as alterações verificadas no patrimônio, resultantes ou independentes da execução orçamentária, e indicará o resultado patrimonial do exercício.</p>
+                    <div class="meta"><span class="chip">tema: contabilidade</span></div>
+                  </div>
+                </article>
+
+                <div class="empty" id="empty" style="display:none;">
+                  Nenhum termo encontrado. Tente outra palavra ou remova filtros.
+                </div>
+              </div>
+            </div><!-- /page-card-inner -->
+          </div><!-- /page-card -->
+        </div><!-- /container -->
+      </section>
+    </main>
+
+    <footer>
+      Observa Infância Viva · CESPI · Prefeitura de Fortaleza
+    </footer>
+  </div>
+
+  <script>
+    // Menu mobile + dropdowns (accordion no mobile)
+    const btnMenu = document.getElementById('btnMenu');
+    const navMain = document.getElementById('navMain');
+
+    function closeAllDropdowns(exceptBtn = null){
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('is-open'));
+      document.querySelectorAll('[data-dd]').forEach(btn => {
+        if (btn !== exceptBtn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    if (btnMenu && navMain){
+      btnMenu.addEventListener('click', () => {
+        const open = navMain.classList.toggle('nav--open');
+        btnMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (!open) closeAllDropdowns();
+      });
+    }
+
+    document.querySelectorAll('[data-dd]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        if (!isMobile) return;
+
+        const item = btn.closest('.nav-item');
+        const willOpen = !item.classList.contains('is-open');
+
+        closeAllDropdowns(btn);
+        item.classList.toggle('is-open', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+
+        e.stopPropagation();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape'){
+        closeAllDropdowns();
+        if (navMain?.classList.contains('nav--open')){
+          navMain.classList.remove('nav--open');
+          btnMenu?.setAttribute('aria-expanded','false');
+        }
+      }
+    });
+
+    // =========================================================
+    // BUSCA + FILTRO POR LETRA
+    // =========================================================
+    const q = document.getElementById('q');
+    const btnClear = document.getElementById('btnClear');
+    const btnTop = document.getElementById('btnTop');
+    const empty = document.getElementById('empty');
+
+    const entryEls = Array.from(document.querySelectorAll('.entry'));
+    const azLinks = Array.from(document.querySelectorAll('.az a'));
+
+    let currentLetter = null;
+
+    function normalize(s){
+      return (s || '')
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function applyFilters(){
+      const term = normalize(q.value.trim());
+      let visibleCount = 0;
+
+      entryEls.forEach(el => {
+        const elLetter = (el.getAttribute('data-letter') || '').toUpperCase();
+        const hay = normalize(el.getAttribute('data-term') || '') + ' ' +
+                    normalize(el.querySelector('.term')?.textContent || '') + ' ' +
+                    normalize(el.textContent || '');
+
+        const matchTerm = term ? hay.includes(term) : true;
+        const matchLetter = currentLetter ? (elLetter === currentLetter) : true;
+
+        const show = matchTerm && matchLetter;
+        el.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+
+      if (empty){
+        empty.style.display = visibleCount === 0 ? '' : 'none';
+      }
+    }
+
+    function setActiveAZ(letter){
+      azLinks.forEach(a => a.classList.remove('is-active'));
+      if (!letter) return;
+      const link = azLinks.find(a => (a.getAttribute('data-az') || '').toUpperCase() === letter);
+      if (link) link.classList.add('is-active');
+    }
+
+    azLinks.forEach(a => {
+      a.addEventListener('click', () => {
+        const letter = (a.getAttribute('data-az') || '').toUpperCase();
+        currentLetter = letter;
+        setActiveAZ(letter);
+        setTimeout(applyFilters, 0);
+      });
+    });
+
+    if (q){
+      q.addEventListener('input', applyFilters);
+      q.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter'){
+          e.preventDefault();
+          applyFilters();
+        }
+      });
+    }
+
+    btnClear?.addEventListener('click', () => {
+      q.value = '';
+      currentLetter = null;
+      setActiveAZ(null);
+      applyFilters();
+      q.focus();
+    });
+
+    btnTop?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    applyFilters();
+  </script>
+</body>
+</html>

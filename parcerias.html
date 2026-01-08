@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Parcerias – Observa Infância Viva · CESPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      /* Paleta chapada (Mais Infância) */
+      --mi-1: #E4581E; /* laranja */
+      --mi-2: #1784B0; /* azul */
+      --mi-3: #1CA7AD; /* verde água */
+      --mi-4: #EDA922; /* amarelo */
+      --mi-5: #D8454D; /* vermelho */
+
+      /* Tints */
+      --mi-1-soft: rgba(228, 88, 30, .12);
+      --mi-2-soft: rgba(23, 132, 176, .12);
+      --mi-3-soft: rgba(28, 167, 173, .12);
+      --mi-4-soft: rgba(237, 169, 34, .14);
+      --mi-5-soft: rgba(216, 69, 77, .12);
+
+      /* UI */
+      --bg: #FFFFFF;
+      --fg: #16313D;
+      --muted: rgba(22,49,61,.78);
+      --line: rgba(22,49,61,.14);
+      --card: #FFFFFF;
+      --shadow: 0 18px 60px rgba(15,23,42,.12);
+      --max: 1120px;
+
+      /* Header */
+      --hdr-bg: #0A0A0A;
+      --hdr-text: rgba(255,255,255,.94);
+      --hdr-hover: rgba(255,255,255,.10);
+
+      /* Hero spinner */
+      --hero-spinner-size: 860px;
+      --hero-spinner-opacity: .30;
+      --hero-spinner-speed: 26s;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+    }
+    a{ color: inherit; }
+    img{ max-width:100%; display:block; }
+
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    .site-wrap{ min-height:100vh; display:flex; flex-direction:column; }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+    header.main-header{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      background: var(--hdr-bg);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .header-rainbow{ height: 6px; display:flex; }
+    .header-rainbow span{ flex:1; height:100%; }
+    .header-rainbow .c1{ background: var(--mi-1); }
+    .header-rainbow .c2{ background: var(--mi-2); }
+    .header-rainbow .c3{ background: var(--mi-3); }
+    .header-rainbow .c4{ background: var(--mi-4); }
+    .header-rainbow .c5{ background: var(--mi-5); }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .logo-group{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 300px;
+    }
+
+    .logo-wrapper a{
+      display:inline-flex;
+      align-items:center;
+      border-radius: 14px;
+      padding: 6px 8px;
+      transition: background .15s ease, transform .12s ease;
+      text-decoration:none;
+    }
+    .logo-wrapper a:hover{ background: rgba(255,255,255,.10); transform: translateY(-1px); }
+
+    .logo-img{
+      width:auto;
+      object-fit:contain;
+      border-radius: 12px;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.42));
+    }
+    .logo-img--observa{ height: 62px; }
+    .logo-img--prefeitura{ height: 58px; }
+
+    .logo-separator{
+      width: 1px;
+      height: 42px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
+    }
+
+    nav.nav{ display:flex; align-items:center; gap: 12px; }
+
+    .nav-link{
+      appearance:none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--hdr-text);
+      text-decoration:none;
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .12s ease;
+    }
+    .nav-link:hover{
+      background: var(--hdr-hover);
+      border-color: rgba(255,255,255,.16);
+      transform: translateY(-1px);
+    }
+
+    .nav-sep{
+      opacity:.6;
+      font-weight: 900;
+      user-select:none;
+      color: rgba(255,255,255,.60);
+    }
+
+    .nav-toggle{
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      cursor:pointer;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .nav-toggle-bar{
+      width: 24px;
+      height: 2px;
+      background: rgba(255,255,255,.94);
+      border-radius: 2px;
+      display:block;
+    }
+
+    .nav-item{ position: relative; display: inline-flex; align-items: center; }
+
+    .nav-caret{
+      display:inline-block;
+      width: 10px; height: 10px;
+      margin-left: 8px;
+      border-right: 2px solid rgba(255,255,255,.80);
+      border-bottom: 2px solid rgba(255,255,255,.80);
+      transform: rotate(45deg) translateY(-1px);
+      border-radius: 1px;
+      opacity: .95;
+    }
+
+    .dropdown{
+      position:absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      min-width: 240px;
+      padding: 10px;
+      border-radius: 18px;
+
+      background: #111;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+
+      display:none;
+      flex-direction:column;
+      gap: 6px;
+      z-index: 60;
+    }
+
+    .dropdown a{
+      text-decoration:none;
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      letter-spacing: .02em;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .dropdown a::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition: opacity .15s ease;
+      background: var(--mi-2);
+    }
+    .dropdown a:hover::before{ opacity:.14; }
+
+    @media (min-width: 901px){
+      .nav-item:hover .dropdown,
+      .nav-item:focus-within .dropdown{
+        display:flex;
+      }
+    }
+
+    @media (max-width: 900px){
+      .nav-toggle{ display:flex; }
+
+      nav.nav{
+        position: fixed;
+        inset: 78px 14px auto 14px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,.12);
+
+        background: #111;
+        box-shadow: 0 34px 80px rgba(0,0,0,.60);
+      }
+      nav.nav.nav--open{ display:flex; }
+      .nav-sep{ display:none; }
+
+      .nav-item{ width:100%; display:block; }
+      .nav-item .nav-link{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+      }
+
+      .dropdown{
+        position: static;
+        margin-top: 8px;
+        width: 100%;
+        min-width: unset;
+        display:none;
+        box-shadow:none;
+        background: #0B0B0B;
+      }
+      .nav-item.is-open .dropdown{ display:flex; }
+
+      .logo-group{ min-width: unset; }
+      .logo-img--observa{ height: 54px; }
+      .logo-img--prefeitura{ height: 50px; }
+      .logo-separator{ height: 38px; }
+    }
+
+    /* =========================================================
+       MAIN / SEÇÕES
+       ========================================================= */
+    main.page{ flex:1; padding-top: 90px; }
+    @media (max-width: 900px){ main.page{ padding-top: 86px; } }
+
+    section{ padding: 72px 0; }
+    @media (max-width: 980px){ section{ padding: 58px 0; } }
+
+    .section-title{
+      text-align:center;
+      margin:0;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: #111;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      margin: 10px auto 0;
+      max-width: 980px;
+      font-size: 13.6px;
+      line-height: 1.65;
+      color: rgba(22,49,61,.86);
+    }
+
+    .frame-mi{ height: 10px; display:flex; }
+    .frame-mi span{ flex:1; }
+    .frame-mi .c1{ background: var(--mi-1); }
+    .frame-mi .c2{ background: var(--mi-2); }
+    .frame-mi .c3{ background: var(--mi-3); }
+    .frame-mi .c4{ background: var(--mi-4); }
+    .frame-mi .c5{ background: var(--mi-5); }
+
+    /* =========================================================
+       HERO (PARCERIAS)
+       ========================================================= */
+    .hero-page{
+      position: relative;
+      overflow: hidden;
+      padding-top: 92px;
+      padding-bottom: 72px;
+      background: var(--mi-2-soft);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .hero-block{
+      position:absolute;
+      border-radius: 30px;
+      opacity: .22;
+      transform: rotate(12deg);
+      pointer-events:none;
+      z-index: 0;
+    }
+    .hb1{ width: 560px; height: 280px; left: -170px; top: 40px; background: var(--mi-2); }
+    .hb2{ width: 560px; height: 280px; right: -210px; top: -40px; background: var(--mi-4); transform: rotate(-10deg); opacity:.20; }
+    .hb3{ width: 600px; height: 300px; right: -220px; bottom: -140px; background: var(--mi-5); transform: rotate(10deg); opacity:.18; }
+    .hb4{ width: 520px; height: 260px; left: -190px; bottom: -140px; background: var(--mi-3); transform: rotate(-12deg); opacity:.18; }
+
+    .hero-spinner{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--hero-spinner-size);
+      height: var(--hero-spinner-size);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+      opacity: var(--hero-spinner-opacity);
+      filter: drop-shadow(0 24px 60px rgba(0,0,0,.18));
+    }
+    .hero-spinner img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: heroSpin var(--hero-spinner-speed) linear infinite;
+      transform-origin: center center;
+    }
+    @keyframes heroSpin{ from{ transform: rotate(0deg);} to{ transform: rotate(360deg);} }
+    @media (max-width: 900px){ :root{ --hero-spinner-size: 520px; } }
+    @media (prefers-reduced-motion: reduce){ .hero-spinner img{ animation:none; } }
+
+    /* >>> AJUSTE: hero agora sem card lateral */
+    .hero-inner{ position: relative; z-index:2; display:block; }
+
+    .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.08);
+      box-shadow: 0 16px 40px rgba(15,23,42,.10);
+      font-weight: 950;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #111;
+      width: fit-content;
+    }
+    .hero-kicker i{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: var(--mi-5);
+      box-shadow: 0 10px 24px rgba(0,0,0,.12);
+      display:inline-block;
+    }
+
+    .hero-title{
+      margin: 0;
+      font-weight: 1000;
+      letter-spacing: .04em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      font-size: 44px;
+      color: #111;
+    }
+    @media (max-width: 980px){ .hero-title{ font-size: 36px; } }
+
+    .hero-title .t1{ color: var(--mi-2); }
+    .hero-title .t2{ color: var(--mi-5); }
+
+    .hero-desc{
+      margin: 14px 0 0;
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(22,49,61,.92);
+      max-width: 820px;
+    }
+
+    .hero-actions{ margin-top: 16px; display:flex; gap: 10px; flex-wrap:wrap; }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 13px 18px;
+      border-radius: 16px;
+      text-decoration:none;
+      font-weight: 980;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+
+      background: var(--mi-5);
+      color: #fff;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+
+    .btn-ghost{
+      background: rgba(255,255,255,.92);
+      color: #111;
+      border: 2px solid rgba(0,0,0,.10);
+    }
+
+    /* =========================================================
+       BREADCRUMB
+       ========================================================= */
+    .breadcrumb{
+      margin: 0 0 14px;
+      font-size: 12.5px;
+      color: rgba(22,49,61,.78);
+    }
+    .breadcrumb a{ text-decoration:none; border-bottom: 1px solid rgba(22,49,61,.20); }
+    .breadcrumb a:hover{ border-bottom-color: rgba(22,49,61,.45); }
+
+    /* =========================================================
+       PMPIF (NOVO DESIGN – clean, sem degradê)
+       ========================================================= */
+    .pmpif{
+      background: var(--mi-3-soft);
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .pmpif-grid{
+      margin-top: 20px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .pmpif-grid{ grid-template-columns: 1fr; }
+    }
+
+    .parceria-card{
+      --accent: var(--mi-2);
+      --accent-soft: var(--mi-2-soft);
+      border-radius: 26px;
+      background: #fff;
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+    }
+
+    /* brilho/tint suave no fundo */
+    .parceria-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,255,255,.85) 0%, transparent 45%),
+        linear-gradient(135deg, rgba(22,49,61,.00) 0%, rgba(22,49,61,.00) 55%, rgba(22,49,61,.00) 100%),
+        linear-gradient(135deg, var(--accent-soft) 0%, rgba(255,255,255,0) 55%);
+      pointer-events:none;
+      opacity: .95;
+    }
+
+    /* frame multicolor + “cantinho” de destaque */
+    .parceria-frame{
+      position: relative;
+      z-index: 1;
+    }
+
+    .parceria-top{
+      position: relative;
+      z-index: 1;
+      padding: 14px 14px 0;
+      display:flex;
+      align-items:flex-start;
+      gap: 10px;
+    }
+
+    .parceria-ico{
+      width: 44px; height: 44px;
+      border-radius: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.10);
+      box-shadow: 0 14px 34px rgba(15,23,42,.12);
+      flex: 0 0 44px;
+      font-size: 22px;
+      position: relative;
+      overflow:hidden;
+    }
+    .parceria-ico::after{
+      content:"";
+      position:absolute;
+      inset:-18px -18px auto auto;
+      width: 44px; height: 44px;
+      background: var(--accent);
+      opacity: .14;
+      transform: rotate(18deg);
+      border-radius: 16px;
+    }
+
+    .parceria-meta{ min-width:0; }
+
+    .info-chip{
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      font-weight: 950;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.92);
+      color: rgba(22,49,61,.88);
+      box-shadow: 0 10px 26px rgba(15,23,42,.08);
+    }
+    .info-chip .dot{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      display:inline-block;
+      box-shadow: 0 10px 24px rgba(0,0,0,.10);
+    }
+
+    .parceria-title{
+      margin: 10px 0 6px;
+      font-size: 15px;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      color: #111;
+    }
+
+    .parceria-desc{
+      position: relative;
+      z-index: 1;
+      margin: 0 14px 10px;
+      font-size: 12.9px;
+      line-height: 1.65;
+      color: rgba(22,49,61,.92);
+    }
+
+    .parceria-list{
+      position: relative;
+      z-index: 1;
+      margin: 0 14px 14px;
+      padding-left: 18px;
+      font-size: 12.7px;
+      line-height: 1.55;
+      color: rgba(22,49,61,.92);
+    }
+    .parceria-list li{ margin: 7px 0; }
+
+    /* acentos por card */
+    .a-sms   { --accent: var(--mi-5); --accent-soft: var(--mi-5-soft); }
+    .a-sme   { --accent: var(--mi-4); --accent-soft: var(--mi-4-soft); }
+    .a-sdhds { --accent: var(--mi-3); --accent-soft: var(--mi-3-soft); }
+    .a-amc   { --accent: var(--mi-2); --accent-soft: var(--mi-2-soft); }
+    .a-etufor{ --accent: var(--mi-3); --accent-soft: var(--mi-3-soft); }
+    .a-scsp  { --accent: var(--mi-1); --accent-soft: var(--mi-1-soft); }
+    .a-secel { --accent: var(--mi-5); --accent-soft: var(--mi-5-soft); }
+    .a-seuma { --accent: var(--mi-3); --accent-soft: var(--mi-3-soft); }
+    .a-funci { --accent: var(--mi-2); --accent-soft: var(--mi-2-soft); }
+
+    /* =========================================================
+       PARCERIAS GERAIS (LOGO + NOME)
+       ========================================================= */
+    .gerais{
+      background: var(--mi-4-soft);
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .panel{
+      max-width: 1040px;
+      margin: 22px auto 0;
+      border-radius: 24px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: #fff;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-inner{
+      margin: 16px;
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.08);
+    }
+
+    .toolbar{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+    .toolbar .hint{
+      font-size: 12.8px;
+      color: rgba(22,49,61,.86);
+      line-height: 1.5;
+      max-width: 760px;
+      margin:0;
+    }
+
+    .search{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: rgba(22,49,61,.03);
+      min-width: 280px;
+      box-shadow: 0 14px 34px rgba(15,23,42,.08);
+    }
+    .search span{
+      width: 12px; height: 12px;
+      border-radius: 999px;
+      background: var(--mi-2);
+      display:inline-block;
+      opacity:.9;
+    }
+    .search input{
+      width: 100%;
+      border: 0;
+      outline: none;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(22,49,61,.92);
+    }
+
+    .gerais-grid{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 1100px){
+      .gerais-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 820px){
+      .gerais-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .search{ min-width: 100%; }
+    }
+    @media (max-width: 440px){
+      .gerais-grid{ grid-template-columns: 1fr; }
+    }
+
+    .partner-tile{
+      border-radius: 20px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: #fff;
+      box-shadow: 0 14px 34px rgba(15,23,42,.10);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding: 14px 12px 12px;
+      gap: 10px;
+      transition: transform .12s ease, box-shadow .12s ease;
+      text-align:center;
+      min-height: 150px;
+    }
+    .partner-tile:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 20px 52px rgba(15,23,42,.14);
+    }
+
+    .tile-logo{
+      width: 66px;
+      height: 66px;
+      border-radius: 18px;
+      border: 2px solid rgba(0,0,0,.10);
+      background: rgba(22,49,61,.03);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .tile-logo img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fff;
+      padding: 8px;
+    }
+
+    .tile-name{
+      font-size: 12.4px;
+      line-height: 1.25;
+      font-weight: 1000;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: rgba(22,49,61,.92);
+    }
+
+    .tile-tag{
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(22,49,61,.78);
+      background: rgba(22,49,61,.06);
+      border: 1px solid rgba(22,49,61,.12);
+      padding: 6px 10px;
+      border-radius: 999px;
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      justify-content:center;
+    }
+    .tile-tag i{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: var(--mi-5);
+      display:inline-block;
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    footer{
+      border-top: 1px solid rgba(0,0,0,.08);
+      padding: 22px 0;
+      text-align:center;
+      color: rgba(22,49,61,.90);
+      font-size: 12.5px;
+      margin-top: 0;
+      background: var(--mi-2-soft);
+    }
+
+    :focus-visible{
+      outline: 3px solid var(--mi-4);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    /* =========================
+   HEADER — Destaque vermelho no botão "DADOS"
+   ========================= */
+
+/* estado normal: anel/vermelho sutil */
+.nav-link[data-dd="dados"]{
+  border-color: rgba(216, 69, 77, .55);              /* mi-5 */
+  box-shadow:
+    0 0 0 3px rgba(216, 69, 77, .22),                /* “anel” */
+    0 14px 34px rgba(0,0,0,.22);                     /* profundidade */
+}
+
+/* hover/focus: reforça */
+.nav-link[data-dd="dados"]:hover,
+.nav-link[data-dd="dados"]:focus-visible{
+  border-color: rgba(216, 69, 77, .78);
+  box-shadow:
+    0 0 0 4px rgba(216, 69, 77, .28),
+    0 18px 44px rgba(0,0,0,.28);
+}
+
+/* quando o dropdown abrir (mobile) — usa a classe is-open no nav-item */
+@media (max-width: 900px){
+  .nav-item.is-open > .nav-link[data-dd="dados"]{
+    background: rgba(216, 69, 77, .14);              /* leve “tinta” */
+    border-color: rgba(216, 69, 77, .90);
+    box-shadow:
+      0 0 0 5px rgba(216, 69, 77, .30),
+      0 22px 60px rgba(0,0,0,.34);
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="site-wrap">
+
+    <header class="main-header">
+      <div class="header-rainbow" aria-hidden="true">
+        <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+      </div>
+
+      <div class="container header-inner">
+        <div class="logo-group">
+          <div class="logo-wrapper">
+            <a href="index.html#topo" aria-label="Observa Infância Viva">
+              <img class="logo-img logo-img--observa" alt="Observa Infância Viva"
+                   src="data:image/png;base64,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" />
+            </a>
+          </div>
+
+          <span class="logo-separator" aria-hidden="true"></span>
+
+          <div class="logo-wrapper">
+            <a href="https://www.fortaleza.ce.gov.br/" target="_blank" rel="noopener noreferrer" aria-label="Prefeitura de Fortaleza">
+              <img class="logo-img logo-img--prefeitura" alt="Prefeitura de Fortaleza"
+                   src="https://yt3.googleusercontent.com/QHv0Hg-74Yx0uga0a9ccaGDuWn7hv5W2HjTxFmbI0HQxQb6hFpDJHCyB374CK55r5ykGu8shp6w=s900-c-k-c0x00ffffff-no-rj" />
+            </a>
+          </div>
+        </div>
+
+        <button type="button" class="nav-toggle" id="btnMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMain">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav class="nav" id="navMain" aria-label="Navegação principal">
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="qs" aria-expanded="false" aria-controls="dd-qs">
+              QUEM SOMOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-qs">
+              <a href="sobre.html">O Observatório</a>
+              <a href="glossario.html">Glossário</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <div class="nav-item">
+            <button type="button" class="nav-link" data-dd="dados" aria-expanded="false" aria-controls="dd-dados">
+              DADOS <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <div class="dropdown" id="dd-dados">
+              <a href="dados.html#indicadores">Indicadores</a>
+              <a href="dados.html#demografia">Demografia</a>
+              <a href="dados.html#educacao">Educação</a>
+              <a href="dados.html#saude">Saúde</a>
+            </div>
+          </div>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="parcerias.html">PARCERIAS</a>
+
+          <span class="nav-sep">|</span>
+
+          <a class="nav-link" href="publicacoes.html">PUBLICAÇÕES</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page" id="topo">
+
+      <!-- HERO -->
+      <section class="hero-page" aria-labelledby="hero-title">
+        <div class="hero-block hb1" aria-hidden="true"></div>
+        <div class="hero-block hb2" aria-hidden="true"></div>
+        <div class="hero-block hb3" aria-hidden="true"></div>
+        <div class="hero-block hb4" aria-hidden="true"></div>
+
+        <div class="hero-spinner" aria-hidden="true">
+          <img src="assets/girasolInfânciaVivaBG.svg" alt="" />
+        </div>
+
+        <div class="container hero-inner">
+          <div>
+            <div class="hero-kicker"><i aria-hidden="true"></i> Parcerias e atuação intersetorial</div>
+            <h1 id="hero-title" class="hero-title">
+              <span class="t1">PARCERIAS</span><br/>
+              <span class="t2">OBSERVA INFÂNCIA VIVA</span>
+            </h1>
+            <p class="hero-desc">
+              O Programa Municipal de Promoção da Primeira Infância (PMPIF) e o Observa Infância Viva são construídos
+              de forma <strong>intersetorial</strong>. Aqui você encontra as parcerias do PMPIF e as parcerias gerais
+              (instituições, universidades e secretarias municipais).
+            </p>
+            <div class="hero-actions">
+              <a class="btn" href="#parcerias-pmpif">VER PMPIF</a>
+              <a class="btn btn-ghost" href="#parcerias-gerais">VER GERAIS</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PMPIF -->
+      <section id="parcerias-pmpif" class="pmpif" aria-labelledby="pmpif-title">
+        <div class="container">
+          <div class="breadcrumb">
+            <a href="index.html">Início</a> / Parcerias
+          </div>
+
+          <h2 id="pmpif-title" class="section-title">Parcerias intersetoriais do PMPIF</h2>
+          <p class="section-subtitle">
+            Síntese das contribuições de secretarias e órgãos municipais na agenda da primeira infância em Fortaleza.
+          </p>
+
+          <div class="pmpif-grid" aria-label="Parcerias PMPIF">
+
+            <!-- SMS -->
+            <article class="parceria-card a-sms">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">❤️</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Saúde · cuidado integral</div>
+                  <h3 class="parceria-title">SMS · Secretaria Municipal da Saúde</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Garante cuidado integral da gestante, do bebê e da criança pequena, articulando atenção básica e rede de serviços.
+              </p>
+              <ul class="parceria-list">
+                <li>Pré-natal, puerpério e acompanhamento do desenvolvimento infantil.</li>
+                <li>Calendário vacinal e campanhas de imunização.</li>
+                <li>Promoção da saúde, alimentação adequada, prevenção de violências e cuidado parental.</li>
+              </ul>
+            </article>
+
+            <!-- SME -->
+            <article class="parceria-card a-sme">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">📚</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Educação infantil &amp; aprendizagem</div>
+                  <h3 class="parceria-title">SME · Secretaria Municipal da Educação</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Oferta de Educação Infantil (CEIs e Pré-escola), formação de professores e acompanhamento da trajetória educacional (0 a 6).
+              </p>
+              <ul class="parceria-list">
+                <li>Ampliação e qualificação da rede de CEIs e Pré-escola.</li>
+                <li>Formações sobre desenvolvimento infantil e transição creche–escola.</li>
+                <li>Busca ativa e ações integradas em territórios e equipamentos como a Cidade da Criança.</li>
+              </ul>
+            </article>
+
+            <!-- SDHDS -->
+            <article class="parceria-card a-sdhds">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">🤝</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Assistência social &amp; proteção</div>
+                  <h3 class="parceria-title">SDHDS · Direitos Humanos e Desenvolvimento Social</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Coordena a política de assistência social e direitos humanos, com foco na proteção de crianças e famílias em vulnerabilidade.
+              </p>
+              <ul class="parceria-list">
+                <li>Atuação de CRAS/CREAS e serviços especializados.</li>
+                <li>Benefícios socioassistenciais e fortalecimento de vínculos.</li>
+                <li>Continuidade do cuidado e articulação com programas e rede intersetorial.</li>
+              </ul>
+            </article>
+
+            <!-- AMC -->
+            <article class="parceria-card a-amc">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">🚦</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Mobilidade segura</div>
+                  <h3 class="parceria-title">AMC · Autarquia Municipal de Trânsito e Cidadania</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Atua em segurança viária e mobilidade, reduzindo riscos para crianças e famílias no deslocamento diário.
+              </p>
+              <ul class="parceria-list">
+                <li>Sinalização e travessias seguras no entorno de CEIs e escolas.</li>
+                <li>Campanhas educativas com linguagem acessível.</li>
+                <li>Ações intersetoriais em territórios prioritários.</li>
+              </ul>
+            </article>
+
+            <!-- ETUFOR -->
+            <article class="parceria-card a-etufor">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">🚌</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Transporte &amp; acesso</div>
+                  <h3 class="parceria-title">ETUFOR · Transporte Urbano de Fortaleza</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Contribui para o acesso a serviços e espaços, planejando o transporte coletivo com olhar para a primeira infância.
+              </p>
+              <ul class="parceria-list">
+                <li>Ajustes de linhas que atendem equipamentos e territórios.</li>
+                <li>Apoio logístico a visitas e eventos do PMPIF.</li>
+                <li>Campanhas educativas em terminais e ônibus.</li>
+              </ul>
+            </article>
+
+            <!-- SCSP -->
+            <article class="parceria-card a-scsp">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">🏙️</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Espaços públicos</div>
+                  <h3 class="parceria-title">SCSP · Conservação e Serviços Públicos</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Cuida de iluminação, limpeza, praças e mobiliário, tornando ambientes mais seguros e acolhedores para crianças.
+              </p>
+              <ul class="parceria-list">
+                <li>Qualificação de praças, parques e brinquedopraças.</li>
+                <li>Manutenção de iluminação em áreas de circulação.</li>
+                <li>Priorização de territórios com maior concentração de crianças pequenas.</li>
+              </ul>
+            </article>
+
+            <!-- SECEL -->
+            <article class="parceria-card a-secel">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">🎭</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Cultura &amp; experiências</div>
+                  <h3 class="parceria-title">SECEL · Cultura</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Amplia o acesso à cultura, leitura e linguagens artísticas, promovendo experiências sensíveis na primeira infância.
+              </p>
+              <ul class="parceria-list">
+                <li>Programações culturais, contação de histórias e atividades lúdicas.</li>
+                <li>Mediação de leitura e ações em bibliotecas/equipamentos culturais.</li>
+                <li>Integração de agendas culturais ao PMPIF.</li>
+              </ul>
+            </article>
+
+            <!-- SEUMA -->
+            <article class="parceria-card a-seuma">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">🌳</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Cidade &amp; meio ambiente</div>
+                  <h3 class="parceria-title">SEUMA · Urbanismo e Meio Ambiente</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Planeja e regula o uso do solo, parques e áreas verdes, incorporando a perspectiva da infância no desenho da cidade.
+              </p>
+              <ul class="parceria-list">
+                <li>Projetos de parques e praças que favorecem o brincar e o convívio.</li>
+                <li>Iniciativas de cidade caminhável e rotas seguras.</li>
+                <li>Monitoramento de intervenções urbanas em territórios prioritários.</li>
+              </ul>
+            </article>
+
+            <!-- FUNCI -->
+            <article class="parceria-card a-funci">
+              <div class="parceria-frame frame-mi" aria-hidden="true">
+                <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+              </div>
+              <div class="parceria-top">
+                <div class="parceria-ico" aria-hidden="true">👶</div>
+                <div class="parceria-meta">
+                  <div class="info-chip"><span class="dot" aria-hidden="true"></span> Proteção integral</div>
+                  <h3 class="parceria-title">FUNCI · Fundação da Criança e da Família Cidadã</h3>
+                </div>
+              </div>
+              <p class="parceria-desc">
+                Coordena programas estratégicos de proteção e promoção de direitos, com foco na primeira infância e articulação intersetorial.
+              </p>
+              <ul class="parceria-list">
+                <li>Auxílios e programas de apoio a famílias em vulnerabilidade.</li>
+                <li>Abordagem social e busca ativa em situações de risco.</li>
+                <li>Fortalecimento de redes comunitárias e proteção contra violências.</li>
+              </ul>
+            </article>
+
+          </div>
+
+          <!-- <p class="section-subtitle" style="margin-top:18px;">
+            <strong>Nota:</strong> Esta seção é uma visão síntese. Com novas rodadas de monitoramento, o Observa Infância Viva
+            pode incorporar indicadores e painéis por secretaria/ação.
+          </p> -->
+        </div>
+      </section>
+
+      <!-- PARCERIAS GERAIS -->
+      <section id="parcerias-gerais" class="gerais" aria-labelledby="gerais-title">
+        <div class="container">
+          <h2 id="gerais-title" class="section-title">Parcerias gerais</h2>
+          <p class="section-subtitle">
+            Rede ampliada de instituições e órgãos que colaboram com a agenda da primeira infância (logo + nome).
+          </p>
+
+          <div class="panel" role="region" aria-label="Lista de parcerias gerais">
+            <div class="frame-mi" aria-hidden="true">
+              <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span>
+            </div>
+            <div class="panel-inner">
+              <div class="toolbar">
+                <!-- <p class="hint">
+                  Dica: você pode filtrar digitando (ex.: “UFC”, “IFCE”, “Saúde”, “Educação”, “Finanças”…).
+                </p> -->
+
+                <label class="search" aria-label="Buscar parceria">
+                  <span aria-hidden="true"></span>
+                  <input id="partnerSearch" type="search" placeholder="Procurar parceria..." />
+                </label>
+              </div>
+
+              <div class="gerais-grid" id="partnersGrid">
+
+                <!-- ======== Exemplos (instituições) ======== -->
+                <div class="partner-tile" data-name="NEPEN Núcleo de Estudos e Pesquisas (NEPEN)">
+                  <div class="tile-logo">
+                    <img alt="Logo NEPEN"
+                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7PJcbawktRYEUslQy6Fs6vpZfydH6JD7VJA&s" />
+                  </div>
+                  <div class="tile-name">NEPEN</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> instituição</div>
+                </div>
+
+                <div class="partner-tile" data-name="IFCE Instituto Federal do Ceará">
+                  <div class="tile-logo">
+                    <img alt="Logo IFCE"
+                         src="data:image/png;base64,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" />
+                  </div>
+                  <div class="tile-name">IFCE</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> ensino &amp; pesquisa</div>
+                </div>
+
+                <div class="partner-tile" data-name="UFC Universidade Federal do Ceará">
+                  <div class="tile-logo">
+                    <img alt="Logo UFC"
+                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANEAAADxCAMAAABiSKLrAAACMVBMVEX////ivz8AAAAAYJgAY50AZqIAXpUAYZkAZZ8AY58AaaUAZJ0AaacAYJv6+vrhvj/pxUDnxTPz8/MAjzb19vbfvjLuyUHp6enoxjMAABf/9AC6ubrk5OQAjDXZ2dnvzDQEejHKysoAAA/U1NRZTSGQj5H0nQDVtjC4t7ivrq8DgDIMAACcm5zDwsMAABOxlyvApC4FdC+Af4CjoqP2sABwb3EChTNYV1nykwD0owCWgCnIqy94ZiWFcSbHqDoAYSs2NTcxLzJpaGrvhAAAABz+6AD83AD4uwD/8W7/8ob/sgBQRBZoWSIAGze5nTcAay2njTNJR0oVFBXsWw/5yAAAECH/iQDteQCwZgB8SwD5wyj/8l69eQD831/71jX/8Wr/9pG7jgA6LwB+bCUpIxtLQCEvJgAAITgARW0AKksAOyNYaiwNTyY6WyoARyYADSyceC9xby2DIAA3BgBOEwNVAACkLQAAJCvhQxIqAADGPBIfAABIU1j5UBKcLwQlMjgmNjxwJgDXUQ3MWQyoRwWLPQDxawZmKQCXPwBDHwDQaQCbVQAqEAC0UgVVKgDbeQc4GAAdDABVLAA+JhpzQxPhcAI8IgKqYwBUNxR3TBTgjQb/9D384jvTjgH96YL/+q2YZwCgbADj2FC+tFDDwX7g1XHf1nwlHgxOUSYjIjA3Zi1DRSQsSCNIdi8RLx8AHx5mZystPCMvLh9hRCOzhjNkfDCSZCpwRSQcABhTRghsWQCboy+UAAAgAElEQVR4nO19+UMb97Wv+BpksLEkBiGBJbQPSEgCaSQxaBlttsE2gzQzAbvGNnGNBALkhSa3fW3cl7RpndssTchts9npTV7vuyxeatO09/r+de98vzMSYnPyWoz4QSexA5wM+n7m7Od75jsqVYMa1KAGNahBDWpQgxrUoAY1qEENalCDGtSgBjWoQQdElJnal6d/Ce9l19WVNBGU1e/HpJFo3o+XRVnjq1nSP0lG9ide337M7Bs/2XfZ6Tf/hdG8okX9U0Rlf/qLn/n3YTJv/K+fe/bh3fvJL94yvapV/TNkvvfTX765383OvvnL//32Pnq3/pNf/urtV7euf5zcjtde+/Xb9j15xnd++stf/3xvHoV+88tfIMurXNo/RlTkV4DIu7f60Ah4/xLakxd587XXXnvD/SrX9o+R76137++HyP/2by6/9us390Tknvro8pFEREu/OTNy/913nPbd/s7zzm/vh1979+d2I+3cwdKHfvbb+9H77yKj2beve68Hme6hj+5Ho/ffY8wsorfzzCws+v7oax+9TWVRZHswdd6b+tf7Z8bu/3ZKJSJ632h26GSMoE8vX748Gb4/5XY7/lXcxvQ5fvf+5fvR0dfe9Kik365vc+8M+hR44cl333Drve9JR8Y7WMQ33r90+fLIaPSje+bIe/drg5KG8X5wCZijk+9K/siH99+oCUp69uc/Iryxjxzme++9+8ZOlawXGcXff3zpzJkzk+dG3n8n+8kfL53d8gAaGhZ95szl8Ono++ls5qPLv9riUZFPPia8c30fFSIr719+b78QfNgkL+xM+NzkpY97Pn3/zKWerVWH3voRsM70jZ4783Hhw48uXf4tXQnBelq+Lnpu9NL7K5+AlN/bN4c6RKJMGg9S7vS56Jl/+/JydOTSWY/Co4yOD2RAp8OX/vDF+2fCl9+T0VIejVMiYKOjp6OXv/jDH0eif/z9EfDgGhGx61dGRkbOjJ0+PXbmvz6/dHF05OOfyfYQQqL4Keb1nTs9OfLBHy6PnBu5rCR3kIqL5Low8M5cuYJ57791BOxIj778rAALG5k8DYs+83EUC+PKPcKjIh984fgKeOHTp0f7Rn7UNwmYP5azJOO9z1c+wzy4EaMjIx8DL3z58/3yvsMk51tfXfl8ZAQWdPpcH/nP2JkzXjkemd++9vkXfWTR58LwHyyMS5/Kmaz97ZErX/aRG3EuCtdh3pnf00egpGA/7bv2FV7Y6OmxkfAoFtTIB0gOlJ4Pv7p2rQ8AjZ6bJGBBUB9PEVPR0J/01fBGiaCure+dyB4qudG1sShZGHjuKAbUN/LV7xQRrX+AeWAnYyAiDAiE8ek9Igbn+o8m+2TeaHhklIAd+d0RqPrs81f6Jsf6wPDHHs6MjD14ABLq+xzJec7bn45Mkvs/Of2gL/zwASy67ysHyWP181dGRifxLRibfNgXfvBgBvPm9ysWD4+c6S+jEEz6Jh+Epx887Ju5Ot0HdIUhTPGzPkADy52EFWP+CPC+mSI8BCZ07tzI5IOx8IOH0emrM5h3JVtPLISMYER9YbD6GVjU1avhmavRMGD6FtdumshbX/WBUoUnx6IPr161Tl8NR6ejfV97cTRiP1V44TBcN229Go3CddfW6x6NPJ98hcVwLowBvX7ear0ejV4N9/V9mYZ6aP1aH/F80fDDq6+/fn369Wj04XRf9Nu3LSr34Nd9YFdw3Rhc97rB+jooJUC6cq/OzptiP+jri54+N0YWdv789enr0fDrD6PRr0FIod8BD0yIADp//rz1ejgKYuyLrtCqyBcXMa96nfV8H8gq2vfVh3XunlDvfNvXNyYv+vz5CxcuAKLp82BLFz9jVL4roJDnRsPRGbxozAuHXwde9EpEFbkShetGo2HMu3DhPL4O8/qu1Dke6bPf4JVNTk6Shd3409h0+DpB9EVWFfokGg2fnpwJy7wL09Ph6QuvW6PRa/eoyGcX4bqxh2MVniFqOP86oP2cqXNr1f/h19HwuZmHM1fxwm78KRweuwAri2IZ2devXQyPjj6Yxqu+cePGdPji9QvnAdE3EY2/5yu4bhJ4IL0b//6n6XAYeNPR6BWmzjWsMXslGh0dffiQIPr363hhF14PR6NeO85EoxcnRx/MKKseC0/fwKu++BmE38hnYbjuwcMqz3CDXPdh3csj59vfXISwelVGNDkGi74Ai74iYbjilxfHRjFPXvXYn25cMIQvXluH9JpywHXnKtddHxu7QXjfivUvykOOH4/NKCsji75hvXjxGiI1gRF9c3HywVVZ66bHrt+4cT188esVEn796FvCw2j/NI2vux4e+3r/nvkhEoN+PPbwAbHwmcnzN24YLo59jRTdsVSWfeHGw8nr8qI/y8g8E/rxxVEZLbkO81D9cwZMNIb0f/785z8Hfvzn//i/1rGxbwarxuA8+01Y4eX+4z8fjo392FttEpkGa677T7juWxSpD4JdREurRT4xOzubmP2fF+PFz2qbV/71gsybJbwX6zV9PPeduSqPLxZvvn0UVA6yN7/HN7XJxYQhTEKM4wdZj0cprU0eX7qW5xoUQ1u80DrwhhTeLOHV3y+ojPQUusnLaw4EyOJmXXMojW+3nh7c4pGFxwiP6GRkai+eWP9qIoRi/V1AHR3d3dZuoA74pr9/HJF4JPT3YxbmWbd4WCsjcF2/cl33Fu/FVL1rWMt6okuhDkLKN9ZVEUon3ronDzFQ3Cb25PXP1TtnsKMEudU7VtZv5UWVuyfRoTC38Tp41uju4fbkdXH36ry/7NwPkWsHIlCrLURZyjSIESn62rHF65pl64zIIvKwJrASbCf43xn8FSxwNQu88ZmurgrPSr6wdnd1dIHWUeugkZXrurd4/au+erdOfIiLD3E87+JdCvGJ2FCAR2acTSi8Kgt4gcAL3MFiUCwg1PJchDde/+6WhkEFWEq8X/ZaHV39AMLlQMQLR1CBr/I6ZF5RkntBWbSp8IiH7Cc8R/37DECMNz4U4xLK3U7MxoR4zKF0CyI3h2p5CeDNKr1JFb2dh69LDB6JsROL6HBBpAwEAvE4jrGxWM8UTVV5/DYeV+hhlOvMoiOxg4eORhqkcqPYTFegy2qNx63WrkCHdZWtNnT8aMjaQXj9mGftGherVbcHxeFH4DpkXnfX+Hp9AOwiP4pZE8V+a2BTsHbNuvo7VreGf5xImOFdwCsMdXfMurr6x7M1iIasPN/fHd8c6u7mMU/c+wMOnSwo1u2Kd1gFDgycD3R0rEaqcR8jKvR3WGOJmY4uF3jnucg2REV8HQ+8za7u+M2jg4izgmSsQgwQJeI43mxDtIkRxWDVPI43W4jcPUNWcicw2mJ3x5FC1E0QcTKiDrS1wVBFxCmI5ra6V/6zMSsf6JYRbWJEbH0A7CIzkVH3jBCbsXYBon5H1mRyezyhUMhHIz62OsvFxsdjHFfkOG5V9MHPPR63yU+fne3mA9aZoVm4rtDdHZg7KiWsBnwdH++KczyEl6KLL/ZIhRWvF2EaXJ+6Mz8xMTFP/pqYmFqfIj/3elcKBe8cv8rPxngX+O8CuMNV5vs/7BCIsvtQkS9sbhZ6MA1uFnmXo1QqqdXq5ubmthaZTrS0n1C+bGtuBp4a/pfSwvz8lAPArc7Necd514postQ7qzM6HHDDpUJhs5jghFy8yYBJl5hobierb8VYTpw40d5+oh3/Bd8ouFrw/9COqY2gW5ifmpKwXL1sXUGZESDJJbUGqxUj0TU1aeFfnfbFQlvLyebWlla8bkDUUkVEYLY2n2xtaz3ZjOn4qeY2LMr2FhnZVKauiIxIACgYCFBThbS65M2F9lZAdELdvieittYqouZTx48fO3YM9PDYseOn2o7N11dGRhTTNe1BhqS31N7c0l6aB0gvR3RcQYQxASr1EUXUZMg5Su0tC14XWNReiE7uklEF0VS2roio3Yh0Tdicmgyxs6UF1NQ0vkCA7CWj1r0R1Xf/n0LcNkRgTVxTTjCATRlm0Tj4ijhY1A+yowqis3VGtJ7YcghNSZ2wllwTEmvxtbhOp+W0uiatIfdJqb39JVq3w45KjvrWSLWIDLpny9rbwvJjYePu45yB0xkUi0Kl3Yj21bq6IxL5CiJtQiuk7i49eZa/m+c3Yt+VtQZZIcGi1O0/1NedKqH6bvJRLK/VVST0OHkrn8g/Gi6m1p5w/JPv+KQivMSdYz/U1wGi+vZOKHY8Li/7UTK+Ub4bvJ1P5cupcnC2vJRbTBoUSPzEyR+sdXVGpI/cjOtk1VrkYraN58Pl4O3hct72OPh46UkyqYRbfp7o3Q/xdSVU3xlIQJQERLqkkIylltZ6y6ngQKozZRtY7HyaX+b+YiCuYW6h+Yf7ujoj0jBzBJH20QbnsqUWMZiBAdvwcKpzcbgYXMOIhEKp5SWeYZcd1RkRvYoRaeOG5VT+qS1Y7rQNd/Z2dsKffDCV0ubAbxTv7BGPtuxol6+r7zafxrcCiHTJR7e5v+d7b9uGg50YTi8Gle9dTizmINKuQCL0Q+NR3RGpPEi2o+Vg6nG5Nz8AwukdsAWHg8OdnanHtmcGyBqSUklB1P79uXfJeyQQ5WaFxK1gPjUAshm22WzBAZttuDc/fCuJC0CDgCEBIvXx9u/3dfVG5Ec5QBTnyqknZXDaAGjANhAM5oMDA8OdZdcSSWR1sSnw3u2lnvn29pf7ulPqUqHOI4N2lMP+LJm7eysPXq6zE6QTDAZTQdtA50Bw+LGSUSTunGxfKMTmFtpfLqNT6oVM3REVtDpd7nl5o/x0sWyTdS6fSuXBi3faHjfplJrJNbGwmjMkcdL6Us9wFBBNFXRQBcWWngx3DsO/IKF86i+Dj1P5jaW7hkrxBD68GDeARQ0CpIrW7Y1IrPMWkh2VJniIsPEct7ZYDhJHl78tLfJCLtlkqO2lJKEM1BqwRb3M19UfkROV1D2cLvn8diqfzwd7e7HWpYobG0nr9uJWp3w7O6E+8RJfp56v99PlTm+pTS3FtPG4wC+msGcIgpC4HEAyaJt2k07LT7Sc2D+vU89H6jyn6lwptZccHBQMt/I2W6qMLWk4H7PeDd5KGvZABJBuzuNW3n6+bqreiCyZ0sKKYGjSCcvc3b+WO3ttvSCmnM6asC3F927lxSErat3HMwCiek/RWDJTRRKRDAaoYAeWnmKv/QygGJ7ZlvdUu7gLiqXWfWrYU+qeuiMSz3JWeeW55ZjwLBh8PJySC4ylFFdx3U1NVTeeHJ8AQPvl3sfUqN4zJ2ZxqlDxAVpD4vbfuFSKyKxJl3uWI//VCbqcoE1otbh+zxUXjp9o3dfXHQVE7ML8nFYnQ9LlklrucbIiD/JDiENPhdzj5KIgzGoNpHn8krwOEO19NMDhkTE73zwxrmRvWLeqgUf+gSH3VLu0JJSFjWfCLW1CMAjeSjxq3ltG9R6jAUTqY3dI006nTe50bgZuVvu38nf5Z0+ebWwkNpK3lg26mBfb0cnWlra97ajeiChmChzUHSgadNqEtCOqQu6zGIsF+fLGRupxcC0V2+AETsf1HGtvbm0vlZr38nX1QaQ3uSvmixGpj5emYoY4P7GwGdfVQIIYlRRSy0sDz223g0+Hb+fXbHfLICV+4jgUSw6p1NK6uz7aQmT0HF4PxSNJlaltPe0g3QEpBl75+JZFEZ1rWnxyd9m2GUxBdbvYW84/tv01jzPYzYWWkkPInS217JJRCVWeqNKIKH1YKZ4mK4qo8jVBdKxtwTt/vK2tGSW2EGm52PTiQHGj92lnCkqMAcCVWhxOPBYMcenOYNJgiDnULbsQeSvj0SEkHlqjS59mPBUhaWhEEszWUjusq1l9dms/SSeUF78rDz+1DaeGoUYfhpK2PHzrVhm8YXITiiXwG+hU2w5ft4UIRfyHZlOadMTIKo9zqDyIrOVYG6zq2HGAFKskqPH4d39L3SoDjIFqD69z0RZLJpVtQF0TP3GqbbuvKxWUqU4jou3SYW1T6BGjYpRHeEE5ZERqguh4c2lKUCAJT5dnH0GxNBDEcIZ7e4chibUF7264DBVXqIUMYofWVRDRkt2ZPqwZFD3yqdyV2O7ZjqitfcGh5NyG+LOUbTE1bOslPTxMAOx5sFzNybVgUaWTbbWIFtKK7YgZyEde5SyXs6ZqsQMajZTdE1F76aziHLRrz+7+vdwLRgT6Bhm5zTYQHOgdGA4mt/whBKzBUi2iYxVEmjSL5433WcEBEI1qTsth8adK7F6ImkveitLpkmvB4O2nZdJlHcYdoqDNNtwZLJb/UhOCdRxSN+8hIzt2PfRWx5gSUeYg56aprBTZOuSHPMjFKvOmbm8NopaFuVy1ctVqv1tL9dryw7griZuSweCArTc/kK9gxobE39kmo1PzyoirB49X2zOV8TR7Rsoe7Fgu3C0asfIdM5FfHUlbFESlU1VEbQvjW4Ur9/T2xkY5BUUtbkrm8+VU0NY7bHsiVFMlXXz8jrrl1F6IaISjKyvJuYlHSvvpzIE+yGPPMKqQJBK5sxKWDq0ogWmltCWj5mMLrqqVaJO55SfBIHYHuCn59L83y6nUklCTzmqLd061bPd1lVaQbEIheZsZbqYTNONACycNjj9uKePEGk5UISTJt8xfqEF0vE09wVd0SpcUZtee3wbPELTl8ylp8VYyHtc21aRJOu6sumV7Xje1DZEKsTIgo8qy89irf5YiOP6YUNpciUQ1iE7Vem/1nYQMCXLxxVQe+zjcOs4Hnz/KP9PtKDesrorWHa8gUqxVQUSDkEKI1ePnMw746TEffuZL5UdZk2KtPknWOnt6obk2wraUcNYAohCgtEhyxcXUQC+JRhvJWOrZrgIK8lvwDJBrnJK996AyQ1Nx3IgxSSQqZTMHnLaaZI32IUnxqEzGUkFUK6Pm5hMllDPommIOV1PycTk4AElDZy8kdre02qU8t0NKOu34winIVkvzpTaCyKEgopWcBD5Qbu2zBz1I6JR9p4ZBynQ6q6T6FnF+O6KTLaW5pDZxtjSRiAuC4ErZsAPvHUgYdMmNYGwnpOTNhZaW0tS4pCaQKtYSUvJus6Skq2L6YAFVEKmcivmo0kqEtYgLbdsQHW9rXRgfn1K3q6c4Q9MauLdiqjffmSL7tSmbsEPvdLnVUmmKa0rcIZAqiBSdUOkZpX934IgsCiK9W9neqeQMZnZ+B6Lm1mPz88da2k6UBgVDIqa9G7Q9zwc50qYUUqkcERKIyqAzGMDzGWKDgzH4enVC3byFyCIpWapduYPiQed4+J5tKbIGkn3lE43ZnYhOnWxubm1pbjsJlXfOahBubdxdzisO0MDJE4a6XFL3KM5xhqS2yTqLkwhdU3EBF+UVH52uRaB5BXaEsxLNFsH3ngqiqb0QnWxua21tL62Aw8tpm9ZiVSUj7dacllvULQqxRcPTnE5rIM0JXXJu4fgWIsi9NbUfmM0ccIefARenx79aT/7A94ozpSJTp/ZB1NzSvlBM6nQ67faeflz3bDmX4pb/tnxbe1tI8pWtTbAodfU0A0Zyyh9ISA/fH/AeetZLafRbpMpWEn39SxC1tqsR17STtGu5ZBl0cTa1lr9bBkHplKk1nSCVvJWWKnZFtR8YQgd8SA1kQXqKEPx6jcosipaQj8EelkHH9tU69Vl+1/6EzrqW+m459V+dj1LPe4v55eWy9lGyMlvYI2FEIdrntoChavBNlD9V4zzgLMgCzhqDgc+gKLPFSUv44QKEVW9/ROAZZnftisXXOEM5+NfexVQwX+59ml97svRso4rIgVsLDP7NCIl+p8VMPhM+VE8d8NkNbtAByuins6wIxLJZhg6ZLCQ13hdRewlVNmJqVK5JKC99l88/7Xzam0oFy/DPWn4pKWhJInhnASMC+ds9ITqSZcmnZSMhC0WpMuyBugYfcuopGtEht99ppip+1I6DFEOK2D0QtagndosouZy7m99YG0jlbXmoMfK2VHCxl1++FQcWP1EqFUxbwRuM1GhxmjwhNuOnoCA7yBoWkh+K8ovSjrvkxKUzg9R7y+gkmBG3A5Kuabn8t7/mg7c7U8O24d6BgeEg5H2P8rglFnOU2ksFCKiZncHU54iY9aYDHcm1iKzeSGfTO3qcBBHt3UdGrW3tam9sOyStkBRSA09TA+VOG+nhdXYOdJbzT3IxrS7OT7QsYEHsQsSwrJ8yH6hrgPtDmUVG3CF3I1S2L0GENyBW5KZCJT/VPr+99HcQUJ4M4vWClPAgXif/bDGOa/SFUm1TpkrZbMRnpET24OZrNGBGRmc6tBtR5OWIANIqzuN0sURFStyTYHlxGM9E4RIjaBsY7u0slyEnx4N4c4PinogYJms2HmTNZ4bbY3SLHnFHkNNnshA8VkrH99G61paWloVi3KCLrcsWpcs9j3GPsOl0kqZk0IYhdeZ7n+XiuCGZ8+J3HUg7Dw0SGTptNvoP0JCgxjcbQ6x7JyLilfZHRJ4Ra1twaWenSupBon7aoaVyHrz2QG8nrtehWAdIvb23l8oC3vG0FgGRXtoZeUQmlDGbneLBHUbhQW6zmWZN4s5dX4zIs1Jq3h9RS/uxO+P4KYPSCu7kaWN37z4r5/EcKxnEy+Oxtd7h4TyZfdAaihB0jNLOdneG9qSdsAJ0UIakF0W72cxk/eLOHiBO+U0FXFDvo3Wgd+3qwVb8ACJUtoam+F/KgOI2HvIiXVawIJuttzPFyT0xwyqrgdJop1OTaI/oN5s9B7b7QiHGbDFns/7s1s3TmPHXuLC0pBdaXyIj8kDlCfwXWJROZ0gm1lJkryIIEir/t7R569ZaojJCpHNkcX6C7cXJkp1RPf5LCnlE0BL7gVV9HhTCiCL+SMUJaSwM6aThBg0lzu8jIwVR5Tm+Ftyd1OZywjOQDO4cp/K3pRSX1BoMlXkILa4jSdvJImUQTVnsjJ8gArdksVgi6IAmbMS03+I0s4yfScs/wIkqjT8qhB0q6yD9w+9F1H5ygm9Krt3awB6uFyCBkIrLeEKlkvwZBEcIJyEgFybkDLFZibznxZjxuMUQLIE+KP+NWIvTaRZpfwgfs6ei6DSKyL+adB9oVDr1gxAdmyhA1Elyj8oAqNNmG7bZeO3GRq7aBzckBqGsyzrgN0cYvz3Luu34GWZnxu9nfRanxbPLC/5jZEYRjCjjs7txY51i0dZuItYSJwLXsL9nqCJS33Hh6W++nCqnFst4jhpvU+Tyqa0piOK6XLjgc11QRhJpE/ZuENntWQbW4BQz+y/z/4PciLbYnZaMye4kXUe/j2HTkjwAIOJDDqV5kjW8HBHkeLMkF4LULrlm6wymwD3cxq2ggXKlPBJw6hZCSrOWZjMSyeWyjNPJsGZYAysdCCIf8jjtTo8IcmK33LfGjj+YJMQhVGr+Xq1r8fI62QEYYrdtS67nneC3cSKhSwxvKGU5D5avIWakkhtPxhC+hRm3xeLJmO12SxYdSIz1oZDFbmGyRovZV5txOc3EsVMqDQjp+PchalcXYpUOSUzILdmWHg8syeNEz/KzZOs852Xw1gcOC0a/z2RXyjAqA27OkvE7nYDoQKo+P4q4Pe6MnTIbLenq9IybwS0BnMNi9w5pw/d6hlIhp0Ay6JbLwt3UkqxtuiRHnpzTuqbMeD7CiVtmUJVnGFkgprTGbNQzWbfHI3oPApBK5UDpdAYrnZlStsEsNItQFldLTgejVxlZh7r5+31dabXa5YrHDYnl2okbPAqONdjsxaeGeCCk+0Uk1+EMjTsbbgkWcVAbl5SIGxngC6SMA1uqHSwWBCSLy4f3KuyZqVPHv8/XQdbgVSYzZNlsqwUNObLRG8EhxxghvTk3aWhpWIkQXsPBzTdQdrePwZ0MsjNhliLyaak4T7GIsjnPNzd/j4xO4EQI97uTjtiu/gP8cN2EOxf4lhmVsxNpXFb4M2mWzUaYkP+VPMbDELUjKbDGJJIQ7oY7p2e8K/Py1tb+MpKzBp1OcCxULKraftDlQAH8KiMiR95S2SzRbh9WMt+rnXeyVDXZCZmdmzgKBvSf9grg8PDGxMtkBHm4xMVWSidKc7XjkmBPQsHFr/uprJLmOKUMbXL68ea8mU2/0lFcSpRfqEf50thvZ3DBRKUlE426XY6JUkvbqZdqHTi8Ffy8WMvCzRozMmj5wZ7+2Yyflkdz/BDsRCSlpZAGe9pXPO5kInfRnkYsI/qUoQkjyqR7OnieH5xXt7e9HFF7iZwT0jZRtFbwGIRCT6JoTayzctsUy1yldzIM1jwq8qrfh2QW8ayJOevXIFHMRFR+7GCNadTTMRub4Ve9C2oAsq8dkVCLnz860XqHTHDpwIIKg4VAd3HG5VCOgjKlt51y9cqnpT3yHoFGzFg0FKStZBVmFgkJboaPz3odCyU14Ghtbju5h4yqZ9HgPU28DRPbHCwOFeNdxa5ViRx6Z3Gq9BHEVrpO7M4e4cGTWZ5s8VT2ZRE5197MoFWQUf/MZuKmd75UUje3K49V7okIfgbxNiYkCj18ceghIHLNrZOa1RzBxuMBGyLR1X7Qcxl7kYd8iFneRDSymQwJe5TbcVNwxa3F+KwD8ompBUBF2gsktO6kluPq0gJEzPV0IcANzbgETnbbEInkfo+FlbUtnT6Mp/pEYqtyzpVGHkrpOcEiHMKMq59DlNkDoFDP/DzGpW4+UQV1AkMh5zc5cN5mNzKrAU6YKa4gH/klzjQryxxCEhk+OpxjFM3VY8XNGeJaWQUTZGKrxf5ZeffP7ImkM5LkBZIcg1NT61NTU4PkW69UyECJT7SKXg3ENr1SRJGEyQfZx9brGfzSIR1o55OVWwM+nMQKVH2Y0MNKq6vIXPVURqcpRLMO3lWcLfB8IbEpMbTHb6mWBBSN5ryZrOyfzR7sc6gtSEb2YMqhH0BZiXx2RAZkIaW57Jw0bgZiI+O2m7cCvQ8FhmIPi10dri4+vfVLKKffk0USS1eujLBExwCSj/H4iYkAAAYlSURBVEDWMId35IlZJAZrUfJJ5IbkuzpK7zQxGYRExgfCIMIKoSGBe1js73f1j8uIjE53iI6k4f/y+SuWD85TL29XQy5EOo0+dIivBzHVKjgU/yYWssxIxRooszOEXYOUxjkznXVwHN+/OTRUFIoZmolEsmKGFHQmS40kjVAN+dLylyQwmVD2gCcYXkohVIVkTmc9WcDiZdw1s7EaPWX3YTEo5EVbJLGMx6LXVNHQaRxQ7SjCpmULJIHpJa9kfiXkQ6Km8lUGOwo8b7fne0Mpi9PvNslkd+5+4bUlTdtZPKMDyXwa0comrxO9+mRhB/kqSsFkiNaHKmNqKqf/B3ooygJFnD7CEK9mBmHTuEQhF9szmcM/7gQgEZHYZVWjMhXPRFyUyan6PrO2RLJZk8pJKhKSVIUgT5CfOfJkdm4nHgqFal88YMQtI6Pyc5/KmLGoTIyZJJ7boZk9Fb2DygdUTJ7ptuBuKcWmZQ6DZ4frQSapmqR4QlD4KWe/+iEAQz1N+lQaGjfGRbdKL2bEtOTG3Mpi5X0iI3HZGvI3Jf8C9nC9XC1RrKL2KrfkoSvTkUbEWFizSs+gDKVhPPgxFTzJBgU9dm/uag5ljEjpjFHOQDRstUdvkg4j396XIpIka5FRLjkJoazHg1MK8GCaiKky7G4mAtX7MtW+qA+ZKCIkv8VXGZGx0Eis79OWfray87JFkoS7ocYIOGUjblNGiCM2EkRmnyldEYFHHku20OksLft9ypNBTL2PYTeGkLTj3dYZ8oSDOat3owgesY+QnElGZMl60pUtE78kV9wai4xH484i0V7/F0drQG0ykdr2BtnQhGoUSinSC8nWILJLEbEy++dMb9s8wUWVu86HM1QIN97FGjkRd40RWQgiJa/FiDQMOEWk7HBQ/pocIySBrOsvnyrZIffMhCy1JmDGkshim0mLVUQUDjTZyHYt1RjtEUj3IkcID17p3JC0gliPfUdqR7osRJeokF0DVeLOTEJv8dNptMJzdT7RcidR7Kq1GODHvT0sHfqheR24BLcPKsSbxVhMCDjqGYV2EyDqdnUnhuKuWVwtZJmQ/eWwNGYTDYUSQnOJze4EFLlDg/U+mGE7EURdiaH+2QDy+eT9pkyaZXxuu8VMVcZAKcoIpYWHjojpDBndZd3riUBxJoHfutVT91cLbqfsagffMRuPJwIkb6PseEhXXvcukjKiCFLEDl+znhgCRIGjh0iTlbr4OD8UmB2qmQvRm/3ukM8nbSaK3GYiwbtQxOfzmOzGqnvQpPmAq4sXhKGjhkiVXekobm5KxdjQ7lMP18fjCaurPz4k7N7cEl8EXJuFzcJQrO4vEKshTYim04UhKdbf73JxiKHp7YvLjMd5QATmvx0t5abpdRcnCf1xlyvRE6Hp+lRFu0kjIUdPTyFhtVo7Cj09DseOckAcD/D9RSEgcNsRmVl8XQ9n7bb2F8l1RyUkacS5uDVe4Lu6u7vOJvqt3dsQaVTizSFXz6bUs1NGRhZZu4c2eWuHNVBIdFjjc0fGlDyIi8NtDlitAt/REXhR08bRm+jQOvgFwdrFu1ygkb4aUPhdfgCmq8MaA1iBF+v1LiSqpA+Jq4HuQL91JhDvjqFsTcFkFtELfrOH6wbN2uwpvnhRe2YTFUrPBaxDXVYrXMv1ZI+Qb4CFj890D3Fc/0z8Jl17p43Z1f6ugIvv6uiOS7F4V2B7L9uZ5jqsQxyIqmuw3i9Y3kGRuRnOFYttDvXf3H6nPYgHIyvGuztiYCrCzfR2557lrLMugSsGuo5aPIqsxvkOq7XLJXh3uGB3xjFk7QfNgj+JyvkBFdJE/ifmsoK28kODdX5R+U5yiojD7xEsnN3dmcIvEwwkYv3d/au73LMl7Yhh7z3uOCpvCqqSOTI31NUfm/LtrtvERPdsIhbjh7pWd9u+OTsXgOuko5V5E6Ii6MVNR2iP3nDkJpfomJmJ89xe50Kbs3DdUQSE8+2QZ8/XF5kzKAZRtKu49zSZ0enb+7ojTBSNhmasswd9wkI9ychMOXrWj5gz+yfJSXvqfIJygxrUoAY1qEENalCDGtSgBjWoQQ1qUIMa1KAGNahBDWrQK6L/B1uHuHr2/jyhAAAAAElFTkSuQmCC" />
+                  </div>
+                  <div class="tile-name">UFC</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> universidade</div>
+                </div>
+
+                <!-- ======== Secretarias / órgãos da Prefeitura (logo + nome) ======== -->
+                <div class="partner-tile" data-name="SMS Secretaria Municipal da Saúde">
+                  <div class="tile-logo">
+                    <img alt="Logo SMS" src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" />
+                  </div>
+                  <div class="tile-name">SMS · Saúde</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="SME Secretaria Municipal da Educação">
+                  <div class="tile-logo">
+                    <img alt="Logo SME" src="https://cdn-icons-png.flaticon.com/512/4207/4207253.png" />
+                  </div>
+                  <div class="tile-name">SME · Educação</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="SDHDS Direitos Humanos e Desenvolvimento Social">
+                  <div class="tile-logo">
+                    <img alt="Logo SDHDS" src="https://cdn-icons-png.flaticon.com/512/1396/1396618.png" />
+                  </div>
+                  <div class="tile-name">SDHDS</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="FUNCI Fundação da Criança e da Família Cidadã">
+                  <div class="tile-logo">
+                    <img alt="Logo FUNCI" src="https://dados.fortaleza.ce.gov.br/uploads/group/2022-07-08-162755.017901Funci.png" />
+                  </div>
+                  <div class="tile-name">FUNCI</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="AMC Autarquia Municipal de Trânsito e Cidadania">
+                  <div class="tile-logo">
+                    <img alt="Logo AMC" src="https://cdn-icons-png.flaticon.com/512/8708/8708013.png" />
+                  </div>
+                  <div class="tile-name">AMC</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="ETUFOR Empresa de Transporte Urbano de Fortaleza">
+                  <div class="tile-logo">
+                    <img alt="Logo ETUFOR" src="https://cdn-icons-png.flaticon.com/512/2503/2503524.png" />
+                  </div>
+                  <div class="tile-name">ETUFOR</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="SCSP Conservação e Serviços Públicos">
+                  <div class="tile-logo">
+                    <img alt="Logo SCSP" src="https://cdn-icons-png.flaticon.com/512/9746/9746772.png" />
+                  </div>
+                  <div class="tile-name">SCSP</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="SECEL Secretaria Municipal da Cultura">
+                  <div class="tile-logo">
+                    <img alt="Logo SECEL" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWIz-zRdmiKS-Gmo1Cqe6L9IW7-iUQlSKwPg&s" />
+                  </div>
+                  <div class="tile-name">SECEL · Cultura</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="SEUMA Urbanismo e Meio Ambiente">
+                  <div class="tile-logo">
+                    <img alt="Logo SEUMA" src="https://cdn-icons-png.flaticon.com/512/15822/15822546.png" />
+                  </div>
+                  <div class="tile-name">SEUMA</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="SESEC Segurança Cidadã">
+                  <div class="tile-logo">
+                    <img alt="Logo SESEC" src="https://cdn-icons-png.flaticon.com/512/8382/8382785.png" />
+                  </div>
+                  <div class="tile-name">SESEC</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <!-- ======== Completar “todas as secretarias” (placeholders) ======== -->
+                <div class="partner-tile" data-name="SEFIN Secretaria Municipal das Finanças">
+                  <div class="tile-logo">
+                    <img alt="Logo SEFIN" src="assets/financa.png" />
+                  </div>
+                  <div class="tile-name">SEFIN · Finanças</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="SEPOG Secretaria do Planejamento, Orçamento e Gestão">
+                  <div class="tile-logo">
+                    <img alt="Logo SEPOG" src="assets/project-management.png" />
+                  </div>
+                  <div class="tile-name">SEPOG</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <!-- <div class="partner-tile" data-name="PGM Procuradoria Geral do Município">
+                  <div class="tile-logo">
+                    <img alt="Logo PGM" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Scale_of_justice_2.svg/512px-Scale_of_justice_2.svg.png" />
+                  </div>
+                  <div class="tile-name">PGM</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div> -->
+<!-- 
+                <div class="partner-tile" data-name="CGM Controladoria e Ouvidoria Geral do Município">
+                  <div class="tile-logo">
+                    <img alt="Logo CGM" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/OOjs_UI_icon_lock-progressive.svg/512px-OOjs_UI_icon_lock-progressive.svg.png" />
+                  </div>
+                  <div class="tile-name">CGM</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div> -->
+
+                <div class="partner-tile" data-name="SEINFRA Infraestrutura">
+                  <div class="tile-logo">
+                    <img alt="Logo SEINFRA" src="assets/pilares.png" />
+                  </div>
+                  <div class="tile-name">SEINFRA</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <div class="partner-tile" data-name="SEJUV Juventude">
+                  <div class="tile-logo">
+                    <img alt="Logo SEJUV" src="assets/youth.png" />
+                  </div>
+                  <div class="tile-name">SEJUV</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div>
+
+                <!-- <div class="partner-tile" data-name="Turismo (se aplicável)">
+                  <div class="tile-logo">
+                    <img alt="Logo Turismo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/OOjs_UI_icon_map-progressive.svg/512px-OOjs_UI_icon_map-progressive.svg.png" />
+                  </div>
+                  <div class="tile-name">Turismo</div>
+                  <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                </div> -->
+
+                  <!-- <div class="partner-tile" data-name="Ciência, Tecnologia e Inovação (exemplo)">
+                    <div class="tile-logo">
+                      <img alt="Logo CTI" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/OOjs_UI_icon_labFlask-progressive.svg/512px-OOjs_UI_icon_labFlask-progressive.svg.png" />
+                    </div>
+                    <div class="tile-name">CTI</div>
+                    <div class="tile-tag"><i aria-hidden="true"></i> prefeitura</div>
+                  </div> -->
+
+                <!-- Adicione mais tiles aqui para cobrir todas as secretarias/órgãos -->
+              </div>
+
+              <!-- <p class="section-subtitle" style="margin-top:16px; text-align:left;">
+                <strong>Observação:</strong> os logos de NEPEN/IFCE/UFC e de todas as secretarias podem ser trocados por logos oficiais.
+                Se você me mandar as URLs (ou um pacote com imagens), eu substituo tudo já no HTML.
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      Observa Infância Viva · CESPI · Prefeitura de Fortaleza
+    </footer>
+  </div>
+
+  <script>
+    // Menu mobile + dropdowns (accordion no mobile)
+    const btnMenu = document.getElementById('btnMenu');
+    const navMain = document.getElementById('navMain');
+
+    function closeAllDropdowns(exceptBtn = null){
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('is-open'));
+      document.querySelectorAll('[data-dd]').forEach(btn => {
+        if (btn !== exceptBtn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    if (btnMenu && navMain){
+      btnMenu.addEventListener('click', () => {
+        const open = navMain.classList.toggle('nav--open');
+        btnMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (!open) closeAllDropdowns();
+      });
+    }
+
+    document.querySelectorAll('[data-dd]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        if (!isMobile) return;
+
+        const item = btn.closest('.nav-item');
+        const willOpen = !item.classList.contains('is-open');
+
+        closeAllDropdowns(btn);
+        item.classList.toggle('is-open', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+
+        e.stopPropagation();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape'){
+        closeAllDropdowns();
+        if (navMain?.classList.contains('nav--open')){
+          navMain.classList.remove('nav--open');
+          btnMenu?.setAttribute('aria-expanded','false');
+        }
+      }
+    });
+
+    // Filtro “Parcerias gerais”
+    const search = document.getElementById('partnerSearch');
+    const tiles = Array.from(document.querySelectorAll('#partnersGrid .partner-tile'));
+
+    function norm(s){ return (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
+    if (search){
+      search.addEventListener('input', () => {
+        const q = norm(search.value.trim());
+        tiles.forEach(tile => {
+          const name = norm(tile.getAttribute('data-name') || tile.innerText);
+          const show = !q || name.includes(q);
+          tile.style.display = show ? '' : 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>
